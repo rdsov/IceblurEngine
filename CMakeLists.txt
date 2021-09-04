@@ -3,8 +3,8 @@ project(IceblurEngine)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/Engine/Build/Win64/${CMAKE_BUILD_TYPE}/Editor")
-set(LIBRARY_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/Engine/Build/Win64/${CMAKE_BUILD_TYPE}/Runtime")
+set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/Engine/Binaries/Win64/${CMAKE_BUILD_TYPE}/Editor")
+set(LIBRARY_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/Engine/Binaries/Win64/${CMAKE_BUILD_TYPE}/Runtime")
 
 include_directories("${PROJECT_SOURCE_DIR}/Engine/Source")
 

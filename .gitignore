@@ -65,3 +65,7 @@ cmake-build-debug
 *.exe
 *.out
 *.app
+
+#Build
+Engine/Build/
+Engine/Binaries/
