@@ -3,6 +3,6 @@ project(IceblurEditor)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(IceblurEditor Application.cpp)
+add_executable(IceblurEditor EditorApp.cpp)
 
 target_link_libraries(IceblurEditor IceblurEngine)
