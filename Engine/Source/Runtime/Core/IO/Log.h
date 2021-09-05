@@ -21,7 +21,7 @@ namespace Iceblur
         static void Init();
 
         //Used for debugging purposes. Prints message only to host console.
-        //All other logging functions will print the message to the editor console.
+        //All other logging functions will print the message to the editor console in the future.
         static void Print(std::string text);
 
         static void Message(std::string message);
