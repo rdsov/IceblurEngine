@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Core.h"
+#include "IO/Log.h"
 
 namespace Iceblur
 {
@@ -13,8 +14,7 @@ namespace Iceblur
         {
             if (m_Instance)
             {
-                std::cout << "Error: Multiple instances of Application!\n";
-                return;
+                ICE_FATAL("Error: Multiple instances of Application!");
             }
 
             m_Instance = this;

@@ -1,6 +1,7 @@
 // Copyright (c) 2021 Futureblur. All rights reserved. Visit https://ice.futureblur.com for more information.
 
 #include "Application.h"
+#include "IO/Log.h"
 
 namespace Iceblur
 {
@@ -12,7 +13,9 @@ namespace Iceblur
 
     void Application::OnInit()
     {
-        std::cout << "Welcome to Iceblur Engine! For more information, please visit https://github.com/Futureblur/IceblurEngine.\n";
+        Log::Init();
+
+        ICE_LOG("Welcome to Iceblur Engine! For more information, please visit https://github.com/Futureblur/IceblurEngine.");
 
         while (true);
     }

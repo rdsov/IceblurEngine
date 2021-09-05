@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "PlatformDetection.h"
+
 #ifdef ICE_BUILD_DLL
 #define ICE_API __declspec(dllexport)
 #else
@@ -12,3 +14,6 @@
 { \
     SuperClass::Func(); \
 }
+
+//Converts to string
+#define ICE_TOS(x) std::to_string(x)
