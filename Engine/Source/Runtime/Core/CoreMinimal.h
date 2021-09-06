@@ -5,5 +5,5 @@
 #include "Core.h"
 #include "Application.h"
 #include "HostEntry.h"
+#include "Window.h"
 #include "IO/Log.h"
-

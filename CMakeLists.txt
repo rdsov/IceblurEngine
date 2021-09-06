@@ -7,6 +7,12 @@ set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/Engine/Binaries/Win64/${CMAKE_
 set(LIBRARY_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/Engine/Binaries/Win64/${CMAKE_BUILD_TYPE}/Runtime")
 
 include_directories("${PROJECT_SOURCE_DIR}/Engine/Source")
+include_directories("${PROJECT_SOURCE_DIR}/Engine/Source/Runtime")
+include_directories("${PROJECT_SOURCE_DIR}/Engine/Source/Editor")
+
+include_directories("${PROJECT_SOURCE_DIR}/Engine/Source/ThirdParty/GLFW/include")
+
+add_subdirectory("${PROJECT_SOURCE_DIR}/Engine/Source/ThirdParty/GLFW")
 
 add_subdirectory("${PROJECT_SOURCE_DIR}/Engine/Source/Editor")
 add_subdirectory("${PROJECT_SOURCE_DIR}/Engine/Source/Runtime")

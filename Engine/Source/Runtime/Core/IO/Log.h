@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "../Core.h"
+#include "Core/Core.h"
 
 #ifdef ICE_WIN64
 
@@ -35,7 +35,7 @@ namespace Iceblur
         static void Error(const std::string& error);
 
     private:
-        enum ConsoleColor : WORD
+        enum EConsoleColor : WORD
         {
             Blue = 3,
             Red = 12,
@@ -43,7 +43,7 @@ namespace Iceblur
             White = 15
         };
 
-        static void SetConsoleColor(ConsoleColor color);
+        static void SetConsoleColor(EConsoleColor color);
 
         //Returns the current formatted time string.
         static std::string GetFormattedTime();

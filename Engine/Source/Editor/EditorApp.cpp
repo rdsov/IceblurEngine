@@ -15,6 +15,8 @@ public:
     {
         Application::OnInit();
 
+        auto window = new Window(EWindowType::Editor);
+
         while (true);
     }
 };
