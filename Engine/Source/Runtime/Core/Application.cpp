@@ -15,8 +15,6 @@ namespace Iceblur
     {
         Log::Init();
 
-        ICE_LOG("Welcome to Iceblur Engine! For more information, please visit https://github.com/Futureblur/IceblurEngine.");
-
-        while (true);
+        ICE_PRINTN("Welcome to Iceblur Engine! For more information, please visit https://github.com/Futureblur/IceblurEngine.");
     }
 }

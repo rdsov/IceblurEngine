@@ -11,7 +11,12 @@ public:
 
     ~EditorApp() override = default;
 
-    void ICE_SUPER(OnInit, Application)
+    void OnInit() override
+    {
+        Application::OnInit();
+
+        while (true);
+    }
 };
 
 ICE_ENTRY_POINT(EditorApp)
