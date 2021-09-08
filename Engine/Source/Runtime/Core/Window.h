@@ -4,10 +4,6 @@
 
 #include "Core.h"
 
-#include "Event/IEvent.h"
-
-struct GLFWwindow;
-
 namespace Iceblur
 {
     //TODO: Create resolution struct
@@ -35,27 +31,21 @@ namespace Iceblur
         Unknown
     };
 
-    class ICE_API Window
+    struct Window
     {
     public:
-        explicit Window(const WindowProps& props);
-
-        explicit Window(const EWindowType& type, const WindowProps& props = {});
-
-        ~Window() = default;
-
-        NODISCARD GLFWwindow* GetGLFWWindow() const
+        Window() : m_Type(EWindowType::Unknown)
         {
-            return m_Window;
         }
 
-    private:
-        void Create(const WindowProps& props);
+        virtual ~Window() = default;
 
-        static void CursorPosCallback(GLFWwindow* window, double x, double y);
-        
-    private:
-        GLFWwindow* m_Window;
+        NODISCARD virtual void* GetNativeWindow() const = 0;
+
+    protected:
+        virtual void Create(const WindowProps& props) = 0;
+
+    protected:
         EWindowType m_Type;
     };
 }

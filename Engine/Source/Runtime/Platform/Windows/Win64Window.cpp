@@ -1,22 +1,15 @@
 // Copyright (c) 2021 Futureblur. All rights reserved. Visit https://ice.futureblur.com for more information.
 
-#include "Window.h"
+#include "Win64Window.h"
 
 #include <GLFW/glfw3.h>
 
-#include "IO/Log.h"
+#include "Core/IO/Log.h"
 #include "Event/EventSystem.h"
 
 namespace Iceblur
 {
-    Window::Window(const WindowProps& props)
-            : m_Window(nullptr), m_Type(EWindowType::Unknown)
-    {
-        Create(props);
-    }
-
-    Window::Window(const EWindowType& type, const WindowProps& props)
-            : m_Window(nullptr), m_Type(type)
+    Win64Window::Win64Window(const EWindowType& type, const WindowProps& props)
     {
         WindowProps configProps;
 
@@ -43,11 +36,10 @@ namespace Iceblur
                 break;
         }
 
-        Create(configProps);
+        Win64Window::Create(configProps);
     }
 
-    //TODO: This function should return a pointer to the created window
-    void Window::Create(const WindowProps& props)
+    void Win64Window::Create(const WindowProps& props)
     {
         if (!glfwInit())
         {
@@ -95,10 +87,11 @@ namespace Iceblur
 
         glfwMakeContextCurrent(m_Window);
 
-        glfwSetCursorPosCallback(m_Window, CursorPosCallback);
+        //Example callback for testing, more will be implemented soon
+        glfwSetCursorPosCallback(m_Window, &MousePositionCallback);
     }
 
-    void Window::CursorPosCallback(GLFWwindow* window, double x, double y)
+    void Win64Window::MousePositionCallback(GLFWwindow* window, double x, double y)
     {
         MousePositionEvent event((float) x, (float) y);
         EventSystem::Dispatch(event);

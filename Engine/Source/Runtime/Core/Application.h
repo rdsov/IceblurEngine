@@ -38,6 +38,6 @@ namespace Iceblur
     private:
         ICE_SINGLETON_DEF(m_Instance, Application)
 
-        static class Window* m_Window;
+        static class Win64Window* m_Window;
     };
 }

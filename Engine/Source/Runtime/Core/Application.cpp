@@ -5,12 +5,12 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "Window.h"
+#include "Platform/Windows/Win64Window.h"
 #include "Event/EventSystem.h"
 
 namespace Iceblur
 {
-    Window* Application::m_Window = nullptr;
+    Win64Window* Application::m_Window = nullptr;
 
     int Application::Spawn()
     {
@@ -28,7 +28,7 @@ namespace Iceblur
         //TODO: GLFW error callback
         //TODO: Access window from a window manager class, not static instance
 
-        auto window = new Window(EWindowType::EditorPopup);
+        auto window = new Win64Window(EWindowType::EditorPopup);
 
         m_Window = window;
 
@@ -42,7 +42,7 @@ namespace Iceblur
 
     void Application::OnPostInit()
     {
-        while (!glfwWindowShouldClose(m_Window->GetGLFWWindow()))
+        while (!glfwWindowShouldClose((GLFWwindow*) m_Window->GetNativeWindow()))
         {
             OnUpdate();
         }
@@ -52,7 +52,7 @@ namespace Iceblur
 
     void Application::OnUpdate()
     {
-        glfwSwapBuffers(m_Window->GetGLFWWindow());
+        glfwSwapBuffers((GLFWwindow*) m_Window->GetNativeWindow());
         glfwPollEvents();
     }
 
