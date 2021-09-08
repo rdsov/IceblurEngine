@@ -2,11 +2,6 @@
 
 #include "Runtime/Core/CoreMinimal.h"
 
-#define GLFW_INCLUDE_NONE
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 using namespace Iceblur;
 
 class EditorApp : public Application
