@@ -1,6 +1,11 @@
-// Copyright (c) 2021 Futureblur. All rights reserved.
+// Copyright (c) 2021 Futureblur. All rights reserved. Visit https://ice.futureblur.com for more information.
 
 #include "Runtime/Core/CoreMinimal.h"
+
+#define GLFW_INCLUDE_NONE
+
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 using namespace Iceblur;
 
@@ -10,15 +15,6 @@ public:
     EditorApp() = default;
 
     ~EditorApp() override = default;
-
-    void OnInit() override
-    {
-        Application::OnInit();
-
-        auto window = new Window(EWindowType::Editor);
-
-        while (true);
-    }
 };
 
 ICE_ENTRY_POINT(EditorApp)

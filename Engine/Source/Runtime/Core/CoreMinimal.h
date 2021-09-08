@@ -7,3 +7,5 @@
 #include "HostEntry.h"
 #include "Window.h"
 #include "IO/Log.h"
+#include "Event/EventSystem.h"
+#include "Event/EventTypes.h"

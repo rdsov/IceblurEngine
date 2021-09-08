@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include "IO/Log.h"
+#include "Event/EventSystem.h"
 
 namespace Iceblur
 {
@@ -37,11 +38,15 @@ namespace Iceblur
                 configProps.Fullscreen = true;
                 configProps.UseMonitorResolution = true;
                 break;
+            case EWindowType::Unknown:
+                ICE_WARN("Unknown window type!");
+                break;
         }
 
         Create(configProps);
     }
 
+    //TODO: This function should return a pointer to the created window
     void Window::Create(const WindowProps& props)
     {
         if (!glfwInit())
@@ -56,12 +61,14 @@ namespace Iceblur
         glfwWindowHint(GLFW_RED_BITS, mode->redBits);
         glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
         glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
-        glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+        glfwWindowHint(GLFW_REFRESH_RATE, props.RefreshRate);
 
         glfwWindowHint(GLFW_MAXIMIZED, props.Maximized);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         GLFWmonitor* monitor = nullptr;
 
         if (props.Fullscreen)
@@ -85,5 +92,15 @@ namespace Iceblur
             glfwTerminate();
             ICE_FATAL("Failed to create window!");
         }
+
+        glfwMakeContextCurrent(m_Window);
+
+        glfwSetCursorPosCallback(m_Window, CursorPosCallback);
+    }
+
+    void Window::CursorPosCallback(GLFWwindow* window, double x, double y)
+    {
+        MousePositionEvent event((float) x, (float) y);
+        EventSystem::Dispatch(event);
     }
 }

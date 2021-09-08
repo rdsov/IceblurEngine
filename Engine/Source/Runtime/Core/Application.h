@@ -34,7 +34,15 @@ namespace Iceblur
     protected:
         virtual void OnInit();
 
+        virtual void OnPostInit();
+
+        virtual void OnUpdate();
+
+        virtual void OnShutdown();
+
     private:
         static inline Application* m_Instance = nullptr;
+
+        static class Window* m_Window;
     };
 }

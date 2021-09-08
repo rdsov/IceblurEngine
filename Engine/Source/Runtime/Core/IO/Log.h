@@ -53,7 +53,7 @@ namespace Iceblur
     };
 }
 
-//TODO: Some macros may be changed in the future
+//Fixme: Some macros may be changed in the future
 
 #define ICE_PRINT(x) std::cout << x;                //Shorthand for std::cout
 #define ICE_PRINTN(x) std::cout << x << std::endl   //Shorthand for std::cout, but with new line.

@@ -10,6 +10,8 @@
 #define ICE_API __declspec(dllimport)
 #endif
 
+#define NODISCARD [[nodiscard]]
+
 #define ICE_DEBUG
 
 #define ICE_SUPER(Func, SuperClass) Func() override \

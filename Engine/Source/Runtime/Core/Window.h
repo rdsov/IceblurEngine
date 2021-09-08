@@ -4,7 +4,9 @@
 
 #include "Core.h"
 
-class GLFWwindow;
+#include "Event/IEvent.h"
+
+struct GLFWwindow;
 
 namespace Iceblur
 {
@@ -42,9 +44,16 @@ namespace Iceblur
 
         ~Window() = default;
 
+        NODISCARD GLFWwindow* GetGLFWWindow() const
+        {
+            return m_Window;
+        }
+
     private:
         void Create(const WindowProps& props);
 
+        static void CursorPosCallback(GLFWwindow* window, double x, double y);
+        
     private:
         GLFWwindow* m_Window;
         EWindowType m_Type;
