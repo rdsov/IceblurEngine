@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 
 #include "Window.h"
+#include "Event/EventSystem.h"
 
 namespace Iceblur
 {
@@ -20,6 +21,7 @@ namespace Iceblur
     void Application::OnInit()
     {
         Log::Init();
+        EventSystem::Initialize();
 
         ICE_PRINTN("Welcome to Iceblur Engine! For more information, please visit https://github.com/Futureblur/IceblurEngine.");
 

@@ -5,18 +5,42 @@
 
 namespace Iceblur
 {
+    void EventSystem::Initialize()
+    {
+        if (m_Instance)
+        {
+            ICE_FATAL("Multiple instances of EventSystem detected! This is not allowed.");
+        }
+
+        m_Instance = new EventSystem();
+    }
+
     void EventSystem::Subscribe(IEvent::EventName type, const EventSystem::Callback& trigger)
     {
-        m_EventList.insert(std::pair<const char*, Callback>(type, trigger));
+        auto& list = GetInstance()->m_EventList;
+
+        //If the event type already exists, insert the callback there
+        if (list.find(type) != list.end())
+        {
+            list[type].push_back(trigger);
+            return;
+        }
+
+        //Event type was not found, create new entry
+        std::vector<Callback> callbackList = { trigger };
+        list.insert(std::pair<IEvent::EventName, std::vector<EventSystem::Callback>>(type, callbackList));
     }
 
     void EventSystem::Dispatch(const IEvent& event)
     {
-        for (const auto& e : m_EventList)
+        for (const auto& e : GetInstance()->m_EventList)
         {
             if (strcmp(e.first, event.GetName()) == 0)
             {
-                e.second(event);
+                for (const auto& callback : e.second)
+                {
+                    callback(event);
+                }
             }
         }
     }

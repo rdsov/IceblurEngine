@@ -20,16 +20,26 @@ namespace Iceblur
     {
     public:
         using Callback = std::function<void(const IEvent& e)>;
+        using EventList = std::map<IEvent::EventName, std::vector<Callback>>;
 
         EventSystem() = default;
 
         ~EventSystem() = default;
+
+        static void Initialize();
 
         static void Subscribe(IEvent::EventName type, const Callback& trigger);
 
         static void Dispatch(const IEvent& event);
 
     private:
-        static inline std::map<IEvent::EventName, Callback> m_EventList;
+        static EventSystem* GetInstance()
+        {
+            return m_Instance;
+        }
+
+    private:
+        static inline EventSystem* m_Instance = nullptr;
+        EventList m_EventList;
     };
 }

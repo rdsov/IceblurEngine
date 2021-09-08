@@ -12,12 +12,7 @@ namespace Iceblur
     public:
         Application()
         {
-            if (m_Instance)
-            {
-                ICE_FATAL("Error: Multiple instances of Application!");
-            }
-
-            m_Instance = this;
+            ICE_SINGLETON(m_Instance, Application)
         }
 
         virtual ~Application() = default;
@@ -41,7 +36,7 @@ namespace Iceblur
         virtual void OnShutdown();
 
     private:
-        static inline Application* m_Instance = nullptr;
+        ICE_SINGLETON_DEF(m_Instance, Application)
 
         static class Window* m_Window;
     };
