@@ -15,7 +15,7 @@ public:
     {
         ICE_EVENT_CAST(event, e, MousePositionEvent);
 
-        ICE_PRINTN(event);
+        ICE_PRINT(event);
     }
 
     void OnPostInit() override

@@ -14,35 +14,35 @@ namespace Iceblur
     void Log::Print(const std::string& text)
     {
         SetConsoleColor(EConsoleColor::White);
-        ICE_PRINTN(text);
+        ICE_PRINT(text);
     }
 
     void Log::Message(const std::string& message)
     {
         SetConsoleColor(EConsoleColor::White);
         std::string out = GetFormattedTime() + " " + message;
-        ICE_PRINTN(out);
+        ICE_PRINT(out);
     }
 
     void Log::Info(const std::string& info)
     {
         SetConsoleColor(EConsoleColor::Blue);
         std::string out = GetFormattedTime() + " [INFO] " + info;
-        ICE_PRINTN(out);
+        ICE_PRINT(out);
     }
 
     void Log::Warn(const std::string& warning)
     {
         SetConsoleColor(EConsoleColor::Yellow);
         std::string out = GetFormattedTime() + " [WARNING] " + warning;
-        ICE_PRINTN(out);
+        ICE_PRINT(out);
     }
 
     void Log::Error(const std::string& error)
     {
         SetConsoleColor(EConsoleColor::Red);
         std::string out = GetFormattedTime() + " [ERROR] " + error;
-        ICE_PRINTN(out);
+        ICE_PRINT(out);
     }
 
     void Log::SetConsoleColor(EConsoleColor color)

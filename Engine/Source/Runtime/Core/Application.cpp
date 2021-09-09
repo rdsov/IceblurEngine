@@ -23,7 +23,7 @@ namespace Iceblur
         Log::Init();
         EventSystem::Initialize();
 
-        ICE_PRINTN("Welcome to Iceblur Engine! For more information, please visit https://github.com/Futureblur/IceblurEngine.");
+        ICE_PRINT("Welcome to Iceblur Engine! For more information, please visit https://github.com/Futureblur/IceblurEngine.");
 
         //TODO: GLFW error callback
         //TODO: Access window from a window manager class, not static instance

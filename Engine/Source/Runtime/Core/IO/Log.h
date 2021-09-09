@@ -55,8 +55,7 @@ namespace Iceblur
 
 //Fixme: Some macros may be changed in the future
 
-#define ICE_PRINT(x) std::cout << x;                //Shorthand for std::cout
-#define ICE_PRINTN(x) std::cout << x << std::endl   //Shorthand for std::cout, but with new line.
+#define ICE_PRINT(x) std::cout << x << std::endl   //Shorthand for std::cout, but with new line.
 
 #ifdef ICE_DEBUG
 #define ICE_LOG(x) Log::Print(x)                    //Used for debugging only. Prints raw message with no formatting.
