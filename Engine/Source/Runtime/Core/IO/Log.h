@@ -5,16 +5,10 @@
 #include "Core/Core.h"
 #include "Platform/PlatformDetection.h"
 
-#ifdef ICE_WIN64
-
-#include <Windows.h>
-
-#endif
-
-#undef near
-#undef far
-
 #define _CRT_SECURE_NO_WARNINGS
+
+typedef void* HANDLE;
+typedef unsigned short WORD;
 
 namespace Iceblur
 {

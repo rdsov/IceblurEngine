@@ -3,6 +3,15 @@
 #include "Log.h"
 #include "Core/VTime.h"
 
+#ifdef ICE_WIN64
+
+#include <Windows.h>
+
+#endif
+
+#undef near
+#undef far
+
 namespace Iceblur
 {
     void Log::Init()
