@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Core.h"
+#include "Math/VMath.h"
 
 namespace Iceblur
 {
@@ -11,8 +12,7 @@ namespace Iceblur
     struct WindowProps
     {
         std::string Title = "Untitled Window";
-        int Width = 1280;
-        int Height = 720;
+        VMath::Resolution resolution = VMath::Resolution(1280, 720);
         int RefreshRate = 60;
         bool Maximized = true;
         bool Fullscreen = false;

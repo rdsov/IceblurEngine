@@ -34,8 +34,8 @@ namespace Iceblur
             monitor = glfwGetPrimaryMonitor();
         }
 
-        int width = props.Width;
-        int height = props.Height;
+        int width = props.resolution.GetWidth();
+        int height = props.resolution.GetHeight();
 
         if (props.UseMonitorResolution)
         {
