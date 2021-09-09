@@ -7,7 +7,6 @@
 
 namespace Iceblur
 {
-    //TODO: Create resolution struct
     //Sets the properties for a window.
     struct WindowProps
     {
