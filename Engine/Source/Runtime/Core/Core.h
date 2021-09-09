@@ -2,8 +2,6 @@
 
 #pragma once
 
-#include "PlatformDetection.h"
-
 #ifdef ICE_BUILD_DLL
 #define ICE_API __declspec(dllexport)
 #else

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Core/Core.h"
+#include "Platform/PlatformDetection.h"
 
 #ifdef ICE_WIN64
 
