@@ -5,13 +5,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "Platform/Windows/Win64Window.h"
+#include "WindowManager.h"
 #include "Event/EventSystem.h"
 
 namespace Iceblur
 {
-    Win64Window* Application::m_Window = nullptr;
-
     int Application::Spawn()
     {
         OnInit();
@@ -22,15 +20,13 @@ namespace Iceblur
     {
         Log::Init();
         EventSystem::Initialize();
+        WindowManager::Initialize();
 
         ICE_PRINT("Welcome to Iceblur Engine! For more information, please visit https://github.com/Futureblur/IceblurEngine.");
 
         //TODO: GLFW error callback
-        //TODO: Access window from a window manager class, not static instance
 
-        auto window = new Win64Window(EWindowType::EditorPopup);
-
-        m_Window = window;
+        WindowManager::CreateWindow(EWindowType::EditorPopup, {}, true);
 
         if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
         {
@@ -42,7 +38,7 @@ namespace Iceblur
 
     void Application::OnPostInit()
     {
-        while (!glfwWindowShouldClose((GLFWwindow*) m_Window->GetNativeWindow()))
+        while (WindowManager::IsWindowRunning(WindowManager::GetHost()))
         {
             OnUpdate();
         }
@@ -52,8 +48,7 @@ namespace Iceblur
 
     void Application::OnUpdate()
     {
-        glfwSwapBuffers((GLFWwindow*) m_Window->GetNativeWindow());
-        glfwPollEvents();
+        WindowManager::UpdateWindow(WindowManager::GetHost());
     }
 
     void Application::OnShutdown()

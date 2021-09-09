@@ -43,9 +43,11 @@ namespace Iceblur
         NODISCARD virtual void* GetNativeWindow() const = 0;
 
     protected:
-        virtual void Create(const WindowProps& props) = 0;
+        virtual bool Create(const WindowProps& props) = 0;
 
     protected:
         EWindowType m_Type;
+
+        friend class WindowManager;
     };
 }

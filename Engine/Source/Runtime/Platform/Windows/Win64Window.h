@@ -11,12 +11,7 @@ namespace Iceblur
     class Win64Window : public Window
     {
     public:
-        explicit Win64Window(const WindowProps& props)
-        {
-            Win64Window::Create(props);
-        }
-
-        explicit Win64Window(const EWindowType& type, const WindowProps& props = {});
+        Win64Window() = default;
 
         ~Win64Window() override = default;
 
@@ -26,11 +21,13 @@ namespace Iceblur
         }
 
     private:
-        void Create(const WindowProps& props) override;
+        bool Create(const WindowProps& props) override;
 
         static void MousePositionCallback(GLFWwindow* window, double x, double y);
 
     private:
+        friend class WindowManager;
+
         GLFWwindow* m_Window = nullptr;
     };
 }

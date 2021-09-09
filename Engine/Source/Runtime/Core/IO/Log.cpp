@@ -1,7 +1,9 @@
 // Copyright (c) 2021 Futureblur. All rights reserved. Visit https://ice.futureblur.com for more information.
 
 #include "Log.h"
+
 #include "Core/VTime.h"
+#include "Platform/PlatformDetection.h"
 
 #ifdef ICE_WIN64
 

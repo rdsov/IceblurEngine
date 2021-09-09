@@ -3,7 +3,6 @@
 #pragma once
 
 #include "Core/Core.h"
-#include "Platform/PlatformDetection.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -53,7 +52,7 @@ namespace Iceblur
 #define ICE_PRINT(x) std::cout << x << std::endl   //Shorthand for std::cout, but with new line.
 
 #ifdef ICE_DEBUG
-#define ICE_LOG(x) Log::Print(x)                    //Used for debugging only. Prints raw message with no formatting.
+#define ICE_LOG(x) Log::Print(x)                    //Used for debugging only. Prints raw message to console with no formatting.
 #else
 #define ICE_LOG(x)
 #endif

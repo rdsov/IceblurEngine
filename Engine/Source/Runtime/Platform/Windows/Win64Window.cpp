@@ -9,43 +9,8 @@
 
 namespace Iceblur
 {
-    Win64Window::Win64Window(const EWindowType& type, const WindowProps& props)
+    bool Win64Window::Create(const WindowProps& props)
     {
-        WindowProps configProps;
-
-        switch (type)
-        {
-            case EWindowType::Editor:
-                configProps.Title = "Iceblur Editor";
-                configProps.Maximized = true;
-                configProps.Fullscreen = false;
-                break;
-            case EWindowType::EditorPopup:
-                configProps.Title = "Iceblur Editor - Popup";
-                configProps.Maximized = false;
-                configProps.Fullscreen = false;
-                break;
-            case EWindowType::FullscreenGame:
-                configProps.Title = "Made with Iceblur Engine";
-                configProps.Maximized = true;
-                configProps.Fullscreen = true;
-                configProps.UseMonitorResolution = true;
-                break;
-            case EWindowType::Unknown:
-                ICE_WARN("Unknown window type!");
-                break;
-        }
-
-        Win64Window::Create(configProps);
-    }
-
-    void Win64Window::Create(const WindowProps& props)
-    {
-        if (!glfwInit())
-        {
-            ICE_FATAL("Failed to initialize GLFW!");
-        }
-
         //TODO: Create Graphics API struct for storing GLFW_CONTEXT_VERSION_X for example.
 
         const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
@@ -61,6 +26,7 @@ namespace Iceblur
         glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
         glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
         GLFWmonitor* monitor = nullptr;
 
         if (props.Fullscreen)
@@ -82,13 +48,16 @@ namespace Iceblur
         if (!m_Window)
         {
             glfwTerminate();
-            ICE_FATAL("Failed to create window!");
+            ICE_ERROR("Failed to create window!");
+            return false;
         }
 
         glfwMakeContextCurrent(m_Window);
 
         //Example callback for testing, more will be implemented soon
         glfwSetCursorPosCallback(m_Window, &MousePositionCallback);
+
+        return true;
     }
 
     void Win64Window::MousePositionCallback(GLFWwindow* window, double x, double y)
