@@ -17,6 +17,7 @@ target_precompile_headers(IceblurEngine
         <string>
         <vector>
         <map>
+        <iterator>
         <filesystem>
         <fstream>
         <streambuf>

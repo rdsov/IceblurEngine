@@ -26,7 +26,7 @@ namespace Iceblur
         };
 
         //Returns full error string of ETypes enum
-        NODISCARD static std::string ToString(ETypes error, const std::string args[] = { });
+        NODISCARD static std::string ToString(ETypes error, const std::vector<std::string>& args);
 
         //Returns full error string of EFailed enum
         NODISCARD static std::string ToString(EFailed error, const std::string args[] = { });

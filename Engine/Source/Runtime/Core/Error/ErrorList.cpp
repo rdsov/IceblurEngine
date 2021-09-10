@@ -7,7 +7,7 @@ namespace Iceblur
     static const std::string ErrorTypes[] =
             {
                     "None",
-                    "Multiple instances of %0 detected! This is not allowed. %1 %50"
+                    "Multiple instances of %0 detected! This is not allowed. %1 %2"
             };
 
     static const std::string FailedTypes[] =
@@ -21,12 +21,13 @@ namespace Iceblur
     ICE_ASSERT_ARRAY_ENUM(ErrorTypes, Error::ETypes);
     ICE_ASSERT_ARRAY_ENUM(FailedTypes, Error::EFailed)
 
-    std::string Error::ToString(Error::ETypes error, const std::string args[])
+    std::string Error::ToString(Error::ETypes error, const std::vector<std::string>& args)
     {
         std::string_view errorString = ErrorTypes[static_cast<int>(error)];
+        std::string resultString = std::string(errorString);
 
         //Index that comes after the '%' character
-        std::string index;
+        std::string indexStr;
         for (std::string::size_type i = 0 ; i < errorString.size() ; i++)
         {
             //If the current character is '%' and we haven't
@@ -37,14 +38,14 @@ namespace Iceblur
                 skip:
                 while (!shouldBreak)
                 {
-                    //Start from the index
+                    //Start from indexStr
                     for (std::string::size_type j = i + 1 ; j < errorString.size() ; j++)
                     {
-                        //If it's a digit, add it to the index string, because it can have many digits
+                        //If it's a digit, add it to the indexStr string, because it can have many digits
                         //If not, stop scanning any further and continue looping
                         if (isdigit(errorString[j]))
                         {
-                            index += errorString[j];
+                            indexStr += errorString[j];
                         }
                         else
                         {
@@ -56,7 +57,27 @@ namespace Iceblur
                     shouldBreak = true;
                 }
 
-                index.clear();
+                char* index;
+                long argIndex = strtol(indexStr.c_str(), &index, 10);
+
+                //Check if conversion was successful
+                if (index)
+                {
+                    //Check if arguments are valid
+                    if (!args.empty() && args.size() > argIndex)
+                    {
+                        //Replace %x with the corresponding argument
+                        size_t replacePos = 0;
+                        std::string searchStr = "%" + indexStr;
+                        replacePos = resultString.find(searchStr, replacePos);
+                        if (replacePos != std::string::npos)
+                        {
+                            resultString.replace(replacePos, indexStr.length() + 1, args[argIndex]);
+                        }
+                    }
+                }
+
+                indexStr.clear();
             }
         }
 
