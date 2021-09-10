@@ -17,7 +17,6 @@
     SuperClass::Func(); \
 }
 
-//TODO: Create error list class for consistency, errors should be enums rather than hardcoded strings.
 //Singleton pattern macro to prevent multiple instances of a class.
 //InstanceVar must share the same name as defined in ICE_SINGLETON_DEF
 #define ICE_SINGLETON(InstanceVar, Class) if (InstanceVar) \

@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include "IO/Log.h"
+#include "Error/ErrorList.h"
 #include "Platform/PlatformDetection.h"
 #include "Platform/Windows/Win64Window.h"
 
