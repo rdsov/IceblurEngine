@@ -75,6 +75,8 @@ namespace Iceblur
             return nullptr;
         }
 
+        window->m_Type = signature.type;
+
         if (signature.isHost)
         {
             m_Host = window;
