@@ -20,6 +20,8 @@ public:
 
     void OnPostInit() override
     {
+        Error::ToString(Error::ETypes::SINGLETON);
+
         EventSystem::Subscribe(MousePositionEvent::type, &OnMouseMoved);
         Application::OnPostInit();
     }

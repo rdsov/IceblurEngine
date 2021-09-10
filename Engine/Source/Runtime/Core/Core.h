@@ -28,3 +28,10 @@ else { m_Instance = this; };
 
 //Converts to string
 #define ICE_TOS(x) std::to_string(x)
+
+//Checks if enum length equals the length of array
+//Enum should have 'LAST' as the last element
+#define ICE_ASSERT_ARRAY_ENUM(Array, Enum) \
+static_assert(sizeof(Array) / sizeof(Array[0]) == static_cast<int>(Enum::LAST), "Enum length doesn't match array length!");
+
+

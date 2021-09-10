@@ -16,7 +16,7 @@ namespace Iceblur
 #ifdef ICE_WIN64
         if (!glfwInit())
         {
-            ICE_ERROR("Failed to initialize GLFW!");
+            ICE_ERROR(Error::ToString(Error::EFailed::GLFW_INIT));
         }
 #else
 #error "Platform is not supported!"
@@ -72,7 +72,7 @@ namespace Iceblur
 
         if (!success)
         {
-            ICE_ERROR("Failed to create window!");
+            ICE_ERROR(Error::ToString(Error::EFailed::WINDOW_CREATION));
             return nullptr;
         }
 
@@ -106,6 +106,11 @@ namespace Iceblur
 
     bool WindowManager::IsWin64WindowRunning(Window* window)
     {
+        if (!window)
+        {
+            return false;
+        }
+
         bool running = !glfwWindowShouldClose((GLFWwindow*) window->GetNativeWindow());
 
         return running;
@@ -113,6 +118,11 @@ namespace Iceblur
 
     void WindowManager::UpdateWin64Window(Window* window)
     {
+        if (!window)
+        {
+            return;
+        }
+
         glfwSwapBuffers((GLFWwindow*) window->GetNativeWindow());
         glfwPollEvents();
     }

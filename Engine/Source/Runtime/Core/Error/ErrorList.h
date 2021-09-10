@@ -4,24 +4,31 @@
 
 #include "Core/Core.h"
 
-#define ERR_ENUM_LENGTH_DOESNT_MATCH "Enum length doesn't match the array length!"
-
 namespace Iceblur
 {
-    struct Error
+    struct ICE_API Error
     {
+        //Generic error types
         enum class ETypes
         {
-            NONE
+            NONE,
+            SINGLETON,
+            LAST
         };
 
-        enum EFailed
+        enum class EFailed
         {
             GLAD_INIT,
             GLFW_INIT,
-            WINDOW_CREATION
+            WINDOW_CREATION,
+            CAST_EVENT,
+            LAST
         };
 
-        NODISCARD static std::string GetFailedString(EFailed error);
+        //Returns full error string of ETypes enum
+        NODISCARD static std::string ToString(ETypes error, const std::string args[] = { });
+
+        //Returns full error string of EFailed enum
+        NODISCARD static std::string ToString(EFailed error, const std::string args[] = { });
     };
 }

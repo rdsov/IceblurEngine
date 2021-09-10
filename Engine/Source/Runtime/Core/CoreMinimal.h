@@ -7,7 +7,11 @@
 #include "HostEntry.h"
 #include "Window.h"
 #include "WindowManager.h"
+
 #include "IO/Log.h"
+#include "Error/ErrorList.h"
+
 #include "Event/EventSystem.h"
 #include "Event/EventTypes.h"
+
 #include "Math/VMath.h"

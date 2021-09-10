@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "Core/Core.h"
+
 namespace Iceblur
 {
     struct TimeData
@@ -9,6 +11,18 @@ namespace Iceblur
         int Hours;
         int Minutes;
         int Seconds;
+
+        NODISCARD static inline std::string ToString(int value)
+        {
+            std::string time = ICE_TOS(value);
+
+            if (value <= 9)
+            {
+                time = "0" + time;
+            }
+
+            return time;
+        }
     };
 
     class VTime

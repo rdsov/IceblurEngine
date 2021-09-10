@@ -4,6 +4,8 @@
 
 #include "IO/Log.h"
 
+#define _CRT_SECURE_NO_WARNINGS
+
 namespace Iceblur
 {
     TimeData VTime::GetTimeNow()
@@ -11,7 +13,7 @@ namespace Iceblur
         std::time_t time = std::time(nullptr);
         std::tm* timeNow = std::localtime(&time);
 
-        TimeData data{};
+        TimeData data { };
         data.Hours = timeNow->tm_hour;
         data.Minutes = timeNow->tm_min;
         data.Seconds = timeNow->tm_sec;

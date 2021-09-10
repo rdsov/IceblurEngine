@@ -65,7 +65,9 @@ namespace Iceblur
     {
         TimeData now = VTime::GetTimeNow();
 
-        std::string formattedTime = "[" + ICE_TOS(now.Hours) + ":" + ICE_TOS(now.Minutes) + ":" + ICE_TOS(now.Seconds) + "]";
+        std::string formattedTime = "[" + TimeData::ToString(now.Hours) + ":"
+                                    + TimeData::ToString(now.Minutes) + ":"
+                                    + TimeData::ToString(now.Seconds) + "]";
         return formattedTime;
     }
 }
