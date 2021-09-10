@@ -82,42 +82,42 @@ extern "C" {
  *************************************************************************/
 
 #if defined(GLFW_EXPOSE_NATIVE_WIN32) || defined(GLFW_EXPOSE_NATIVE_WGL)
- // This is a workaround for the fact that glfw3.h needs to export APIENTRY (for
- // example to allow applications to correctly declare a GL_ARB_debug_output
- // callback) but windows.h assumes no one will define APIENTRY before it does
- #if defined(GLFW_APIENTRY_DEFINED)
-  #undef APIENTRY
-  #undef GLFW_APIENTRY_DEFINED
- #endif
- #include <windows.h>
+// This is a workaround for the fact that glfw3.h needs to export APIENTRY (for
+// example to allow applications to correctly declare a GL_ARB_debug_output
+// callback) but windows.h assumes no one will define APIENTRY before it does
+#if defined(GLFW_APIENTRY_DEFINED)
+#undef APIENTRY
+#undef GLFW_APIENTRY_DEFINED
+#endif
+#include <windows.h>
 #elif defined(GLFW_EXPOSE_NATIVE_COCOA) || defined(GLFW_EXPOSE_NATIVE_NSGL)
- #if defined(__OBJC__)
-  #import <Cocoa/Cocoa.h>
- #else
-  #include <ApplicationServices/ApplicationServices.h>
-  typedef void* id;
- #endif
+#if defined(__OBJC__)
+#import <Cocoa/Cocoa.h>
+#else
+#include <ApplicationServices/ApplicationServices.h>
+typedef void* id;
+#endif
 #elif defined(GLFW_EXPOSE_NATIVE_X11) || defined(GLFW_EXPOSE_NATIVE_GLX)
- #include <X11/Xlib.h>
- #include <X11/extensions/Xrandr.h>
+#include <X11/Xlib.h>
+#include <X11/extensions/Xrandr.h>
 #elif defined(GLFW_EXPOSE_NATIVE_WAYLAND)
- #include <wayland-client.h>
+#include <wayland-client.h>
 #endif
 
 #if defined(GLFW_EXPOSE_NATIVE_WGL)
- /* WGL is declared by windows.h */
+/* WGL is declared by windows.h */
 #endif
 #if defined(GLFW_EXPOSE_NATIVE_NSGL)
- /* NSGL is declared by Cocoa.h */
+/* NSGL is declared by Cocoa.h */
 #endif
 #if defined(GLFW_EXPOSE_NATIVE_GLX)
- #include <GL/glx.h>
+#include <GL/glx.h>
 #endif
 #if defined(GLFW_EXPOSE_NATIVE_EGL)
- #include <EGL/egl.h>
+#include <EGL/egl.h>
 #endif
 #if defined(GLFW_EXPOSE_NATIVE_OSMESA)
- #include <GL/osmesa.h>
+#include <GL/osmesa.h>
 #endif
 
 
@@ -463,8 +463,8 @@ GLFWAPI EGLSurface glfwGetEGLSurface(GLFWwindow* window);
 /*! @brief Retrieves the color buffer associated with the specified window.
  *
  *  @param[in] window The window whose color buffer to retrieve.
- *  @param[out] width Where to store the width of the color buffer, or `NULL`.
- *  @param[out] height Where to store the height of the color buffer, or `NULL`.
+ *  @param[out] m_Width Where to store the m_Width of the color buffer, or `NULL`.
+ *  @param[out] m_Height Where to store the m_Height of the color buffer, or `NULL`.
  *  @param[out] format Where to store the OSMesa pixel format of the color
  *  buffer, or `NULL`.
  *  @param[out] buffer Where to store the address of the color buffer, or
@@ -479,13 +479,13 @@ GLFWAPI EGLSurface glfwGetEGLSurface(GLFWwindow* window);
  *
  *  @ingroup native
  */
-GLFWAPI int glfwGetOSMesaColorBuffer(GLFWwindow* window, int* width, int* height, int* format, void** buffer);
+GLFWAPI int glfwGetOSMesaColorBuffer(GLFWwindow* window, int* m_Width, int* m_Height, int* format, void** buffer);
 
 /*! @brief Retrieves the depth buffer associated with the specified window.
  *
  *  @param[in] window The window whose depth buffer to retrieve.
- *  @param[out] width Where to store the width of the depth buffer, or `NULL`.
- *  @param[out] height Where to store the height of the depth buffer, or `NULL`.
+ *  @param[out] m_Width Where to store the m_Width of the depth buffer, or `NULL`.
+ *  @param[out] m_Height Where to store the m_Height of the depth buffer, or `NULL`.
  *  @param[out] bytesPerValue Where to store the number of bytes per depth
  *  buffer element, or `NULL`.
  *  @param[out] buffer Where to store the address of the depth buffer, or
@@ -500,7 +500,7 @@ GLFWAPI int glfwGetOSMesaColorBuffer(GLFWwindow* window, int* width, int* height
  *
  *  @ingroup native
  */
-GLFWAPI int glfwGetOSMesaDepthBuffer(GLFWwindow* window, int* width, int* height, int* bytesPerValue, void** buffer);
+GLFWAPI int glfwGetOSMesaDepthBuffer(GLFWwindow* window, int* m_Width, int* m_Height, int* bytesPerValue, void** buffer);
 
 /*! @brief Returns the `OSMesaContext` of the specified window.
  *

@@ -2,7 +2,12 @@
 
 #include "VMath.h"
 
+#include "Core/IO/Log.h"
+
 namespace Iceblur
 {
-
+    void Resolution::ResolutionNullError()
+    {
+        ICE_ERROR("Resolution width or height must be greater than zero!");
+    }
 }

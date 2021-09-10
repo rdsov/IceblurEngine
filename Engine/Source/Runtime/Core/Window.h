@@ -11,7 +11,7 @@ namespace Iceblur
     struct WindowProps
     {
         std::string Title = "Untitled Window";
-        VMath::Resolution resolution = VMath::Resolution(1280, 720);
+        Resolution resolution = Resolution(1280, 720);
         int RefreshRate = 60;
         bool Maximized = true;
         bool Fullscreen = false;

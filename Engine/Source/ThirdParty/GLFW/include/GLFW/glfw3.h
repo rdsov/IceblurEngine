@@ -93,7 +93,7 @@ extern "C" {
 /* If we are we on Windows, we want a single define for it.
  */
 #if !defined(_WIN32) && (defined(__WIN32__) || defined(WIN32) || defined(__MINGW32__))
- #define _WIN32
+#define _WIN32
 #endif /* _WIN32 */
 
 /* Include because most Windows GLU headers need wchar_t and
@@ -108,7 +108,7 @@ extern "C" {
 #include <stdint.h>
 
 #if defined(GLFW_INCLUDE_VULKAN)
-  #include <vulkan/vulkan.h>
+#include <vulkan/vulkan.h>
 #endif /* Vulkan header */
 
 /* The Vulkan header may have indirectly included windows.h (because of
@@ -119,95 +119,95 @@ extern "C" {
  * all platforms.  Additionally, the Windows OpenGL header needs APIENTRY.
  */
 #if !defined(APIENTRY)
- #if defined(_WIN32)
-  #define APIENTRY __stdcall
- #else
-  #define APIENTRY
- #endif
- #define GLFW_APIENTRY_DEFINED
+#if defined(_WIN32)
+#define APIENTRY __stdcall
+#else
+#define APIENTRY
+#endif
+#define GLFW_APIENTRY_DEFINED
 #endif /* APIENTRY */
 
 /* Some Windows OpenGL headers need this.
  */
 #if !defined(WINGDIAPI) && defined(_WIN32)
- #define WINGDIAPI __declspec(dllimport)
- #define GLFW_WINGDIAPI_DEFINED
+#define WINGDIAPI __declspec(dllimport)
+#define GLFW_WINGDIAPI_DEFINED
 #endif /* WINGDIAPI */
 
 /* Some Windows GLU headers need this.
  */
 #if !defined(CALLBACK) && defined(_WIN32)
- #define CALLBACK __stdcall
- #define GLFW_CALLBACK_DEFINED
+#define CALLBACK __stdcall
+#define GLFW_CALLBACK_DEFINED
 #endif /* CALLBACK */
 
 /* Include the chosen OpenGL or OpenGL ES headers.
  */
 #if defined(GLFW_INCLUDE_ES1)
 
- #include <GLES/gl.h>
- #if defined(GLFW_INCLUDE_GLEXT)
-  #include <GLES/glext.h>
- #endif
+#include <GLES/gl.h>
+#if defined(GLFW_INCLUDE_GLEXT)
+#include <GLES/glext.h>
+#endif
 
 #elif defined(GLFW_INCLUDE_ES2)
 
- #include <GLES2/gl2.h>
- #if defined(GLFW_INCLUDE_GLEXT)
-  #include <GLES2/gl2ext.h>
- #endif
+#include <GLES2/gl2.h>
+#if defined(GLFW_INCLUDE_GLEXT)
+#include <GLES2/gl2ext.h>
+#endif
 
 #elif defined(GLFW_INCLUDE_ES3)
 
- #include <GLES3/gl3.h>
- #if defined(GLFW_INCLUDE_GLEXT)
-  #include <GLES2/gl2ext.h>
- #endif
+#include <GLES3/gl3.h>
+#if defined(GLFW_INCLUDE_GLEXT)
+#include <GLES2/gl2ext.h>
+#endif
 
 #elif defined(GLFW_INCLUDE_ES31)
 
- #include <GLES3/gl31.h>
- #if defined(GLFW_INCLUDE_GLEXT)
-  #include <GLES2/gl2ext.h>
- #endif
+#include <GLES3/gl31.h>
+#if defined(GLFW_INCLUDE_GLEXT)
+#include <GLES2/gl2ext.h>
+#endif
 
 #elif defined(GLFW_INCLUDE_ES32)
 
- #include <GLES3/gl32.h>
- #if defined(GLFW_INCLUDE_GLEXT)
-  #include <GLES2/gl2ext.h>
- #endif
+#include <GLES3/gl32.h>
+#if defined(GLFW_INCLUDE_GLEXT)
+#include <GLES2/gl2ext.h>
+#endif
 
 #elif defined(GLFW_INCLUDE_GLCOREARB)
 
- #if defined(__APPLE__)
+#if defined(__APPLE__)
 
-  #include <OpenGL/gl3.h>
-  #if defined(GLFW_INCLUDE_GLEXT)
-   #include <OpenGL/gl3ext.h>
-  #endif /*GLFW_INCLUDE_GLEXT*/
+#include <OpenGL/gl3.h>
+#if defined(GLFW_INCLUDE_GLEXT)
+#include <OpenGL/gl3ext.h>
+#endif /*GLFW_INCLUDE_GLEXT*/
 
- #else /*__APPLE__*/
+#else /*__APPLE__*/
 
-  #include <GL/glcorearb.h>
+#include <GL/glcorearb.h>
 
- #endif /*__APPLE__*/
+#endif /*__APPLE__*/
 
 #elif defined(GLFW_INCLUDE_GLU)
 
- #if defined(__APPLE__)
+#if defined(__APPLE__)
 
-  #if defined(GLFW_INCLUDE_GLU)
-   #include <OpenGL/glu.h>
-  #endif
+#if defined(GLFW_INCLUDE_GLU)
+#include <OpenGL/glu.h>
+#endif
 
- #else /*__APPLE__*/
+#else /*__APPLE__*/
 
-  #if defined(GLFW_INCLUDE_GLU)
-   #include <GL/glu.h>
-  #endif
+#if defined(GLFW_INCLUDE_GLU)
+#include <GL/glu.h>
+#endif
 
- #endif /*__APPLE__*/
+#endif /*__APPLE__*/
 
 #elif !defined(GLFW_INCLUDE_NONE) && \
       !defined(__gl_h_) && \
@@ -226,47 +226,47 @@ extern "C" {
       !defined(__gltypes_h_) /*non-standard*/ && \
       !defined(__glee_h_) /*non-standard*/
 
- #if defined(__APPLE__)
+#if defined(__APPLE__)
 
-  #if !defined(GLFW_INCLUDE_GLEXT)
-   #define GL_GLEXT_LEGACY
-  #endif
-  #include <OpenGL/gl.h>
+#if !defined(GLFW_INCLUDE_GLEXT)
+#define GL_GLEXT_LEGACY
+#endif
+#include <OpenGL/gl.h>
 
- #else /*__APPLE__*/
+#else /*__APPLE__*/
 
-  #include <GL/gl.h>
-  #if defined(GLFW_INCLUDE_GLEXT)
-   #include <GL/glext.h>
-  #endif
+#include <GL/gl.h>
+#if defined(GLFW_INCLUDE_GLEXT)
+#include <GL/glext.h>
+#endif
 
- #endif /*__APPLE__*/
+#endif /*__APPLE__*/
 
 #endif /* OpenGL and OpenGL ES headers */
 
 #if defined(GLFW_DLL) && defined(_GLFW_BUILD_DLL)
- /* GLFW_DLL must be defined by applications that are linking against the DLL
-  * version of the GLFW library.  _GLFW_BUILD_DLL is defined by the GLFW
-  * configuration header when compiling the DLL version of the library.
-  */
- #error "You must not have both GLFW_DLL and _GLFW_BUILD_DLL defined"
+/* GLFW_DLL must be defined by applications that are linking against the DLL
+ * version of the GLFW library.  _GLFW_BUILD_DLL is defined by the GLFW
+ * configuration header when compiling the DLL version of the library.
+ */
+#error "You must not have both GLFW_DLL and _GLFW_BUILD_DLL defined"
 #endif
 
 /* GLFWAPI is used to declare public API functions for export
  * from the DLL / shared library / dynamic library.
  */
 #if defined(_WIN32) && defined(_GLFW_BUILD_DLL)
- /* We are building GLFW as a Win32 DLL */
- #define GLFWAPI __declspec(dllexport)
+/* We are building GLFW as a Win32 DLL */
+#define GLFWAPI __declspec(dllexport)
 #elif defined(_WIN32) && defined(GLFW_DLL)
- /* We are calling GLFW as a Win32 DLL */
- #define GLFWAPI __declspec(dllimport)
+/* We are calling GLFW as a Win32 DLL */
+#define GLFWAPI __declspec(dllimport)
 #elif defined(__GNUC__) && defined(_GLFW_BUILD_DLL)
- /* We are building GLFW as a shared / dynamic library */
- #define GLFWAPI __attribute__((visibility("default")))
+/* We are building GLFW as a shared / dynamic library */
+#define GLFWAPI __attribute__((visibility("default")))
 #else
- /* We are building or calling GLFW as a static library */
- #define GLFWAPI
+/* We are building or calling GLFW as a static library */
+#define GLFWAPI
 #endif
 
 
@@ -1141,7 +1141,7 @@ extern "C" {
  *
  *  @ingroup context
  */
-typedef void (*GLFWglproc)(void);
+typedef void (* GLFWglproc)(void);
 
 /*! @brief Vulkan API function pointer type.
  *
@@ -1155,7 +1155,7 @@ typedef void (*GLFWglproc)(void);
  *
  *  @ingroup vulkan
  */
-typedef void (*GLFWvkproc)(void);
+typedef void (* GLFWvkproc)(void);
 
 /*! @brief Opaque monitor object.
  *
@@ -1215,7 +1215,7 @@ typedef struct GLFWcursor GLFWcursor;
  *
  *  @ingroup init
  */
-typedef void (* GLFWerrorfun)(int,const char*);
+typedef void (* GLFWerrorfun)(int, const char*);
 
 /*! @brief The function pointer type for window position callbacks.
  *
@@ -1238,19 +1238,19 @@ typedef void (* GLFWerrorfun)(int,const char*);
  *
  *  @ingroup window
  */
-typedef void (* GLFWwindowposfun)(GLFWwindow*,int,int);
+typedef void (* GLFWwindowposfun)(GLFWwindow*, int, int);
 
 /*! @brief The function pointer type for window size callbacks.
  *
  *  This is the function pointer type for window size callbacks.  A window size
  *  callback function has the following signature:
  *  @code
- *  void callback_name(GLFWwindow* window, int width, int height)
+ *  void callback_name(GLFWwindow* window, int m_Width, int m_Height)
  *  @endcode
  *
  *  @param[in] window The window that was resized.
- *  @param[in] width The new width, in screen coordinates, of the window.
- *  @param[in] height The new height, in screen coordinates, of the window.
+ *  @param[in] width The new m_Width, in screen coordinates, of the window.
+ *  @param[in] height The new m_Height, in screen coordinates, of the window.
  *
  *  @sa @ref window_size
  *  @sa @ref glfwSetWindowSizeCallback
@@ -1260,7 +1260,7 @@ typedef void (* GLFWwindowposfun)(GLFWwindow*,int,int);
  *
  *  @ingroup window
  */
-typedef void (* GLFWwindowsizefun)(GLFWwindow*,int,int);
+typedef void (* GLFWwindowsizefun)(GLFWwindow*, int, int);
 
 /*! @brief The function pointer type for window close callbacks.
  *
@@ -1321,7 +1321,7 @@ typedef void (* GLFWwindowrefreshfun)(GLFWwindow*);
  *
  *  @ingroup window
  */
-typedef void (* GLFWwindowfocusfun)(GLFWwindow*,int);
+typedef void (* GLFWwindowfocusfun)(GLFWwindow*, int);
 
 /*! @brief The function pointer type for window iconify callbacks.
  *
@@ -1342,7 +1342,7 @@ typedef void (* GLFWwindowfocusfun)(GLFWwindow*,int);
  *
  *  @ingroup window
  */
-typedef void (* GLFWwindowiconifyfun)(GLFWwindow*,int);
+typedef void (* GLFWwindowiconifyfun)(GLFWwindow*, int);
 
 /*! @brief The function pointer type for window maximize callbacks.
  *
@@ -1363,19 +1363,19 @@ typedef void (* GLFWwindowiconifyfun)(GLFWwindow*,int);
  *
  *  @ingroup window
  */
-typedef void (* GLFWwindowmaximizefun)(GLFWwindow*,int);
+typedef void (* GLFWwindowmaximizefun)(GLFWwindow*, int);
 
 /*! @brief The function pointer type for framebuffer size callbacks.
  *
  *  This is the function pointer type for framebuffer size callbacks.
  *  A framebuffer size callback function has the following signature:
  *  @code
- *  void function_name(GLFWwindow* window, int width, int height)
+ *  void function_name(GLFWwindow* window, int m_Width, int m_Height)
  *  @endcode
  *
  *  @param[in] window The window whose framebuffer was resized.
- *  @param[in] width The new width, in pixels, of the framebuffer.
- *  @param[in] height The new height, in pixels, of the framebuffer.
+ *  @param[in] width The new m_Width, in pixels, of the framebuffer.
+ *  @param[in] height The new m_Height, in pixels, of the framebuffer.
  *
  *  @sa @ref window_fbsize
  *  @sa @ref glfwSetFramebufferSizeCallback
@@ -1384,7 +1384,7 @@ typedef void (* GLFWwindowmaximizefun)(GLFWwindow*,int);
  *
  *  @ingroup window
  */
-typedef void (* GLFWframebuffersizefun)(GLFWwindow*,int,int);
+typedef void (* GLFWframebuffersizefun)(GLFWwindow*, int, int);
 
 /*! @brief The function pointer type for window content scale callbacks.
  *
@@ -1405,7 +1405,7 @@ typedef void (* GLFWframebuffersizefun)(GLFWwindow*,int,int);
  *
  *  @ingroup window
  */
-typedef void (* GLFWwindowcontentscalefun)(GLFWwindow*,float,float);
+typedef void (* GLFWwindowcontentscalefun)(GLFWwindow*, float, float);
 
 /*! @brief The function pointer type for mouse button callbacks.
  *
@@ -1431,7 +1431,7 @@ typedef void (* GLFWwindowcontentscalefun)(GLFWwindow*,float,float);
  *
  *  @ingroup input
  */
-typedef void (* GLFWmousebuttonfun)(GLFWwindow*,int,int,int);
+typedef void (* GLFWmousebuttonfun)(GLFWwindow*, int, int, int);
 
 /*! @brief The function pointer type for cursor position callbacks.
  *
@@ -1454,7 +1454,7 @@ typedef void (* GLFWmousebuttonfun)(GLFWwindow*,int,int,int);
  *
  *  @ingroup input
  */
-typedef void (* GLFWcursorposfun)(GLFWwindow*,double,double);
+typedef void (* GLFWcursorposfun)(GLFWwindow*, double, double);
 
 /*! @brief The function pointer type for cursor enter/leave callbacks.
  *
@@ -1475,7 +1475,7 @@ typedef void (* GLFWcursorposfun)(GLFWwindow*,double,double);
  *
  *  @ingroup input
  */
-typedef void (* GLFWcursorenterfun)(GLFWwindow*,int);
+typedef void (* GLFWcursorenterfun)(GLFWwindow*, int);
 
 /*! @brief The function pointer type for scroll callbacks.
  *
@@ -1496,7 +1496,7 @@ typedef void (* GLFWcursorenterfun)(GLFWwindow*,int);
  *
  *  @ingroup input
  */
-typedef void (* GLFWscrollfun)(GLFWwindow*,double,double);
+typedef void (* GLFWscrollfun)(GLFWwindow*, double, double);
 
 /*! @brief The function pointer type for keyboard key callbacks.
  *
@@ -1522,7 +1522,7 @@ typedef void (* GLFWscrollfun)(GLFWwindow*,double,double);
  *
  *  @ingroup input
  */
-typedef void (* GLFWkeyfun)(GLFWwindow*,int,int,int,int);
+typedef void (* GLFWkeyfun)(GLFWwindow*, int, int, int, int);
 
 /*! @brief The function pointer type for Unicode character callbacks.
  *
@@ -1543,7 +1543,7 @@ typedef void (* GLFWkeyfun)(GLFWwindow*,int,int,int,int);
  *
  *  @ingroup input
  */
-typedef void (* GLFWcharfun)(GLFWwindow*,unsigned int);
+typedef void (* GLFWcharfun)(GLFWwindow*, unsigned int);
 
 /*! @brief The function pointer type for Unicode character with modifiers
  *  callbacks.
@@ -1570,7 +1570,7 @@ typedef void (* GLFWcharfun)(GLFWwindow*,unsigned int);
  *
  *  @ingroup input
  */
-typedef void (* GLFWcharmodsfun)(GLFWwindow*,unsigned int,int);
+typedef void (* GLFWcharmodsfun)(GLFWwindow*, unsigned int, int);
 
 /*! @brief The function pointer type for path drop callbacks.
  *
@@ -1594,7 +1594,7 @@ typedef void (* GLFWcharmodsfun)(GLFWwindow*,unsigned int,int);
  *
  *  @ingroup input
  */
-typedef void (* GLFWdropfun)(GLFWwindow*,int,const char*[]);
+typedef void (* GLFWdropfun)(GLFWwindow*, int, const char* []);
 
 /*! @brief The function pointer type for monitor configuration callbacks.
  *
@@ -1615,7 +1615,7 @@ typedef void (* GLFWdropfun)(GLFWwindow*,int,const char*[]);
  *
  *  @ingroup monitor
  */
-typedef void (* GLFWmonitorfun)(GLFWmonitor*,int);
+typedef void (* GLFWmonitorfun)(GLFWmonitor*, int);
 
 /*! @brief The function pointer type for joystick configuration callbacks.
  *
@@ -1636,7 +1636,7 @@ typedef void (* GLFWmonitorfun)(GLFWmonitor*,int);
  *
  *  @ingroup input
  */
-typedef void (* GLFWjoystickfun)(int,int);
+typedef void (* GLFWjoystickfun)(int, int);
 
 /*! @brief Video mode type.
  *
@@ -1653,10 +1653,10 @@ typedef void (* GLFWjoystickfun)(int,int);
  */
 typedef struct GLFWvidmode
 {
-    /*! The width, in screen coordinates, of the video mode.
+    /*! The m_Width, in screen coordinates, of the video mode.
      */
     int width;
-    /*! The height, in screen coordinates, of the video mode.
+    /*! The m_Height, in screen coordinates, of the video mode.
      */
     int height;
     /*! The bit depth of the red channel of the video mode.
@@ -1716,10 +1716,10 @@ typedef struct GLFWgammaramp
  */
 typedef struct GLFWimage
 {
-    /*! The width, in pixels, of this image.
+    /*! The m_Width, in pixels, of this image.
      */
     int width;
-    /*! The height, in pixels, of this image.
+    /*! The m_Height, in pixels, of this image.
      */
     int height;
     /*! The pixel data of this image, arranged left-to-right, top-to-bottom.
@@ -2087,8 +2087,8 @@ GLFWAPI void glfwGetMonitorPos(GLFWmonitor* monitor, int* xpos, int* ypos);
  *  @param[in] monitor The monitor to query.
  *  @param[out] xpos Where to store the monitor x-coordinate, or `NULL`.
  *  @param[out] ypos Where to store the monitor y-coordinate, or `NULL`.
- *  @param[out] width Where to store the monitor width, or `NULL`.
- *  @param[out] height Where to store the monitor height, or `NULL`.
+ *  @param[out] width Where to store the monitor m_Width, or `NULL`.
+ *  @param[out] height Where to store the monitor m_Height, or `NULL`.
  *
  *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED and @ref
  *  GLFW_PLATFORM_ERROR.
@@ -2117,9 +2117,9 @@ GLFWAPI void glfwGetMonitorWorkarea(GLFWmonitor* monitor, int* xpos, int* ypos, 
  *  non-`NULL` size arguments will be set to zero.
  *
  *  @param[in] monitor The monitor to query.
- *  @param[out] widthMM Where to store the width, in millimetres, of the
+ *  @param[out] widthMM Where to store the m_Width, in millimetres, of the
  *  monitor's display area, or `NULL`.
- *  @param[out] heightMM Where to store the height, in millimetres, of the
+ *  @param[out] heightMM Where to store the m_Height, in millimetres, of the
  *  monitor's display area, or `NULL`.
  *
  *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED.
@@ -2280,7 +2280,7 @@ GLFWAPI GLFWmonitorfun glfwSetMonitorCallback(GLFWmonitorfun callback);
  *  This function returns an array of all video modes supported by the specified
  *  monitor.  The returned array is sorted in ascending order, first by color
  *  bit depth (the sum of all channel depths) and then by resolution area (the
- *  product of width and height).
+ *  product of m_Width and m_Height).
  *
  *  @param[in] monitor The monitor to query.
  *  @param[out] count Where to store the number of video modes in the returned
@@ -2583,9 +2583,9 @@ GLFWAPI void glfwWindowHintString(int hint, const char* value);
  *  The [swap interval](@ref buffer_swap) is not set during window creation and
  *  the initial value may vary depending on driver settings and defaults.
  *
- *  @param[in] width The desired width, in screen coordinates, of the window.
+ *  @param[in] width The desired m_Width, in screen coordinates, of the window.
  *  This must be greater than zero.
- *  @param[in] height The desired height, in screen coordinates, of the window.
+ *  @param[in] height The desired m_Height, in screen coordinates, of the window.
  *  This must be greater than zero.
  *  @param[in] title The initial, UTF-8 encoded window title.
  *  @param[in] monitor The monitor to use for full screen mode, or `NULL` for
@@ -2906,9 +2906,9 @@ GLFWAPI void glfwSetWindowPos(GLFWwindow* window, int xpos, int ypos);
  *  non-`NULL` size arguments will be set to zero.
  *
  *  @param[in] window The window whose size to retrieve.
- *  @param[out] width Where to store the width, in screen coordinates, of the
+ *  @param[out] width Where to store the m_Width, in screen coordinates, of the
  *  content area, or `NULL`.
- *  @param[out] height Where to store the height, in screen coordinates, of the
+ *  @param[out] height Where to store the m_Height, in screen coordinates, of the
  *  content area, or `NULL`.
  *
  *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED and @ref
@@ -2940,13 +2940,13 @@ GLFWAPI void glfwGetWindowSize(GLFWwindow* window, int* width, int* height);
  *  dimensions and all must be greater than or equal to zero.
  *
  *  @param[in] window The window to set limits for.
- *  @param[in] minwidth The minimum width, in screen coordinates, of the content
+ *  @param[in] minwidth The minimum m_Width, in screen coordinates, of the content
  *  area, or `GLFW_DONT_CARE`.
- *  @param[in] minheight The minimum height, in screen coordinates, of the
+ *  @param[in] minheight The minimum m_Height, in screen coordinates, of the
  *  content area, or `GLFW_DONT_CARE`.
- *  @param[in] maxwidth The maximum width, in screen coordinates, of the content
+ *  @param[in] maxwidth The maximum m_Width, in screen coordinates, of the content
  *  area, or `GLFW_DONT_CARE`.
- *  @param[in] maxheight The maximum height, in screen coordinates, of the
+ *  @param[in] maxheight The maximum m_Height, in screen coordinates, of the
  *  content area, or `GLFW_DONT_CARE`.
  *
  *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED, @ref
@@ -3029,9 +3029,9 @@ GLFWAPI void glfwSetWindowAspectRatio(GLFWwindow* window, int numer, int denom);
  *  and should not override these limits.
  *
  *  @param[in] window The window to resize.
- *  @param[in] width The desired width, in screen coordinates, of the window
+ *  @param[in] width The desired m_Width, in screen coordinates, of the window
  *  content area.
- *  @param[in] height The desired height, in screen coordinates, of the window
+ *  @param[in] height The desired m_Height, in screen coordinates, of the window
  *  content area.
  *
  *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED and @ref
@@ -3063,9 +3063,9 @@ GLFWAPI void glfwSetWindowSize(GLFWwindow* window, int width, int height);
  *  non-`NULL` size arguments will be set to zero.
  *
  *  @param[in] window The window whose framebuffer to query.
- *  @param[out] width Where to store the width, in pixels, of the framebuffer,
+ *  @param[out] width Where to store the m_Width, in pixels, of the framebuffer,
  *  or `NULL`.
- *  @param[out] height Where to store the height, in pixels, of the framebuffer,
+ *  @param[out] height Where to store the m_Height, in pixels, of the framebuffer,
  *  or `NULL`.
  *
  *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED and @ref
@@ -3433,11 +3433,11 @@ GLFWAPI GLFWmonitor* glfwGetWindowMonitor(GLFWwindow* window);
  *  This function sets the monitor that the window uses for full screen mode or,
  *  if the monitor is `NULL`, makes it windowed mode.
  *
- *  When setting a monitor, this function updates the width, height and refresh
+ *  When setting a monitor, this function updates the m_Width, m_Height and refresh
  *  rate of the desired video mode and switches to the video mode closest to it.
  *  The window position is ignored when setting a monitor.
  *
- *  When the monitor is `NULL`, the position, width and height are used to
+ *  When the monitor is `NULL`, the position, m_Width and m_Height are used to
  *  place the window content area.  The refresh rate is ignored when no monitor
  *  is specified.
  *
@@ -3456,7 +3456,7 @@ GLFWAPI GLFWmonitor* glfwGetWindowMonitor(GLFWwindow* window);
  *  content area.
  *  @param[in] width The desired with, in screen coordinates, of the content
  *  area or video mode.
- *  @param[in] height The desired height, in screen coordinates, of the content
+ *  @param[in] height The desired m_Height, in screen coordinates, of the content
  *  area or video mode.
  *  @param[in] refreshRate The desired refresh rate, in Hz, of the video mode,
  *  or `GLFW_DONT_CARE`.
@@ -3651,7 +3651,7 @@ GLFWAPI GLFWwindowposfun glfwSetWindowPosCallback(GLFWwindow* window, GLFWwindow
  *
  *  @callback_signature
  *  @code
- *  void function_name(GLFWwindow* window, int width, int height)
+ *  void function_name(GLFWwindow* window, int m_Width, int m_Height)
  *  @endcode
  *  For more information about the callback parameters, see the
  *  [function pointer type](@ref GLFWwindowsizefun).
@@ -3856,7 +3856,7 @@ GLFWAPI GLFWwindowmaximizefun glfwSetWindowMaximizeCallback(GLFWwindow* window, 
  *
  *  @callback_signature
  *  @code
- *  void function_name(GLFWwindow* window, int width, int height)
+ *  void function_name(GLFWwindow* window, int m_Width, int m_Height)
  *  @endcode
  *  For more information about the callback parameters, see the
  *  [function pointer type](@ref GLFWframebuffersizefun).
@@ -5878,20 +5878,20 @@ GLFWAPI VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow* window
 /* ------------------- BEGIN SYSTEM/COMPILER SPECIFIC -------------------- */
 
 #ifdef GLFW_WINGDIAPI_DEFINED
- #undef WINGDIAPI
- #undef GLFW_WINGDIAPI_DEFINED
+#undef WINGDIAPI
+#undef GLFW_WINGDIAPI_DEFINED
 #endif
 
 #ifdef GLFW_CALLBACK_DEFINED
- #undef CALLBACK
- #undef GLFW_CALLBACK_DEFINED
+#undef CALLBACK
+#undef GLFW_CALLBACK_DEFINED
 #endif
 
 /* Some OpenGL related headers need GLAPIENTRY, but it is unconditionally
  * defined by some gl.h variants (OpenBSD) so define it after if needed.
  */
 #ifndef GLAPIENTRY
- #define GLAPIENTRY APIENTRY
+#define GLAPIENTRY APIENTRY
 #endif
 
 /* -------------------- END SYSTEM/COMPILER SPECIFIC --------------------- */

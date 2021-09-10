@@ -48,9 +48,9 @@ static void makeContextCurrentOSMesa(_GLFWwindow* window)
         {
             free(window->context.osmesa.buffer);
 
-            // Allocate the new buffer (width * height * 8-bit RGBA)
+            // Allocate the new buffer (m_Width * m_Height * 8-bit RGBA)
             window->context.osmesa.buffer = calloc(4, (size_t) width * height);
-            window->context.osmesa.width  = width;
+            window->context.osmesa.width = width;
             window->context.osmesa.height = height;
         }
 
@@ -114,31 +114,35 @@ GLFWbool _glfwInitOSMesa(void)
 {
     int i;
     const char* sonames[] =
-    {
+            {
 #if defined(_GLFW_OSMESA_LIBRARY)
-        _GLFW_OSMESA_LIBRARY,
+                    _GLFW_OSMESA_LIBRARY,
 #elif defined(_WIN32)
-        "libOSMesa.dll",
-        "OSMesa.dll",
+                    "libOSMesa.dll",
+                    "OSMesa.dll",
 #elif defined(__APPLE__)
-        "libOSMesa.8.dylib",
+                    "libOSMesa.8.dylib",
 #elif defined(__CYGWIN__)
-        "libOSMesa-8.so",
+                    "libOSMesa-8.so",
 #else
-        "libOSMesa.so.8",
-        "libOSMesa.so.6",
+                    "libOSMesa.so.8",
+                    "libOSMesa.so.6",
 #endif
-        NULL
-    };
+                    NULL
+            };
 
     if (_glfw.osmesa.handle)
+    {
         return GLFW_TRUE;
+    }
 
-    for (i = 0;  sonames[i];  i++)
+    for (i = 0 ; sonames[i] ; i++)
     {
         _glfw.osmesa.handle = _glfw_dlopen(sonames[i]);
         if (_glfw.osmesa.handle)
+        {
             break;
+        }
     }
 
     if (!_glfw.osmesa.handle)
@@ -148,19 +152,19 @@ GLFWbool _glfwInitOSMesa(void)
     }
 
     _glfw.osmesa.CreateContextExt = (PFN_OSMesaCreateContextExt)
-        _glfw_dlsym(_glfw.osmesa.handle, "OSMesaCreateContextExt");
+            _glfw_dlsym(_glfw.osmesa.handle, "OSMesaCreateContextExt");
     _glfw.osmesa.CreateContextAttribs = (PFN_OSMesaCreateContextAttribs)
-        _glfw_dlsym(_glfw.osmesa.handle, "OSMesaCreateContextAttribs");
+            _glfw_dlsym(_glfw.osmesa.handle, "OSMesaCreateContextAttribs");
     _glfw.osmesa.DestroyContext = (PFN_OSMesaDestroyContext)
-        _glfw_dlsym(_glfw.osmesa.handle, "OSMesaDestroyContext");
+            _glfw_dlsym(_glfw.osmesa.handle, "OSMesaDestroyContext");
     _glfw.osmesa.MakeCurrent = (PFN_OSMesaMakeCurrent)
-        _glfw_dlsym(_glfw.osmesa.handle, "OSMesaMakeCurrent");
+            _glfw_dlsym(_glfw.osmesa.handle, "OSMesaMakeCurrent");
     _glfw.osmesa.GetColorBuffer = (PFN_OSMesaGetColorBuffer)
-        _glfw_dlsym(_glfw.osmesa.handle, "OSMesaGetColorBuffer");
+            _glfw_dlsym(_glfw.osmesa.handle, "OSMesaGetColorBuffer");
     _glfw.osmesa.GetDepthBuffer = (PFN_OSMesaGetDepthBuffer)
-        _glfw_dlsym(_glfw.osmesa.handle, "OSMesaGetDepthBuffer");
+            _glfw_dlsym(_glfw.osmesa.handle, "OSMesaGetDepthBuffer");
     _glfw.osmesa.GetProcAddress = (PFN_OSMesaGetProcAddress)
-        _glfw_dlsym(_glfw.osmesa.handle, "OSMesaGetProcAddress");
+            _glfw_dlsym(_glfw.osmesa.handle, "OSMesaGetProcAddress");
 
     if (!_glfw.osmesa.CreateContextExt ||
         !_glfw.osmesa.DestroyContext ||
@@ -213,7 +217,9 @@ GLFWbool _glfwCreateContextOSMesa(_GLFWwindow* window,
     }
 
     if (ctxconfig->share)
+    {
         share = ctxconfig->share->context.osmesa.handle;
+    }
 
     if (OSMesaCreateContextAttribs)
     {
@@ -249,7 +255,7 @@ GLFWbool _glfwCreateContextOSMesa(_GLFWwindow* window,
         setAttrib(0, 0);
 
         window->context.osmesa.handle =
-            OSMesaCreateContextAttribs(attribs, share);
+                OSMesaCreateContextAttribs(attribs, share);
     }
     else
     {
@@ -261,11 +267,11 @@ GLFWbool _glfwCreateContextOSMesa(_GLFWwindow* window,
         }
 
         window->context.osmesa.handle =
-            OSMesaCreateContextExt(OSMESA_RGBA,
-                                   fbconfig->depthBits,
-                                   fbconfig->stencilBits,
-                                   accumBits,
-                                   share);
+                OSMesaCreateContextExt(OSMESA_RGBA,
+                                       fbconfig->depthBits,
+                                       fbconfig->stencilBits,
+                                       accumBits,
+                                       share);
     }
 
     if (window->context.osmesa.handle == NULL)
@@ -312,13 +318,21 @@ GLFWAPI int glfwGetOSMesaColorBuffer(GLFWwindow* handle, int* width,
     }
 
     if (width)
+    {
         *width = mesaWidth;
+    }
     if (height)
+    {
         *height = mesaHeight;
+    }
     if (format)
+    {
         *format = mesaFormat;
+    }
     if (buffer)
+    {
         *buffer = mesaBuffer;
+    }
 
     return GLFW_TRUE;
 }
@@ -345,13 +359,21 @@ GLFWAPI int glfwGetOSMesaDepthBuffer(GLFWwindow* handle,
     }
 
     if (width)
+    {
         *width = mesaWidth;
+    }
     if (height)
+    {
         *height = mesaHeight;
+    }
     if (bytesPerValue)
+    {
         *bytesPerValue = mesaBytes;
+    }
     if (buffer)
+    {
         *buffer = mesaBuffer;
+    }
 
     return GLFW_TRUE;
 }

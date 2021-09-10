@@ -4,131 +4,134 @@
 
 #include "Core/Core.h"
 
+#define RES_INVALID_RETURN_VAL 1
+
 namespace Iceblur
 {
+    struct Resolution
+    {
+        Resolution(int x, int y, bool canBeZero = false)
+        {
+            canBeNull = canBeZero;
+            if (canBeNull)
+            {
+                m_Width = x;
+                m_Height = y;
+            }
+            else
+            {
+                if (x > 0 && y > 0)
+                {
+                    m_Width = x;
+                    m_Height = y;
+                }
+                else
+                {
+                    ResolutionNullError();
+                }
+            }
+        }
+
+        NODISCARD inline int GetWidth() const
+        {
+            if (canBeNull)
+            {
+                return m_Width;
+            }
+            else
+            {
+                if (m_Width > 0)
+                {
+                    return m_Width;
+                }
+            }
+
+            ResolutionNullError();
+            return RES_INVALID_RETURN_VAL;
+        }
+
+        NODISCARD inline int SetWidth(int value)
+        {
+            if (canBeNull)
+            {
+                m_Width = value;
+                return m_Width;
+            }
+            else
+            {
+                if (value > 0)
+                {
+                    m_Width = value;
+                    return m_Width;
+                }
+            }
+
+            ResolutionNullError();
+            return RES_INVALID_RETURN_VAL;
+        }
+
+        NODISCARD inline int GetHeight() const
+        {
+            if (canBeNull)
+            {
+                return m_Height;
+            }
+            else
+            {
+                if (m_Height > 0)
+                {
+                    return m_Height;
+                }
+            }
+
+            ResolutionNullError();
+            return RES_INVALID_RETURN_VAL;
+        }
+
+        NODISCARD inline int SetHeight(int value)
+        {
+            if (canBeNull)
+            {
+                m_Height = value;
+                return m_Height;
+            }
+            else
+            {
+                if (value > 0)
+                {
+                    m_Height = value;
+                    return m_Height;
+                }
+            }
+
+            ResolutionNullError();
+            return RES_INVALID_RETURN_VAL;
+        }
+
+        //Should an error be thrown once m_Width or m_Height are zero or negative?
+        bool canBeNull = false;
+
+        NODISCARD inline int GetAspectRatio() const
+        {
+            if (m_Width > 0 && m_Height > 0)
+            {
+                return m_Width / m_Height;
+            }
+
+            ResolutionNullError();
+            return RES_INVALID_RETURN_VAL;
+        }
+
+    private:
+        static void ResolutionNullError();
+
+    private:
+        int m_Width = 1;
+        int m_Height = 1;
+    };
+
     class VMath
     {
-    public:
-        struct Resolution
-        {
-            Resolution(float x, float y, bool canBeZeroOrNegative = false)
-            {
-                canBeNull = canBeZeroOrNegative;
-                if (canBeNull)
-                {
-                    width = x;
-                    height = y;
-                }
-                else
-                {
-                    if (x > 0 && y > 0)
-                    {
-                        width = x;
-                        height = y;
-                    }
-                }
-            }
 
-            NODISCARD inline float GetWidth() const
-            {
-                if (canBeNull)
-                {
-                    return width;
-                }
-                else
-                {
-                    if (width > 0)
-                    {
-                        return width;
-                    }
-
-                    //TODO: ERROR
-                }
-
-                //TODO: ERROR
-
-                return 0;
-            }
-
-            NODISCARD inline float SetWidth(float value)
-            {
-                if (canBeNull)
-                {
-                    width = value;
-                    return width;
-                }
-                else
-                {
-                    if (value > 0)
-                    {
-                        width = value;
-                        return width;
-                    }
-
-                    //TODO: ERROR
-                }
-
-                return 0;
-            }
-
-            NODISCARD inline float GetHeight() const
-            {
-                if (canBeNull)
-                {
-                    return height;
-                }
-                else
-                {
-                    if (height > 0)
-                    {
-                        return height;
-                    }
-
-                    //TODO: ERROR
-                }
-
-                return 0;
-            }
-
-            NODISCARD inline float SetHeight(float value)
-            {
-                if (canBeNull)
-                {
-                    height = value;
-                    return height;
-                }
-                else
-                {
-                    if (value > 0)
-                    {
-                        height = value;
-                        return height;
-                    }
-
-                    //TODO: ERROR
-                }
-
-                return 0;
-            }
-
-            //Should an error be thrown once width or height are zero or negative?
-            bool canBeNull = false;
-
-            NODISCARD inline float GetAspectRatio() const
-            {
-                if (width > 0 && height > 0)
-                {
-                    return width / height;
-                }
-
-                //TODO: ERROR
-
-                return 0;
-            }
-
-        private:
-            float width = 1.0;
-            float height = 1.0;
-        };
     };
 }
