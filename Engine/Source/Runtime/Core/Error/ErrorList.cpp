@@ -7,7 +7,7 @@ namespace Iceblur
     static const std::string ErrorTypes[] =
             {
                     "None",
-                    "Multiple instances of %0 detected! This is not allowed. %1 %2"
+                    "Multiple instances of %0 detected! This is not allowed."
             };
 
     static const std::string FailedTypes[] =
@@ -76,6 +76,7 @@ namespace Iceblur
                         }
                     }
                 }
+
 
                 indexStr.clear();
             }

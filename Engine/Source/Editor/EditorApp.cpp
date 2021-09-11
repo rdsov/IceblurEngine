@@ -20,8 +20,6 @@ public:
 
     void OnPostInit() override
     {
-        Error::ToString(Error::ETypes::SINGLETON, { "Test", "Apple", "Futureblur" });
-
         EventSystem::Subscribe(MousePositionEvent::type, &OnMouseMoved);
         Application::OnPostInit();
     }
