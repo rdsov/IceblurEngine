@@ -9,7 +9,7 @@ namespace Iceblur
     {
         if (m_Instance)
         {
-            ICE_FATAL("Multiple instances of EventSystem detected! This is not allowed.");
+            ICE_FATAL(Error::ETypes::ASINGLETON, { "EventSystem" });
         }
 
         m_Instance = new EventSystem();
