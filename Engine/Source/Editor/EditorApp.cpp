@@ -13,13 +13,13 @@ public:
 
     static void OnMouseMoved(ICE_EVENT_FN e)
     {
-        ICE_EVENT_CAST(event, e, MousePositionEvent);
+        ICE_EVENT_CAST(event, e, MouseMovedEvent);
         ICE_PRINT(event);
     }
 
     void OnPostInit() override
     {
-        EventSystem::Subscribe(MousePositionEvent::type, &OnMouseMoved);
+        EventSystem::Subscribe(MouseMovedEvent::type, &OnMouseMoved);
         Application::OnPostInit();
     }
 };

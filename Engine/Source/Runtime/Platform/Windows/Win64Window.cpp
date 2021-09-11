@@ -68,7 +68,7 @@ namespace Iceblur
 
     void Win64Window::MousePositionCallback(GLFWwindow* window, double x, double y)
     {
-        MousePositionEvent event((float) x, (float) y);
+        MouseMovedEvent event((float) x, (float) y);
         EventSystem::Dispatch(event);
     }
 }
