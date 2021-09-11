@@ -4,6 +4,7 @@
 
 #include "Core/Core.h"
 #include "EventTypes.h"
+#include "Core/Error/ErrorList.h"
 
 //Converts the IEvent base class to any derived type.
 //NewVarName is the name of the new variable that will be created by this macro.
@@ -11,7 +12,7 @@
 #define ICE_EVENT_CAST(NewVarName, BaseVarName, EventType) EventType NewVarName; \
 try { NewVarName = dynamic_cast<const EventType&>(BaseVarName); } catch (const std::bad_cast& e) \
 { \
-ICE_FATAL("Failed to cast event!"); \
+ICE_FATAL(Error::EFailed::ACAST_EVENT, { #NewVarName, #EventType }); \
 }
 
 namespace Iceblur

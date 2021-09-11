@@ -21,9 +21,8 @@ namespace Iceblur
         glfwWindowHint(GLFW_REFRESH_RATE, props.RefreshRate);
 
         glfwWindowHint(GLFW_MAXIMIZED, props.Maximized);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
         glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
@@ -32,6 +31,7 @@ namespace Iceblur
         if (props.Fullscreen)
         {
             monitor = glfwGetPrimaryMonitor();
+            glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
         }
 
         int width = props.resolution.GetWidth();
@@ -47,8 +47,8 @@ namespace Iceblur
 
         if (!m_Window)
         {
+            ICE_ERROR(Error::EFailed::WINDOW_CREATION);
             glfwTerminate();
-            ICE_ERROR("Failed to create window!");
             return false;
         }
 

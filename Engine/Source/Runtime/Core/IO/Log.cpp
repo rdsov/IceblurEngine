@@ -19,13 +19,14 @@ namespace Iceblur
     void Log::Init()
     {
         m_ConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-        SetConsoleColor(EConsoleColor::White);
+        ResetConsoleColor();
     }
 
     void Log::Print(const std::string& text)
     {
         SetConsoleColor(EConsoleColor::White);
         ICE_PRINT(text);
+        ResetConsoleColor();
     }
 
     void Log::Message(const std::string& message)
@@ -33,6 +34,7 @@ namespace Iceblur
         SetConsoleColor(EConsoleColor::White);
         std::string out = GetFormattedTime() + " " + message;
         ICE_PRINT(out);
+        ResetConsoleColor();
     }
 
     void Log::Info(const std::string& info)
@@ -40,6 +42,25 @@ namespace Iceblur
         SetConsoleColor(EConsoleColor::Blue);
         std::string out = GetFormattedTime() + " [INFO] " + info;
         ICE_PRINT(out);
+        ResetConsoleColor();
+    }
+
+    void Log::Warn(Error::ETypes error, const Error::ErrorArgs& args)
+    {
+        std::string warning;
+
+        warning = Error::ToString(error, args);
+
+        Warn(warning);
+    }
+
+    void Log::Warn(Error::EFailed error, const Error::ErrorArgs& args)
+    {
+        std::string warning;
+
+        warning = Error::ToString(error, args);
+
+        Warn(warning);
     }
 
     void Log::Warn(const std::string& warning)
@@ -47,6 +68,25 @@ namespace Iceblur
         SetConsoleColor(EConsoleColor::Yellow);
         std::string out = GetFormattedTime() + " [WARNING] " + warning;
         ICE_PRINT(out);
+        ResetConsoleColor();
+    }
+
+    void Log::Error(Error::ETypes error, const Error::ErrorArgs& args)
+    {
+        std::string err;
+
+        err = Error::ToString(error, args);
+
+        Error(err);
+    }
+
+    void Log::Error(Error::EFailed error, const Error::ErrorArgs& args)
+    {
+        std::string err;
+
+        err = Error::ToString(error, args);
+
+        Error(err);
     }
 
     void Log::Error(const std::string& error)
@@ -54,11 +94,17 @@ namespace Iceblur
         SetConsoleColor(EConsoleColor::Red);
         std::string out = GetFormattedTime() + " [ERROR] " + error;
         ICE_PRINT(out);
+        ResetConsoleColor();
     }
 
     void Log::SetConsoleColor(EConsoleColor color)
     {
         SetConsoleTextAttribute(m_ConsoleHandle, color);
+    }
+
+    void Log::ResetConsoleColor()
+    {
+        SetConsoleColor(EConsoleColor::White);
     }
 
     std::string Log::GetFormattedTime()

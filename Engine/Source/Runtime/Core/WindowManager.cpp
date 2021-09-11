@@ -5,7 +5,6 @@
 #include <GLFW/glfw3.h>
 
 #include "IO/Log.h"
-#include "Error/ErrorList.h"
 #include "Platform/PlatformDetection.h"
 #include "Platform/Windows/Win64Window.h"
 
@@ -46,7 +45,7 @@ namespace Iceblur
                 configProps.UseMonitorResolution = true;
                 break;
             case EWindowType::Unknown:
-                ICE_WARN("Unknown window type!");
+                ICE_WARN(Error::ETypes::AUNKNOWN, { "window type" });
                 break;
         }
 
@@ -61,7 +60,6 @@ namespace Iceblur
 #else
 #error "Platform is not supported!";
 #endif
-
         return nullptr;
     }
 

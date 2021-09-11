@@ -4,31 +4,44 @@
 
 #include "Core/Core.h"
 
+#define INVALID_ENUM_ARRAY_LENGTH "Enum length doesn't match array length!"
+
 namespace Iceblur
 {
     struct ICE_API Error
     {
         //Generic error types
+        //Letter 'A' means it needs one or more arguments
         enum class ETypes
         {
             NONE,
-            SINGLETON,
+            ASINGLETON,
+            AMUST_BE_GREATER_THAN_ZERO,
+            AUNKNOWN,
             LAST
         };
 
+        //Letter 'A' means it needs one or more arguments
         enum class EFailed
         {
             GLAD_INIT,
             GLFW_INIT,
             WINDOW_CREATION,
-            CAST_EVENT,
+            ACAST_EVENT,
             LAST
         };
 
+        using ErrorArgs = std::vector<std::string>;
+
         //Returns full error string of ETypes enum
-        NODISCARD static std::string ToString(ETypes error, const std::vector<std::string>& args);
+        NODISCARD static std::string ToString(ETypes error, const ErrorArgs& args = { });
 
         //Returns full error string of EFailed enum
-        NODISCARD static std::string ToString(EFailed error, const std::string args[] = { });
+        NODISCARD static std::string ToString(EFailed error, const ErrorArgs& args = { });
+
+    private:
+        //Searches for argument indexes in a string and replaces them with the corresponding args.
+        //Arguments are created with '%', followed by any non-negative number.
+        static void ProcessArgs(std::string_view sourceStr, std::string& outResult, const ErrorArgs& args);
     };
 }

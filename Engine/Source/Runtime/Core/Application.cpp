@@ -26,11 +26,11 @@ namespace Iceblur
 
         //TODO: GLFW error callback
 
-        WindowManager::CreateWindow(EWindowType::EditorPopup, {}, true);
+        WindowManager::CreateWindow(EWindowType::FullscreenGame, { }, true);
 
         if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
         {
-            ICE_ERROR("Failed to initialize glad!");
+            ICE_ERROR(Error::EFailed::GLAD_INIT);
         }
 
         OnPostInit();

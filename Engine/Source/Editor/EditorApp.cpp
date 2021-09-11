@@ -14,7 +14,6 @@ public:
     static void OnMouseMoved(ICE_EVENT_FN e)
     {
         ICE_EVENT_CAST(event, e, MousePositionEvent);
-
         ICE_PRINT(event);
     }
 
