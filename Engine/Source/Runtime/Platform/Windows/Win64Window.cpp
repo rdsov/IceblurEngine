@@ -18,7 +18,6 @@ namespace Iceblur
         glfwWindowHint(GLFW_RED_BITS, mode->redBits);
         glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
         glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
-        glfwWindowHint(GLFW_REFRESH_RATE, props.RefreshRate);
 
         glfwWindowHint(GLFW_MAXIMIZED, props.Maximized);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -31,8 +30,15 @@ namespace Iceblur
         if (props.Fullscreen)
         {
             monitor = glfwGetPrimaryMonitor();
-            glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
         }
+
+        int refreshRate = props.RefreshRate;
+        if (props.UseMonitorRefreshRate)
+        {
+            refreshRate = mode->refreshRate;
+        }
+
+        glfwWindowHint(GLFW_REFRESH_RATE, refreshRate);
 
         int width = props.resolution.GetWidth();
         int height = props.resolution.GetHeight();

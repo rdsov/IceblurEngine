@@ -43,6 +43,7 @@ namespace Iceblur
                 configProps.Maximized = true;
                 configProps.Fullscreen = true;
                 configProps.UseMonitorResolution = true;
+                configProps.UseMonitorRefreshRate = true;
                 break;
             case EWindowType::Unknown:
                 ICE_WARN(Error::ETypes::AUNKNOWN, { "window type" });

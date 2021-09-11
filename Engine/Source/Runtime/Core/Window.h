@@ -16,6 +16,7 @@ namespace Iceblur
         bool Maximized = true;
         bool Fullscreen = false;
         bool UseMonitorResolution = false;
+        bool UseMonitorRefreshRate = false;
     };
 
     //Speeds up the process of creating a window.
