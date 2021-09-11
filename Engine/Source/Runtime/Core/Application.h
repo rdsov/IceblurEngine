@@ -29,6 +29,7 @@ namespace Iceblur
     protected:
         virtual void OnInit();
 
+        //Initialize here
         virtual void OnPostInit();
 
         virtual void OnUpdate();

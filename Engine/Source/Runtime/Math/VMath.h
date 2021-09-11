@@ -8,7 +8,7 @@
 
 namespace Iceblur
 {
-    struct Resolution
+    struct ICE_API Resolution
     {
         Resolution(int x, int y, bool canBeZero = false)
         {

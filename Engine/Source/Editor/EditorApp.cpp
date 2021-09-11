@@ -19,6 +19,7 @@ public:
 
     void OnPostInit() override
     {
+        WindowManager::CreateWindow(EWindowType::EditorPopup, { }, true);
         EventSystem::Subscribe(MouseMovedEvent::type, &OnMouseMoved);
         Application::OnPostInit();
     }

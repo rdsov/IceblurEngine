@@ -25,19 +25,16 @@ namespace Iceblur
         ICE_PRINT("Welcome to Iceblur Engine! For more information, please visit https://github.com/Futureblur/IceblurEngine");
 
         //TODO: GLFW error callback
-
-        WindowManager::CreateWindow(EWindowType::FullscreenGame, { }, true);
-
-        if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
-        {
-            ICE_ERROR(Error::EFailed::GLAD_INIT);
-        }
-
         OnPostInit();
     }
 
     void Application::OnPostInit()
     {
+        if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
+        {
+            ICE_ERROR(Error::EFailed::GLAD_INIT);
+        }
+
         while (WindowManager::IsWindowRunning(WindowManager::GetHost()))
         {
             OnUpdate();
