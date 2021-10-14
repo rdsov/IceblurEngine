@@ -7,6 +7,8 @@
 
 #include "WindowManager.h"
 #include "Event/EventSystem.h"
+#include "Renderer/Renderer.h"
+#include "Renderer/RenderingPipeline.h"
 
 namespace Iceblur
 {
@@ -21,6 +23,7 @@ namespace Iceblur
         Log::Init();
         EventSystem::Initialize();
         WindowManager::Initialize();
+        Renderer::Initialize();
 
         ICE_PRINT("Welcome to Iceblur Engine! For more information, please visit https://github.com/Futureblur/IceblurEngine");
 
@@ -46,6 +49,7 @@ namespace Iceblur
     void Application::OnUpdate()
     {
         WindowManager::UpdateWindow(WindowManager::GetHost());
+        Renderer::Update();
     }
 
     void Application::OnShutdown()

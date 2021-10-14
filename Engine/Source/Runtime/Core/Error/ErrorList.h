@@ -18,6 +18,7 @@ namespace Iceblur
             ASINGLETON,
             AMUST_BE_GREATER_THAN_ZERO,
             AUNKNOWN,
+            NO_PIPELINE,
             LAST
         };
 

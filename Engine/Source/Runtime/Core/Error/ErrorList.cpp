@@ -11,7 +11,8 @@ namespace Iceblur
                     "None",
                     "Multiple instances of %0 detected! This is not allowed.",
                     "%0 must be greater than zero!",
-                    "Unknown %0!"
+                    "Unknown %0!",
+                    "No rendering pipeline found!"
             };
 
     static const std::string FailedTypes[] =

@@ -8,6 +8,14 @@
 
 namespace Iceblur
 {
+    enum class Dimension
+    {
+        ONE,
+        TWO,
+        THREE,
+        FOUR
+    };
+
     struct ICE_API Resolution
     {
         Resolution(int x, int y, bool canBeZero = false)

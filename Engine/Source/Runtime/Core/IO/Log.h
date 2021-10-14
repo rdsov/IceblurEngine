@@ -72,5 +72,5 @@ namespace Iceblur
 #define ICE_MESSAGE(x) Log::Message(x)                  //Logs a simple message to the console. Color: White
 #define ICE_INFO(x) Log::Info(x)                        //Logs info to the console. Color: Blue
 #define ICE_WARN(...) Log::Warn(__VA_ARGS__)            //Logs warning to the console. Color: Yellow
-#define ICE_ERROR(...) Log::Error(__VA_ARGS__)                      //Logs error to the console. Color: Red
+#define ICE_ERROR(...) Log::Error(__VA_ARGS__)          //Logs error to the console. Color: Red
 #define ICE_FATAL(...) Log::Error(__VA_ARGS__); return  //Logs error to the console and prevents code from continuing. Color: Red
