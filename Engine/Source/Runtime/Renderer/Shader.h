@@ -7,10 +7,10 @@ namespace Iceblur
     class Shader
     {
     public:
-        Shader(const uint32_t& type, const char* path)
+        Shader(const uint32_t& type, const std::string& path)
                 : m_Shader()
         {
-            Compile(type, path);
+            Compile(type, path.c_str());
         }
 
         operator uint32_t() const

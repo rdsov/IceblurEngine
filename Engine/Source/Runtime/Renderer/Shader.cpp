@@ -14,7 +14,7 @@ namespace Iceblur
 
         if (!std::filesystem::exists(path))
         {
-            ICE_ERROR(Error::EFailed::A_COMPILE_SHADER, { ICE_TOS(type), path });
+            ICE_ERROR(Error::ETypes::A_INVALID_PATH, { path });
             return;
         }
 

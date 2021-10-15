@@ -12,7 +12,7 @@
 #define ICE_EVENT_CAST(NewVarName, BaseVarName, EventType) EventType NewVarName; \
 try { NewVarName = dynamic_cast<const EventType&>(BaseVarName); } catch (const std::bad_cast& e) \
 { \
-ICE_FATAL(Error::EFailed::ACAST_EVENT, { #NewVarName, #EventType }); \
+ICE_FATAL(Error::EFailed::A_CAST_EVENT, { #NewVarName, #EventType }); \
 }
 
 namespace Iceblur

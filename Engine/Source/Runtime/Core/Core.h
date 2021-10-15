@@ -22,7 +22,7 @@
 //Singleton pattern macro to prevent multiple instances of a class.
 //InstanceVar must share the same name as defined in ICE_SINGLETON_DEF
 #define ICE_SINGLETON(InstanceVar, Class) if (InstanceVar) \
-{ ICE_FATAL(Error::ETypes::ASINGLETON, { #Class }); } \
+{ ICE_FATAL(Error::ETypes::A_SINGLETON, { #Class }); } \
 else { m_Instance = this; };
 
 //Defines a singleton instance class which is used together with the ICE_SINGLETON macro.
@@ -35,3 +35,5 @@ else { m_Instance = this; };
 //Enum should have 'LAST' as the last element
 #define ICE_ASSERT_ARRAY_ENUM(Array, Enum) \
 static_assert(sizeof(Array) / sizeof(Array[0]) == static_cast<int>(Enum::LAST), INVALID_ENUM_ARRAY_LENGTH);
+
+

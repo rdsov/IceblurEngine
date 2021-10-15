@@ -12,7 +12,8 @@ namespace Iceblur
                     "Multiple instances of %0 detected! This is not allowed.",
                     "%0 must be greater than zero!",
                     "Unknown %0!",
-                    "No rendering pipeline found!"
+                    "No rendering pipeline found!",
+                    "Path was not found: %0"
             };
 
     static const std::string FailedTypes[] =
@@ -20,9 +21,9 @@ namespace Iceblur
                     "Failed to initialize GLAD!",
                     "Failed to initialize GLFW!",
                     "Failed to create window!",
+                    "Failed to cast %0 to %1!",
                     "Failed to compile %0 shader! Path: %1",
                     "Failed to link shader!",
-                    "Failed to cast %0 to %1!"
             };
 
     ICE_ASSERT_ARRAY_ENUM(ErrorTypes, Error::ETypes);

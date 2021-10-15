@@ -19,6 +19,7 @@ namespace Iceblur
             A_MUST_BE_GREATER_THAN_ZERO,
             A_UNKNOWN,
             NO_PIPELINE,
+            A_INVALID_PATH,
             LAST
         };
 

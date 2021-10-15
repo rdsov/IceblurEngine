@@ -4,8 +4,14 @@
 
 #include "Math/VMath.h"
 
+#include "Shader.h"
+
 namespace Iceblur
 {
+
+    //-------------Rendering Pipeline Base Class-------------------//
+
+
     struct ICE_API RenderingPipeline
     {
         virtual std::string GetName() = 0;
@@ -21,6 +27,10 @@ namespace Iceblur
 
         friend class Renderer;
     };
+
+
+    //-------------------- BASE RENDERER --------------------------//
+
 
     struct ICE_API BaseRenderer : public RenderingPipeline
     {
@@ -46,6 +56,8 @@ namespace Iceblur
     private:
         Color m_ClearColor;
 
-
+        ShaderProgram* m_ShaderProgram = nullptr;
+        Shader* m_VertexShader = nullptr;
+        Shader* m_FragmentShader = nullptr;
     };
 }

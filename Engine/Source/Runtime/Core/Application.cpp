@@ -23,7 +23,6 @@ namespace Iceblur
         Log::Init();
         EventSystem::Initialize();
         WindowManager::Initialize();
-        Renderer::Initialize();
 
         ICE_PRINT("Welcome to Iceblur Engine! For more information, please visit https://github.com/Futureblur/IceblurEngine");
 
@@ -37,6 +36,8 @@ namespace Iceblur
         {
             ICE_ERROR(Error::EFailed::GLAD_INIT);
         }
+
+        Renderer::Initialize();
 
         while (WindowManager::IsWindowRunning(WindowManager::GetHost()))
         {
