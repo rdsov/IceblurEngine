@@ -5,6 +5,8 @@
 #include "Core/Core.h"
 #include "Window.h"
 
+#include <GLFW/glfw3.h>
+
 namespace Iceblur
 {
     class ICE_API WindowManager
@@ -16,7 +18,7 @@ namespace Iceblur
 
         static void Initialize();
 
-        static Window* CreateWindow(const EWindowType& type = EWindowType::Unknown, const WindowProps& props = {}, bool host = false);
+        static Window* CreateWindow(const EWindowType& type = EWindowType::Unknown, const WindowProps& props = { }, bool host = false);
 
         static bool IsWindowRunning(Window* window);
 
@@ -27,11 +29,29 @@ namespace Iceblur
             return m_Host;
         }
 
+        //Returns a static window variable for a given target window.
+        //Target window must be either the host or one of the popup windows.
+        //Returns nullptr if target was not found.
+        static Window* GetStaticWindow(GLFWwindow* target)
+        {
+            if (m_Host->GetNativeWindow() == target) return m_Host;
+
+            for (const auto& window : m_PopupWindows)
+            {
+                if (window->GetNativeWindow() == target)
+                {
+                    return window;
+                }
+            }
+
+            return nullptr;
+        }
+
     private:
         struct WindowFnSignature
         {
             EWindowType type = EWindowType::Unknown;
-            WindowProps props = {};
+            WindowProps props = { };
             bool isHost = false;
         };
 
@@ -43,5 +63,6 @@ namespace Iceblur
 
     private:
         static inline Window* m_Host;
+        static inline std::vector<Window*> m_PopupWindows;
     };
 }

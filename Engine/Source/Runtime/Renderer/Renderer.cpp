@@ -16,7 +16,7 @@ namespace Iceblur
         RenderingPipeline* pipeline = new SimpleRenderer();
 
         pipeline->Initialize();
-        m_ActivePipeline = pipeline;
+        SetActiveRenderingPipeline(pipeline);
     }
 
     void Renderer::SetActiveRenderingPipeline(RenderingPipeline* pipeline)

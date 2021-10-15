@@ -11,16 +11,32 @@ public:
 
     ~EditorApp() override = default;
 
-    static void OnMouseMoved(ICE_EVENT_FN e)
+    static void OnMouseMoved(IceEventFn e)
     {
-        ICE_EVENT_CAST(event, e, MouseMovedEvent);
+        ICE_EVENT_CAST(event, e, MouseMoveEvent);
+        ICE_PRINT(event);
+    }
+
+    static void OnWindowResize(IceEventFn e)
+    {
+        ICE_EVENT_CAST(event, e, WindowResizeEvent);
+        ICE_PRINT(event);
+    }
+
+    typedef const IEvent& test;
+
+    static void OnWindowMaximize(test e)
+    {
+        ICE_EVENT_CAST(event, e, WindowMaximizeEvent);
         ICE_PRINT(event);
     }
 
     void OnPostInit() override
     {
         WindowManager::CreateWindow(EWindowType::EditorPopup, { }, true);
-        EventSystem::Subscribe(MouseMovedEvent::type, &OnMouseMoved);
+        //EventSystem::Subscribe(MouseMoveEvent::type, &OnMouseMoved);
+        //EventSystem::Subscribe(WindowResizeEvent::type, &OnWindowResize);
+        EventSystem::Subscribe(WindowMaximizeEvent::type, &OnWindowMaximize);
         Application::OnPostInit();
     }
 };

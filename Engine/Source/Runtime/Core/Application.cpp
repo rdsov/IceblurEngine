@@ -54,6 +54,7 @@ namespace Iceblur
 
     void Application::OnShutdown()
     {
+        Renderer::Shutdown();
         glfwTerminate();
     }
 }

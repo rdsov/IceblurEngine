@@ -4,7 +4,7 @@
 
 #include "Core/Window.h"
 
-struct GLFWwindow;
+#include <GLFW/glfw3.h>
 
 namespace Iceblur
 {
@@ -22,6 +22,10 @@ namespace Iceblur
 
     private:
         bool Create(const WindowProps& props) override;
+
+        static void WindowMaximizeCallback(GLFWwindow* window, int maximized);
+
+        static void WindowSizeCallback(GLFWwindow* window, int width, int height);
 
         static void MousePositionCallback(GLFWwindow* window, double x, double y);
 

@@ -2,8 +2,6 @@
 
 #include "WindowManager.h"
 
-#include <GLFW/glfw3.h>
-
 #include "IO/Log.h"
 #include "Platform/PlatformDetection.h"
 #include "Platform/Windows/Win64Window.h"
@@ -80,6 +78,10 @@ namespace Iceblur
         if (signature.isHost)
         {
             m_Host = window;
+        }
+        else
+        {
+            m_PopupWindows.emplace_back(window);
         }
 
         return window;

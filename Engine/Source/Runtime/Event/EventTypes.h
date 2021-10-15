@@ -8,16 +8,76 @@ namespace Iceblur
 {
     //---------------EVENT TYPE DECLARATIONS---------------//
 
-    struct MouseMovedEvent : IEvent
-    {
-        ICE_EVENT_DECL(MouseMovedEvent)
+    struct Window;
 
-        MouseMovedEvent(float x, float y)
+    struct WindowResizeEvent : IEvent
+    {
+        ICE_EVENT_DECL(WindowResizeEvent)
+
+        WindowResizeEvent(Window* window, int width, int height)
+                : m_Window(window), m_Width(width), m_Height(height)
+        {
+        }
+
+        ~WindowResizeEvent() override = default;
+
+        NODISCARD inline Window* GetWindow() const
+        {
+            return m_Window;
+        }
+
+        NODISCARD inline int GetWidth() const
+        {
+            return m_Width;
+        }
+
+        NODISCARD inline int GetHeight() const
+        {
+            return m_Height;
+        }
+
+    private:
+        Window* m_Window = nullptr;
+        int m_Width = 0;
+        int m_Height = 0;
+    };
+
+    struct WindowMaximizeEvent : IEvent
+    {
+        ICE_EVENT_DECL(WindowMaximizeEvent)
+
+        WindowMaximizeEvent(Window* window, bool maximized)
+                : m_Window(window), m_Maximized(maximized)
+        {
+        }
+
+        ~WindowMaximizeEvent() override = default;
+
+        NODISCARD inline Window* GetWindow() const
+        {
+            return m_Window;
+        }
+
+        NODISCARD inline bool IsMaximized() const
+        {
+            return m_Maximized;
+        }
+
+    private:
+        Window* m_Window = nullptr;
+        bool m_Maximized = false;
+    };
+
+    struct MouseMoveEvent : IEvent
+    {
+        ICE_EVENT_DECL(MouseMoveEvent)
+
+        MouseMoveEvent(float x, float y)
                 : m_X(x), m_Y(y)
         {
         }
 
-        ~MouseMovedEvent() override = default;
+        ~MouseMoveEvent() override = default;
 
         NODISCARD inline float GetX() const
         {
@@ -36,7 +96,19 @@ namespace Iceblur
 
     //---------------DEBUG OVERLOADS---------------//
 
-    inline std::ostream& operator<<(std::ostream& os, const MouseMovedEvent& event)
+    inline std::ostream& operator<<(std::ostream& os, const WindowResizeEvent& event)
+    {
+        os << event.DebugString() << "Width: " << event.GetWidth() << " Height: " << event.GetHeight();
+        return os;
+    }
+
+    inline std::ostream& operator<<(std::ostream& os, const WindowMaximizeEvent& event)
+    {
+        os << event.DebugString() << "Is Maximized: " << event.IsMaximized();
+        return os;
+    }
+
+    inline std::ostream& operator<<(std::ostream& os, const MouseMoveEvent& event)
     {
         os << event.DebugString() << "X: " << event.GetX() << " Y: " << event.GetY();
         return os;

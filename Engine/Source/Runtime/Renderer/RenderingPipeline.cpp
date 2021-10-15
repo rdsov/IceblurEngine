@@ -13,7 +13,7 @@ namespace Iceblur
 
     void SimpleRenderer::Update(double deltaTime)
     {
-        ICE_PRINT(deltaTime);
+        //ICE_PRINT(deltaTime);
     }
 
     void SimpleRenderer::Shutdown()

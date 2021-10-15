@@ -10,9 +10,6 @@
 static constexpr EventName type = #EventType;            \
 NODISCARD EventName GetName() const override { return type; }
 
-//Parameter for event callback functions
-#define ICE_EVENT_FN const IEvent&
-
 namespace Iceblur
 {
     struct IEvent
@@ -38,4 +35,7 @@ namespace Iceblur
             return "[" + ToString() + "] ";
         }
     };
+
+    //Parameter for event callback functions
+    typedef const IEvent& IceEventFn;
 }

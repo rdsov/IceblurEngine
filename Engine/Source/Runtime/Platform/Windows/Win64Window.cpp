@@ -2,10 +2,9 @@
 
 #include "Win64Window.h"
 
-#include <GLFW/glfw3.h>
-
 #include "Core/IO/Log.h"
 #include "Event/EventSystem.h"
+#include "Core/WindowManager.h"
 
 namespace Iceblur
 {
@@ -61,14 +60,28 @@ namespace Iceblur
         glfwMakeContextCurrent(m_Window);
 
         //Example callback for testing, more will be implemented soon
+        glfwSetWindowMaximizeCallback(m_Window, &WindowMaximizeCallback);
+        glfwSetWindowSizeCallback(m_Window, &WindowSizeCallback);
         glfwSetCursorPosCallback(m_Window, &MousePositionCallback);
 
         return true;
     }
 
+    void Win64Window::WindowMaximizeCallback(GLFWwindow* window, int maximized)
+    {
+        WindowMaximizeEvent event(WindowManager::GetStaticWindow(window), maximized);
+        EventSystem::Dispatch(event);
+    }
+
+    void Win64Window::WindowSizeCallback(GLFWwindow* window, int width, int height)
+    {
+        WindowResizeEvent event(WindowManager::GetStaticWindow(window), width, height);
+        EventSystem::Dispatch(event);
+    }
+
     void Win64Window::MousePositionCallback(GLFWwindow* window, double x, double y)
     {
-        MouseMovedEvent event((float) x, (float) y);
+        MouseMoveEvent event((float) x, (float) y);
         EventSystem::Dispatch(event);
     }
 }
