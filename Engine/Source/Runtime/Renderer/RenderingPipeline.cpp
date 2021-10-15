@@ -2,18 +2,26 @@
 
 #include "RenderingPipeline.h"
 
+#include <glad/glad.h>
+
 #include "Core/IO/Log.h"
 
 namespace Iceblur
 {
     void SimpleRenderer::Initialize()
     {
-        ICE_INFO("Initialized 2D renderer.");
+        m_ClearColor = Color();
     }
 
     void SimpleRenderer::Update(double deltaTime)
     {
-        //ICE_PRINT(deltaTime);
+        ClearColor();
+    }
+
+    void SimpleRenderer::ClearColor()
+    {
+        glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(ALL_COLOR_CHANNELS(m_ClearColor));
     }
 
     void SimpleRenderer::Shutdown()

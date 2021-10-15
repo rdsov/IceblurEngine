@@ -48,8 +48,8 @@ namespace Iceblur
 
     void Application::OnUpdate()
     {
-        WindowManager::UpdateWindow(WindowManager::GetHost());
         Renderer::Update();
+        WindowManager::UpdateWindow(WindowManager::GetHost());
     }
 
     void Application::OnShutdown()

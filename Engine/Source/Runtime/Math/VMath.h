@@ -138,6 +138,32 @@ namespace Iceblur
         int m_Height = 1;
     };
 
+#define RGB_CHANNELS(var) (var).red, (var).green, (var).blue
+#define ALL_COLOR_CHANNELS(var) var.red, (var).green, (var).blue, (var).alpha
+
+    struct Color
+    {
+        Color()
+                : red(0), green(0), blue(0), alpha(0)
+        {
+        }
+
+        Color(float rgb, float alpha = 0)
+                : red(rgb), green(rgb), blue(rgb), alpha(alpha)
+        {
+        }
+
+        Color(float r, float g, float b, float a = 1)
+                : red(r), green(g), blue(b), alpha(a)
+        {
+        }
+
+        float red = 0;
+        float green = 0;
+        float blue = 0;
+        float alpha = 0;
+    };
+
     class VMath
     {
 

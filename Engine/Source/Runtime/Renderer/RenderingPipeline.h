@@ -34,11 +34,17 @@ namespace Iceblur
             return Dimension::TWO;
         }
 
+    private:
         void Initialize() override;
 
         void Update(double deltaTime) override;
 
+        void ClearColor();
+
         void Shutdown() override;
+
+    private:
+        Color m_ClearColor;
 
     };
 }
