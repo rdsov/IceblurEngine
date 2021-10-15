@@ -8,23 +8,23 @@
 
 namespace Iceblur
 {
-    void SimpleRenderer::Initialize()
+    void BaseRenderer::Initialize()
     {
         m_ClearColor = Color();
     }
 
-    void SimpleRenderer::Update(double deltaTime)
+    void BaseRenderer::Update(double deltaTime)
     {
         ClearColor();
     }
 
-    void SimpleRenderer::ClearColor()
+    void BaseRenderer::ClearColor()
     {
         glClear(GL_COLOR_BUFFER_BIT);
         glClearColor(ALL_COLOR_CHANNELS(m_ClearColor));
     }
 
-    void SimpleRenderer::Shutdown()
+    void BaseRenderer::Shutdown()
     {
         ICE_INFO("Shutting down 2D renderer...");
     }

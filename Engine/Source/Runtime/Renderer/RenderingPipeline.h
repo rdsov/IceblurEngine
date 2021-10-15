@@ -22,7 +22,7 @@ namespace Iceblur
         friend class Renderer;
     };
 
-    struct ICE_API SimpleRenderer : public RenderingPipeline
+    struct ICE_API BaseRenderer : public RenderingPipeline
     {
         std::string GetName() override
         {

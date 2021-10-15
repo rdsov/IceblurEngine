@@ -13,7 +13,7 @@ namespace Iceblur
 
     void Renderer::Initialize()
     {
-        RenderingPipeline* pipeline = new SimpleRenderer();
+        RenderingPipeline* pipeline = new BaseRenderer();
 
         pipeline->Initialize();
         SetActiveRenderingPipeline(pipeline);
