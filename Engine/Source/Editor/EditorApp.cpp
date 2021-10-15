@@ -23,9 +23,7 @@ public:
         ICE_PRINT(event);
     }
 
-    typedef const IEvent& test;
-
-    static void OnWindowMaximize(test e)
+    static void OnWindowMaximize(IceEventFn e)
     {
         ICE_EVENT_CAST(event, e, WindowMaximizeEvent);
         ICE_PRINT(event);
