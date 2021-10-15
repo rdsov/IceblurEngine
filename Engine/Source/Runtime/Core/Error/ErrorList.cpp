@@ -20,6 +20,8 @@ namespace Iceblur
                     "Failed to initialize GLAD!",
                     "Failed to initialize GLFW!",
                     "Failed to create window!",
+                    "Failed to compile %0 shader! Path: %1",
+                    "Failed to link shader!",
                     "Failed to cast %0 to %1!"
             };
 

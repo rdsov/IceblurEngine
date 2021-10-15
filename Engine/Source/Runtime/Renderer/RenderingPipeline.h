@@ -46,5 +46,6 @@ namespace Iceblur
     private:
         Color m_ClearColor;
 
+
     };
 }

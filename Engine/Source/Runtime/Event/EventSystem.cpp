@@ -9,7 +9,7 @@ namespace Iceblur
     {
         if (m_Instance)
         {
-            ICE_FATAL(Error::ETypes::ASINGLETON, { "EventSystem" });
+            ICE_FATAL(Error::ETypes::A_SINGLETON, { "EventSystem" });
         }
 
         m_Instance = new EventSystem();

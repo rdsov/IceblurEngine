@@ -15,9 +15,9 @@ namespace Iceblur
         enum class ETypes
         {
             NONE,
-            ASINGLETON,
-            AMUST_BE_GREATER_THAN_ZERO,
-            AUNKNOWN,
+            A_SINGLETON,
+            A_MUST_BE_GREATER_THAN_ZERO,
+            A_UNKNOWN,
             NO_PIPELINE,
             LAST
         };
@@ -28,7 +28,9 @@ namespace Iceblur
             GLAD_INIT,
             GLFW_INIT,
             WINDOW_CREATION,
-            ACAST_EVENT,
+            A_CAST_EVENT,
+            A_COMPILE_SHADER,
+            LINK_SHADER,
             LAST
         };
 

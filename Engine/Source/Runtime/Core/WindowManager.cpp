@@ -44,7 +44,7 @@ namespace Iceblur
                 configProps.UseMonitorRefreshRate = true;
                 break;
             case EWindowType::Unknown:
-                ICE_WARN(Error::ETypes::AUNKNOWN, { "window type" });
+                ICE_WARN(Error::ETypes::A_UNKNOWN, { "window type" });
                 break;
         }
 
