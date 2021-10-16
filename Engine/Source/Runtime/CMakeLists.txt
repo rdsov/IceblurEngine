@@ -11,6 +11,8 @@ add_custom_command(TARGET IceblurEngine POST_BUILD COMMAND ${CMAKE_COMMAND} -E c
         ${LIBRARY_OUTPUT_PATH}/IceblurEngine.dll
         ${EXECUTABLE_OUTPUT_PATH}/IceblurEngine.dll)
 
+file(WRITE ${EXECUTABLE_OUTPUT_PATH}/InstallLocation.txt ${CMAKE_SOURCE_DIR}/Engine)
+
 target_precompile_headers(IceblurEngine
         PUBLIC
         <iostream>

@@ -5,4 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(IceblurEditor EditorApp.cpp)
 
+#Change the working directory for Visual Studio
+if (MSVC)
+    set_property(TARGET IceblurEditor PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${RUNTIME_OUTPUT_DIRECTORY}")
+endif (MSVC)
+
 target_link_libraries(IceblurEditor IceblurEngine)

@@ -4,44 +4,56 @@
 
 namespace Iceblur
 {
-    class Shader
-    {
-    public:
-        Shader(const uint32_t& type, const std::string& path)
-                : m_Shader()
-        {
-            Compile(type, path.c_str());
-        }
+	class Shader
+	{
+	public:
+		Shader(const uint32_t& type, const std::string& path)
+				: m_Shader()
+		{
+			Compile(type, path.c_str());
+		}
 
-        operator uint32_t() const
-        {
-            return m_Shader;
-        }
+		~Shader()
+		{
+			Delete();
+		}
 
-        void Delete() const;
+		operator uint32_t() const
+		{
+			return m_Shader;
+		}
 
-    private:
-        void Compile(const uint32_t& type, const char* path);
+		void Delete() const;
 
-        uint32_t m_Shader;
-    };
+	private:
+		void Compile(const uint32_t& type, const char* path);
 
-    struct ShaderProgram
-    {
-        ShaderProgram();
+		uint32_t m_Shader;
+	};
 
-        void Attach(Shader* shader) const;
+	struct ShaderProgram
+	{
+		ShaderProgram();
 
-        void Link() const;
+		~ShaderProgram()
+		{
+			Delete();
+		}
 
-        void Use() const;
+		void Attach(Shader* shader) const;
 
-        operator uint32_t() const
-        {
-            return m_Program;
-        }
+		void Link() const;
 
-    private:
-        uint32_t m_Program;
-    };
+		void Use() const;
+
+		void Delete() const;
+
+		operator uint32_t() const
+		{
+			return m_Program;
+		}
+
+	private:
+		uint32_t m_Program;
+	};
 }

@@ -7,6 +7,21 @@ set(CMAKE_CXX_STANDARD 17)
 set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/Engine/Binaries/Win64/${CMAKE_BUILD_TYPE}/Editor")
 set(LIBRARY_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/Engine/Binaries/Win64/${CMAKE_BUILD_TYPE}/Runtime")
 
+#Workaround for getting rid of the <Configuration> folder that Visual Studio adds
+if (MSVC)
+    # First for the generic no-config case (e.g. with mingw)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${RUNTIME_OUTPUT_DIRECTORY})
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${LIBRARY_OUTPUT_DIRECTORY})
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${LIBRARY_OUTPUT_DIRECTORY})
+    # Second, for multi-config builds (e.g. msvc)
+    foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
+        string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG)
+        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${RUNTIME_OUTPUT_DIRECTORY})
+        set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${LIBRARY_OUTPUT_DIRECTORY})
+        set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${LIBRARY_OUTPUT_DIRECTORY})
+    endforeach (OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES)
+endif (MSVC)
+
 #Disable unnecessary build targets
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
@@ -30,3 +45,8 @@ target_include_directories(IceblurEngine PUBLIC "${PROJECT_SOURCE_DIR}/Engine/So
 
 target_include_directories(IceblurEngine PUBLIC "${PROJECT_SOURCE_DIR}/Engine/Source/Runtime")
 target_include_directories(IceblurEditor PUBLIC "${PROJECT_SOURCE_DIR}/Engine/Source/Editor")
+
+#Set Visual Studio default startup project
+if (MSVC)
+    set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT IceblurEditor)
+endif (MSVC)

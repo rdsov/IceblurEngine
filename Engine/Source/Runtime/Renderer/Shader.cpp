@@ -8,72 +8,79 @@
 
 namespace Iceblur
 {
-    void Shader::Compile(const uint32_t& type, const char* path)
-    {
-        std::ifstream file(path);
+	void Shader::Compile(const uint32_t& type, const char* path)
+	{
+		std::ifstream file(path);
 
-        if (!std::filesystem::exists(path))
-        {
-            ICE_ERROR(Error::ETypes::A_INVALID_PATH, { path });
-            return;
-        }
+		if (!std::filesystem::exists(path))
+		{
+			ICE_ERROR(Error::ETypes::A_INVALID_PATH, { path });
+			return;
+		}
 
-        std::string shaderStr((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
-        const char* shaderSource = shaderStr.c_str();
+		std::string shaderStr((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+		const char* shaderSource = shaderStr.c_str();
 
-        m_Shader = glCreateShader(type);
-        glShaderSource(m_Shader, 1, &shaderSource, nullptr);
-        glCompileShader(m_Shader);
+		m_Shader = glCreateShader(type);
+		glShaderSource(m_Shader, 1, &shaderSource, nullptr);
+		glCompileShader(m_Shader);
 
-        int success;
-        char infoLog[1024];
-        glGetShaderiv(m_Shader, GL_COMPILE_STATUS, &success);
+		int success;
+		char infoLog[1024];
+		glGetShaderiv(m_Shader, GL_COMPILE_STATUS, &success);
 
-        if (!success)
-        {
-            glGetShaderInfoLog(m_Shader, 1024, nullptr, infoLog);
-            ICE_ERROR(Error::EFailed::A_COMPILE_SHADER, { ICE_TOS(type), path });
-            ICE_ERROR(infoLog);
-            return;
-        }
+		if (!success)
+		{
+			glGetShaderInfoLog(m_Shader, 1024, nullptr, infoLog);
+			ICE_ERROR(Error::EFailed::A_COMPILE_SHADER, { ICE_TOS(type), path });
+			ICE_ERROR(infoLog);
+			return;
+		}
 
-        ICE_INFO("Successfully compiled shader: " + ICE_TOS(type));
-    }
+		ICE_INFO("Successfully compiled shader: " + ICE_TOS(type));
+	}
 
-    void Shader::Delete() const
-    {
-        glad_glDeleteShader(m_Shader);
-    }
+	void Shader::Delete() const
+	{
+		glDeleteShader(m_Shader);
+		ICE_PRINT("Deleted shader");
+	}
 
-    ShaderProgram::ShaderProgram()
-    {
-        m_Program = glCreateProgram();
-    }
+	ShaderProgram::ShaderProgram()
+	{
+		m_Program = glCreateProgram();
+	}
 
-    void ShaderProgram::Attach(Shader* shader) const
-    {
-        glAttachShader(m_Program, *shader);
-    }
+	void ShaderProgram::Attach(Shader* shader) const
+	{
+		glAttachShader(m_Program, *shader);
+	}
 
-    void ShaderProgram::Link() const
-    {
-        glLinkProgram(m_Program);
+	void ShaderProgram::Link() const
+	{
+		glLinkProgram(m_Program);
 
-        int success;
-        char infoLog[1024];
+		int success;
+		char infoLog[1024];
 
-        glGetProgramiv(m_Program, GL_LINK_STATUS, &success);
-        if (!success)
-        {
-            glGetProgramInfoLog(m_Program, 1024, nullptr, infoLog);
-            ICE_ERROR(Error::EFailed::LINK_SHADER);
-            ICE_ERROR(infoLog);
-            return;
-        }
-    }
+		glGetProgramiv(m_Program, GL_LINK_STATUS, &success);
+		if (!success)
+		{
+			glGetProgramInfoLog(m_Program, 1024, nullptr, infoLog);
+			ICE_ERROR(Error::EFailed::LINK_SHADER);
+			ICE_ERROR(infoLog);
+			return;
+		}
+	}
 
-    void ShaderProgram::Use() const
-    {
-        glUseProgram(*this);
-    }
+	void ShaderProgram::Use() const
+	{
+		glUseProgram(*this);
+	}
+
+	void ShaderProgram::Delete() const
+	{
+		glDeleteShader(m_Program);
+		ICE_PRINT("Deleted shader program");
+	}
 }

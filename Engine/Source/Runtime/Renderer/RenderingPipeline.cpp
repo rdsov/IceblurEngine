@@ -6,77 +6,89 @@
 
 #include "Core/IO/Log.h"
 #include "Core/IO/VIO.h"
+#include "Intern/OpenGLData.h"
 
 namespace Iceblur
 {
-    uint32_t m_VAO;
-    uint32_t m_VBO;
-    uint32_t m_EBO;
+	uint32_t m_VAO;
+	uint32_t m_EBO;
 
-    void BaseRenderer::Initialize()
-    {
-        m_ClearColor = Color();
+	void BaseRenderer::Initialize()
+	{
+		m_ClearColor = Color();
 
-        m_VertexShader = new Shader(GL_VERTEX_SHADER, VIO::GetEngineLocation() + "\\Shaders\\UnlitVertexShader.glsl");
-        m_FragmentShader = new Shader(GL_FRAGMENT_SHADER, VIO::GetEngineLocation() + "\\Shaders\\UnlitFragmentShader.glsl");
+		m_VertexShader = new Shader(GL_VERTEX_SHADER, VIO::GetEngineLocation() + "\\Shaders\\UnlitVertexShader.glsl");
+		m_FragmentShader = new Shader(GL_FRAGMENT_SHADER, VIO::GetEngineLocation() + "\\Shaders\\UnlitFragmentShader.glsl");
 
-        m_ShaderProgram = new ShaderProgram();
-        m_ShaderProgram->Attach(m_VertexShader);
-        m_ShaderProgram->Attach(m_FragmentShader);
-        m_ShaderProgram->Link();
-        m_ShaderProgram->Use();
+		m_ShaderProgram = new ShaderProgram();
+		m_ShaderProgram->Attach(m_VertexShader);
+		m_ShaderProgram->Attach(m_FragmentShader);
+		m_ShaderProgram->Link();
+		m_ShaderProgram->Use();
 
-        //For testing purposes
-        std::vector<float> m_Vertices = {
-                0.5f, 0.5f, 0.0f, 1.0f, 1.0f, // top right
-                0.5f, -0.5f, 0.0f, 1.0f, 0.0f, // bottom right
-                -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // bottom left
-                -0.5f, 0.5f, 0.0f, 0.0f, 1.0f  // top left
-        };
+		delete m_VertexShader;
+		delete m_FragmentShader;
 
-        std::vector<uint32_t> m_Indices = {
-                0, 1, 3,   // first triangle
-                1, 2, 3    // second triangle
-        };
+		//For testing purposes
 
-        glGenVertexArrays(1, &m_VAO);
-        glGenBuffers(1, &m_VBO);
-        glGenBuffers(1, &m_EBO);
+		std::vector<Vertex> m_Vertices = {
+				Vertex(0.5f, 0.5f, 0.0f, 1.0f, 1.0f),
+				Vertex(0.5f, -0.5f, 0.0f, 1.0f, 0.0f),
+				Vertex(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f),
+				Vertex(-0.5f, 0.5f, 0.0f, 0.0f, 1.0f)
+		};
 
-        glBindVertexArray(m_VAO);
-        glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-        glBufferData(GL_ARRAY_BUFFER, m_Vertices.size() * sizeof(float), &m_Vertices[0], GL_STATIC_DRAW);
+		std::vector<uint32_t> m_Indices = {
+				0, 1, 3,   // first triangle
+				1, 2, 3    // second triangle
+		};
 
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Indices.size() * sizeof(unsigned int), &m_Indices[0], GL_STATIC_DRAW);
+		glGenVertexArrays(1, &m_VAO);
 
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*) 0);
-        glEnableVertexAttribArray(0);
+		VertexBuffer vertexBuffer(m_Vertices.size() * sizeof(Vertex), &m_Vertices[0]);
+		vertexBuffer.Generate();
 
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*) (3 * sizeof(float)));
-        glEnableVertexAttribArray(1);
+		//glGenBuffers(1, &m_VBO);
+		glGenBuffers(1, &m_EBO);
 
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindVertexArray(0);
-    }
+		glBindVertexArray(m_VAO);
+		//glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+		vertexBuffer.Bind();
+		//glBufferData(GL_ARRAY_BUFFER, m_Vertices.size() * sizeof(Vertex), &m_Vertices[0], GL_STATIC_DRAW);
+		vertexBuffer.CopyToCurrent();
 
-    void BaseRenderer::Update(double deltaTime)
-    {
-        ClearColor();
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Indices.size() * sizeof(unsigned int), &m_Indices[0], GL_STATIC_DRAW);
 
-        //For testing purposes
-        glBindVertexArray(m_VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    }
 
-    void BaseRenderer::ClearColor()
-    {
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(ALL_COLOR_CHANNELS(m_ClearColor));
-    }
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) 0);
+		glEnableVertexAttribArray(0);
 
-    void BaseRenderer::Shutdown()
-    {
-        ICE_INFO("Shutting down 2D renderer...");
-    }
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, uvs));
+		glEnableVertexAttribArray(1);
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
+	}
+
+	void BaseRenderer::Update(double deltaTime)
+	{
+		ClearColor();
+
+		//For testing purposes
+		glBindVertexArray(m_VAO);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	}
+
+	void BaseRenderer::ClearColor()
+	{
+		glClear(GL_COLOR_BUFFER_BIT);
+		glClearColor(ALL_COLOR_CHANNELS(m_ClearColor));
+	}
+
+	void BaseRenderer::Shutdown()
+	{
+		delete m_ShaderProgram;
+		ICE_INFO("Shutting down 2D renderer...");
+	}
 }
