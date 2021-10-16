@@ -4,8 +4,8 @@ project(IceblurEngine)
 set(CMAKE_CXX_STANDARD 17)
 
 #Set corresponding output paths
-set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/Engine/Binaries/Win64/${CMAKE_BUILD_TYPE}/Editor")
-set(LIBRARY_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/Engine/Binaries/Win64/${CMAKE_BUILD_TYPE}/Runtime")
+set(RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/Engine/Binaries/Win64/${CMAKE_BUILD_TYPE}/Editor")
+set(LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/Engine/Binaries/Win64/${CMAKE_BUILD_TYPE}/Runtime")
 
 #Workaround for getting rid of the <Configuration> folder that Visual Studio adds
 if (MSVC)
