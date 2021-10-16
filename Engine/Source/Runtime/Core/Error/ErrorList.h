@@ -20,6 +20,7 @@ namespace Iceblur
             A_UNKNOWN,
             NO_PIPELINE,
             A_INVALID_PATH,
+            A_NOT_FOUND,
             LAST
         };
 

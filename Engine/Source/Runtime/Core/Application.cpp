@@ -9,6 +9,7 @@
 #include "Event/EventSystem.h"
 #include "Renderer/Renderer.h"
 #include "Renderer/RenderingPipeline.h"
+#include "Core/IO/VIO.h"
 
 namespace Iceblur
 {
@@ -21,6 +22,7 @@ namespace Iceblur
     void Application::OnInit()
     {
         Log::Init();
+        VIO::Init();
         EventSystem::Initialize();
         WindowManager::Initialize();
 

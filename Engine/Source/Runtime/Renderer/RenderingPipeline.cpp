@@ -5,7 +5,7 @@
 #include <glad/glad.h>
 
 #include "Core/IO/Log.h"
-#include "Core/IO/IoManager.h"
+#include "Core/IO/VIO.h"
 
 namespace Iceblur
 {
@@ -13,8 +13,8 @@ namespace Iceblur
     {
         m_ClearColor = Color();
 
-        m_VertexShader = new Shader(GL_VERTEX_SHADER, IOManager::GetEngineLocation() + "\\Shaders\\VertexShader.glsl");
-        m_FragmentShader = new Shader(GL_FRAGMENT_SHADER, IOManager::GetEngineLocation() + "\\Shaders\\FragmentShader.glsl");
+        m_VertexShader = new Shader(GL_VERTEX_SHADER, VIO::GetEngineLocation() + "\\Shaders\\VertexShader.glsl");
+        m_FragmentShader = new Shader(GL_FRAGMENT_SHADER, VIO::GetEngineLocation() + "\\Shaders\\FragmentShader.glsl");
 
         m_ShaderProgram = new ShaderProgram();
         m_ShaderProgram->Attach(m_VertexShader);

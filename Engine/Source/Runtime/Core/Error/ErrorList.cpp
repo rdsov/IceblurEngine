@@ -13,7 +13,8 @@ namespace Iceblur
                     "%0 must be greater than zero!",
                     "Unknown %0!",
                     "No rendering pipeline found!",
-                    "Path was not found: %0"
+                    "Path was not found: %0",
+                    "%0 was not found!"
             };
 
     static const std::string FailedTypes[] =

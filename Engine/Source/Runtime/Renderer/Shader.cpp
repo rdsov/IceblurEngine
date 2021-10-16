@@ -36,6 +36,8 @@ namespace Iceblur
             ICE_ERROR(infoLog);
             return;
         }
+
+        ICE_INFO("Successfully compiled shader: " + ICE_TOS(type));
     }
 
     void Shader::Delete() const
