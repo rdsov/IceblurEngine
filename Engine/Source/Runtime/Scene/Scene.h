@@ -1,0 +1,32 @@
+// Copyright (c) 2021 Futureblur. All rights reserved. Visit https://ice.futureblur.com for more information.
+
+#pragma once
+
+#include "Core/Core.h"
+#include "Core/CoreUtils.h"
+
+namespace Iceblur
+{
+	//Contains information about a scene
+	struct SceneProps
+	{
+		std::string name;
+	};
+
+	class ICE_API Scene
+	{
+	public:
+		explicit Scene(const SceneProps& props)
+		{
+			m_Props.name = props.name;
+		}
+
+		NODISCARD std::string GetName() const
+		{
+			return m_Props.name;
+		}
+
+	private:
+		SceneProps m_Props;
+	};
+}
