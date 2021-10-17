@@ -4,8 +4,6 @@
 
 #include "Math/VMath.h"
 
-#include "Shader.h"
-
 namespace Iceblur
 {
 
@@ -56,8 +54,12 @@ namespace Iceblur
 	private:
 		Color m_ClearColor;
 
-		ShaderProgram* m_ShaderProgram = nullptr;
-		Shader* m_VertexShader = nullptr;
-		Shader* m_FragmentShader = nullptr;
+		struct ShaderProgram* m_ShaderProgram = nullptr;
+		struct Shader* m_VertexShader = nullptr;
+		struct Shader* m_FragmentShader = nullptr;
+
+		struct VertexArrayObject* m_VAO = nullptr;
+		struct VertexBuffer* m_VBO = nullptr;
+		struct ElementArrayBuffer* m_EBO = nullptr;
 	};
 }

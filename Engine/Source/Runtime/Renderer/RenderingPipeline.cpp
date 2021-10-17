@@ -2,17 +2,16 @@
 
 #include "RenderingPipeline.h"
 
+#include "Intern/OpenGLData.h"
+#include "Shader.h"
+
 #include <glad/glad.h>
 
 #include "Core/IO/Log.h"
 #include "Core/IO/VIO.h"
-#include "Intern/OpenGLData.h"
 
 namespace Iceblur
 {
-	uint32_t m_VAO;
-	uint32_t m_EBO;
-
 	void BaseRenderer::Initialize()
 	{
 		m_ClearColor = Color();
@@ -43,23 +42,30 @@ namespace Iceblur
 				1, 2, 3    // second triangle
 		};
 
-		glGenVertexArrays(1, &m_VAO);
+		//glGenVertexArrays(1, &m_VAO);
+		m_VAO = new VertexArrayObject();
+		m_VAO->Generate();
 
-		VertexBuffer vertexBuffer(m_Vertices.size() * sizeof(Vertex), &m_Vertices[0]);
-		vertexBuffer.Generate();
+		m_VBO = new VertexBuffer(m_Vertices.size() * sizeof(Vertex), &m_Vertices[0]);
+		m_VBO->Generate();
 
 		//glGenBuffers(1, &m_VBO);
-		glGenBuffers(1, &m_EBO);
+		//glGenBuffers(1, &m_EBO);
 
-		glBindVertexArray(m_VAO);
+		m_EBO = new ElementArrayBuffer(m_Indices.size() * sizeof(uint32_t), &m_Indices[0]);
+		m_EBO->Generate();
+
+		//glBindVertexArray(m_VAO);
+		m_VAO->Bind();
 		//glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-		vertexBuffer.Bind();
 		//glBufferData(GL_ARRAY_BUFFER, m_Vertices.size() * sizeof(Vertex), &m_Vertices[0], GL_STATIC_DRAW);
-		vertexBuffer.CopyToCurrent();
+		m_VBO->Bind();
+		m_VBO->CopyToCurrent();
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Indices.size() * sizeof(unsigned int), &m_Indices[0], GL_STATIC_DRAW);
-
+		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Indices.size() * sizeof(unsigned int), &m_Indices[0], GL_STATIC_DRAW);
+		m_EBO->Bind();
+		m_EBO->CopyToCurrent();
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) 0);
 		glEnableVertexAttribArray(0);
@@ -67,8 +73,8 @@ namespace Iceblur
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, uvs));
 		glEnableVertexAttribArray(1);
 
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindVertexArray(0);
+		m_VBO->Unbind();
+		m_VAO->Unbind();
 	}
 
 	void BaseRenderer::Update(double deltaTime)
@@ -76,8 +82,11 @@ namespace Iceblur
 		ClearColor();
 
 		//For testing purposes
-		glBindVertexArray(m_VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		if (m_VAO)
+		{
+			m_VAO->Bind();
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		}
 	}
 
 	void BaseRenderer::ClearColor()
@@ -89,6 +98,19 @@ namespace Iceblur
 	void BaseRenderer::Shutdown()
 	{
 		delete m_ShaderProgram;
+
+		if (m_VBO)
+		{
+			m_VBO->Delete();
+			delete m_VBO;
+		}
+
+		if (m_EBO)
+		{
+			m_EBO->Delete();
+			delete m_EBO;
+		}
+
 		ICE_INFO("Shutting down 2D renderer...");
 	}
 }

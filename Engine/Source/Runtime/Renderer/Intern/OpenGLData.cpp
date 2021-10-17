@@ -6,9 +6,14 @@
 
 namespace Iceblur
 {
-	void VertexBuffer::Generate()
+	void Buffer::Generate()
 	{
 		glGenBuffers(1, &m_Id);
+	}
+
+	void Buffer::Delete()
+	{
+		glDeleteBuffers(1, &m_Id);
 	}
 
 	void VertexBuffer::Bind()
@@ -16,18 +21,38 @@ namespace Iceblur
 		glBindBuffer(GL_ARRAY_BUFFER, m_Id);
 	}
 
+	void VertexBuffer::Unbind()
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
 	void VertexBuffer::CopyToCurrent()
 	{
 		glBufferData(GL_ARRAY_BUFFER, m_Size, m_Data, GL_STATIC_DRAW);
 	}
 
-	void VertexBuffer::AttribPointer()
+	void ElementArrayBuffer::Bind()
 	{
-		//glVertexAttribPointer()
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Id);
 	}
 
-	void VertexBuffer::Delete()
+	void ElementArrayBuffer::CopyToCurrent()
 	{
-		glDeleteBuffers(1, &m_Id);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Size, m_Data, GL_STATIC_DRAW);
+	}
+
+	void VertexArrayObject::Generate()
+	{
+		glGenVertexArrays(1, &m_Id);
+	}
+
+	void VertexArrayObject::Bind()
+	{
+		glBindVertexArray(m_Id);
+	}
+
+	void VertexArrayObject::Unbind()
+	{
+		glBindVertexArray(0);
 	}
 }
