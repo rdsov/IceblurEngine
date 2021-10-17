@@ -7,36 +7,36 @@
 
 namespace Iceblur
 {
-    class ICE_API Application
-    {
-    public:
-        Application()
-        {
-            ICE_SINGLETON(m_Instance, Application)
-        }
+	class ICE_API Application
+	{
+	public:
+		Application()
+		{
+			ICE_SINGLETON(m_Instance, Application)
+		}
 
-        virtual ~Application() = default;
+		virtual ~Application() = default;
 
-        //Spawns the host window. This currently returns 0, but this will change in the future.
-        virtual int Spawn();
+		//Spawns the host window. This currently returns 0, but this will change in the future.
+		virtual int Spawn();
 
-    public:
-        static Application* GetInstance()
-        {
-            return m_Instance;
-        }
+	public:
+		static Application* GetInstance()
+		{
+			return m_Instance;
+		}
 
-    protected:
-        virtual void OnInit();
+	protected:
+		virtual void OnInit();
 
-        //Initialize here
-        virtual void OnPostInit();
+		//Initialize here
+		virtual void OnPostInit();
 
-        virtual void OnUpdate();
+		virtual void OnUpdate();
 
-        virtual void OnShutdown();
+		virtual void OnShutdown();
 
-    private:
-        ICE_SINGLETON_DEF(m_Instance, Application)
-    };
+	private:
+		static Application* m_Instance;
+	};
 }

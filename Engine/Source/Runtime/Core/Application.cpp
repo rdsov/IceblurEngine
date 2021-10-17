@@ -13,51 +13,53 @@
 
 namespace Iceblur
 {
-    int Application::Spawn()
-    {
-        OnInit();
-        return 0;
-    }
+	Application* Application::m_Instance = nullptr;
 
-    void Application::OnInit()
-    {
-        Log::Init();
-        VIO::Init();
-        EventSystem::Initialize();
-        WindowManager::Initialize();
+	int Application::Spawn()
+	{
+		OnInit();
+		return 0;
+	}
 
-        ICE_PRINT("Welcome to Iceblur Engine! For more information, please visit https://github.com/Futureblur/IceblurEngine");
+	void Application::OnInit()
+	{
+		Log::Init();
+		VIO::Init();
+		EventSystem::Initialize();
+		WindowManager::Initialize();
 
-        //TODO: GLFW error callback
-        OnPostInit();
-    }
+		ICE_PRINT("Welcome to Iceblur Engine! For more information, please visit https://github.com/Futureblur/IceblurEngine");
 
-    void Application::OnPostInit()
-    {
-        if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
-        {
-            ICE_ERROR(Error::EFailed::GLAD_INIT);
-        }
+		//TODO: GLFW error callback
+		OnPostInit();
+	}
 
-        Renderer::Initialize();
+	void Application::OnPostInit()
+	{
+		if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
+		{
+			ICE_ERROR(Error::EFailed::GLAD_INIT);
+		}
 
-        while (WindowManager::IsWindowRunning(WindowManager::GetHost()))
-        {
-            OnUpdate();
-        }
+		Renderer::Initialize();
 
-        OnShutdown();
-    }
+		while (WindowManager::IsWindowRunning(WindowManager::GetHost()))
+		{
+			OnUpdate();
+		}
 
-    void Application::OnUpdate()
-    {
-        Renderer::Update();
-        WindowManager::UpdateWindow(WindowManager::GetHost());
-    }
+		OnShutdown();
+	}
 
-    void Application::OnShutdown()
-    {
-        Renderer::Shutdown();
-        glfwTerminate();
-    }
+	void Application::OnUpdate()
+	{
+		Renderer::Update();
+		WindowManager::UpdateWindow(WindowManager::GetHost());
+	}
+
+	void Application::OnShutdown()
+	{
+		Renderer::Shutdown();
+		glfwTerminate();
+	}
 }

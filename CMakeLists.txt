@@ -4,10 +4,26 @@ project(IceblurEngine)
 set(CMAKE_CXX_STANDARD 17)
 
 #Set corresponding output paths
-set(RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/Engine/Binaries/Win64/${CMAKE_BUILD_TYPE}/Editor")
-set(LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/Engine/Binaries/Win64/${CMAKE_BUILD_TYPE}/Runtime")
+if (MSVC)
+    set(RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/Engine/Binaries/Win64/${CMAKE_BUILD_TYPE}/Editor")
+    set(LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/Engine/Binaries/Win64/${CMAKE_BUILD_TYPE}/Runtime")
+else ()
+    set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/Engine/Binaries/Win64/${CMAKE_BUILD_TYPE}/Editor")
+    set(LIBRARY_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/Engine/Binaries/Win64/${CMAKE_BUILD_TYPE}/Runtime")
+endif (MSVC)
 
-#Workaround for getting rid of the <Configuration> folder that Visual Studio adds
+#Do not generate manifest file for IceblurEngine.dll
+IF (WIN32 AND MSVC)
+    SET(CMAKE_SHARED_LINKER_FLAGS /MANIFEST:NO)
+ENDIF (WIN32 AND MSVC)
+
+#Get rid of the 'lib' prefix that mingw adds
+if (MINGW)
+    set(CMAKE_SHARED_LIBRARY_PREFIX "")
+    set(CMAKE_STATIC_LIBRARY_PREFIX "")
+endif (MINGW)
+
+#Workaround for getting rid of the <Configuration> folder that MSVC adds
 if (MSVC)
     # First for the generic no-config case (e.g. with mingw)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${RUNTIME_OUTPUT_DIRECTORY})
