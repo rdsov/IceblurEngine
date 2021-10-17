@@ -55,4 +55,14 @@ namespace Iceblur
 	{
 		glBindVertexArray(0);
 	}
+
+	void VertexArrayObject::EnableAttribArray(VID id)
+	{
+		glEnableVertexAttribArray(id);
+	}
+
+	void VertexArrayObject::AttribPointer(VID position, int size, VID type, bool normalized, int stride, const void* data)
+	{
+		glVertexAttribPointer(position, size, type, normalized, stride, data);
+	}
 }

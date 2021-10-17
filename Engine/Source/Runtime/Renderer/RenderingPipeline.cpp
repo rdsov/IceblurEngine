@@ -2,10 +2,10 @@
 
 #include "RenderingPipeline.h"
 
+#include <glad/glad.h>
+
 #include "Intern/OpenGLData.h"
 #include "Shader.h"
-
-#include <glad/glad.h>
 
 #include "Core/IO/Log.h"
 #include "Core/IO/VIO.h"
@@ -42,36 +42,27 @@ namespace Iceblur
 				1, 2, 3    // second triangle
 		};
 
-		//glGenVertexArrays(1, &m_VAO);
 		m_VAO = new VertexArrayObject();
 		m_VAO->Generate();
 
 		m_VBO = new VertexBuffer(m_Vertices.size() * sizeof(Vertex), &m_Vertices[0]);
 		m_VBO->Generate();
 
-		//glGenBuffers(1, &m_VBO);
-		//glGenBuffers(1, &m_EBO);
-
 		m_EBO = new ElementArrayBuffer(m_Indices.size() * sizeof(uint32_t), &m_Indices[0]);
 		m_EBO->Generate();
 
-		//glBindVertexArray(m_VAO);
 		m_VAO->Bind();
-		//glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-		//glBufferData(GL_ARRAY_BUFFER, m_Vertices.size() * sizeof(Vertex), &m_Vertices[0], GL_STATIC_DRAW);
 		m_VBO->Bind();
 		m_VBO->CopyToCurrent();
 
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Indices.size() * sizeof(unsigned int), &m_Indices[0], GL_STATIC_DRAW);
 		m_EBO->Bind();
 		m_EBO->CopyToCurrent();
 
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) 0);
-		glEnableVertexAttribArray(0);
+		m_VAO->AttribPointer(0, 3, GL_FLOAT, false, sizeof(Vertex), (void*) nullptr);
+		m_VAO->EnableAttribArray(0);
 
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, uvs));
-		glEnableVertexAttribArray(1);
+		m_VAO->AttribPointer(1, 2, GL_FLOAT, false, sizeof(Vertex), (void*) offsetof(Vertex, uvs));
+		m_VAO->EnableAttribArray(1);
 
 		m_VBO->Unbind();
 		m_VAO->Unbind();

@@ -93,5 +93,9 @@ namespace Iceblur
 		void Bind() override;
 
 		void Unbind();
+
+		void EnableAttribArray(VID id);
+
+		void AttribPointer(VID position, int size, VID type, bool normalized, int stride, const void* data);
 	};
 }
