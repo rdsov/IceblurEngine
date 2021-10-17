@@ -9,6 +9,10 @@
 #include "Event/EventSystem.h"
 #include "Renderer/Renderer.h"
 #include "Renderer/RenderingPipeline.h"
+
+#include "Scene/Scene.h"
+#include "Scene/SceneManager.h"
+
 #include "Core/IO/VIO.h"
 
 namespace Iceblur
@@ -42,6 +46,11 @@ namespace Iceblur
 		}
 
 		Renderer::Initialize();
+
+		SceneProps props;
+		props.name = "Dev Scene";
+
+		SceneManager::CreateNew(props);
 
 		while (WindowManager::IsWindowRunning(WindowManager::GetHost()))
 		{
