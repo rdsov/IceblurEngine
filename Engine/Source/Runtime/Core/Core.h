@@ -20,15 +20,8 @@
 { ICE_FATAL(Error::ETypes::A_SINGLETON, { #Class }); } \
 else { m_Instance = this; };
 
-//Defines a singleton instance class which is used together with the ICE_SINGLETON macro.
-#define ICE_SINGLETON_DEF(VarName, Class) static inline Class* VarName = nullptr;
-
 //Converts to string
 #define ICE_TOS(str) std::to_string(str)
-
-//Checks if string is empty (only works for non-static functions).
-//Inside static functions, use VIO::Empty() instead.
-#define ICE_EMPTY(str) std::string::empty(str)
 
 //Checks if enum length equals the length of array
 //Enum should have 'LAST' as the last element
