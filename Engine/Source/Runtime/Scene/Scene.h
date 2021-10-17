@@ -16,9 +16,8 @@ namespace Iceblur
 	class ICE_API Scene
 	{
 	public:
-		explicit Scene(const SceneProps& props)
+		explicit Scene(const SceneProps& props) : m_Props(props)
 		{
-			m_Props.name = props.name;
 		}
 
 		NODISCARD std::string GetName() const
