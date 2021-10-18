@@ -25,6 +25,16 @@ namespace Iceblur
 		return 0;
 	}
 
+	float Application::GetDeltaTime()
+	{
+		return glfwGetTime();
+	}
+
+	void Application::ForceUpdate()
+	{
+		OnUpdate(GetDeltaTime());
+	}
+
 	void Application::OnInit()
 	{
 		Log::Init();
@@ -55,7 +65,7 @@ namespace Iceblur
 
 		while (WindowManager::IsWindowRunning(WindowManager::GetHost()))
 		{
-			OnUpdate(glfwGetTime());
+			OnUpdate(GetDeltaTime());
 		}
 
 		OnShutdown();

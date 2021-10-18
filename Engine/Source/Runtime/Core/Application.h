@@ -26,6 +26,11 @@ namespace Iceblur
 			return m_Instance;
 		}
 
+		virtual float GetDeltaTime();
+
+		//Calls OnUpdate() function
+		virtual void ForceUpdate();
+
 	protected:
 		virtual void OnInit();
 
