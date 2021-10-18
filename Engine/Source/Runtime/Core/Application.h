@@ -32,7 +32,7 @@ namespace Iceblur
 		//Initialize here
 		virtual void OnPostInit();
 
-		virtual void OnUpdate();
+		virtual void OnUpdate(float deltaTime);
 
 		virtual void OnShutdown();
 

@@ -50,19 +50,21 @@ namespace Iceblur
 		SceneProps props;
 		props.name = "Dev Scene";
 
-		SceneManager::CreateNew(props);
+		auto devScene = SceneManager::CreateNew(props);
+		SceneManager::LoadScene(devScene);
 
 		while (WindowManager::IsWindowRunning(WindowManager::GetHost()))
 		{
-			OnUpdate();
+			OnUpdate(glfwGetTime());
 		}
 
 		OnShutdown();
 	}
 
-	void Application::OnUpdate()
+	void Application::OnUpdate(float deltaTime)
 	{
-		Renderer::Update();
+		Renderer::Update(deltaTime);
+		SceneManager::Update(deltaTime);
 		WindowManager::UpdateWindow(WindowManager::GetHost());
 	}
 
