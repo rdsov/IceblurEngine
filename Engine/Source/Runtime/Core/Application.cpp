@@ -40,7 +40,10 @@ namespace Iceblur
 		Log::Init();
 		VIO::Init();
 		EventSystem::Initialize();
-		WindowManager::Initialize();
+
+		auto apiProps = new RenderingAPIProps("OpenGL", 4, 6);
+
+		WindowManager::Initialize(apiProps);
 
 		ICE_PRINT("Welcome to Iceblur Engine! For more information, please visit https://github.com/Futureblur/IceblurEngine");
 

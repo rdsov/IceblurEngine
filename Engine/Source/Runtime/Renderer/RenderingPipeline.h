@@ -6,11 +6,22 @@
 
 namespace Iceblur
 {
+	struct RenderingAPIProps
+	{
+		RenderingAPIProps(const std::string apiName = "", int major = 1, int minor = 0)
+				: name(apiName), versionMinor(minor), versionMajor(major)
+		{
+		}
+
+		std::string name;
+		int versionMinor;
+		int versionMajor;
+	};
 
 	//-------------Rendering Pipeline Base Class-------------------//
 
 
-	struct ICE_API RenderingPipeline
+	struct RenderingPipeline
 	{
 		virtual std::string GetName() = 0;
 

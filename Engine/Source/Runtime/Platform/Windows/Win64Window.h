@@ -8,10 +8,14 @@ struct GLFWwindow;
 
 namespace Iceblur
 {
+	struct RenderingAPIProps;
+
 	class Win64Window : public Window
 	{
 	public:
-		Win64Window() = default;
+		Win64Window(RenderingAPIProps* props) : m_APIProps(props)
+		{
+		}
 
 		~Win64Window() override = default;
 
@@ -33,5 +37,7 @@ namespace Iceblur
 		friend class WindowManager;
 
 		GLFWwindow* m_Window = nullptr;
+
+		RenderingAPIProps* m_APIProps;
 	};
 }

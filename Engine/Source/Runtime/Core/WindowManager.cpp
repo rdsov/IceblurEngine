@@ -7,11 +7,14 @@
 #include "IO/Log.h"
 #include "Platform/PlatformDetection.h"
 #include "Platform/Windows/Win64Window.h"
+#include "Renderer/RenderingPipeline.h"
 
 namespace Iceblur
 {
-	void WindowManager::Initialize()
+	void WindowManager::Initialize(RenderingAPIProps* props)
 	{
+		m_RenderingAPIProps = props;
+
 #ifdef ICE_WIN64
 		if (!glfwInit())
 		{
@@ -29,21 +32,21 @@ namespace Iceblur
 		switch (type)
 		{
 			case EWindowType::Editor:
-				configProps.Title = "Iceblur Editor";
-				configProps.Maximized = true;
-				configProps.Fullscreen = false;
+				configProps.title = "Iceblur Editor";
+				configProps.maximized = true;
+				configProps.fullscreen = false;
 				break;
 			case EWindowType::EditorPopup:
-				configProps.Title = "Iceblur Editor - Popup";
-				configProps.Maximized = false;
-				configProps.Fullscreen = false;
+				configProps.title = "Iceblur Editor - Popup";
+				configProps.maximized = false;
+				configProps.fullscreen = false;
 				break;
 			case EWindowType::FullscreenGame:
-				configProps.Title = "Made with Iceblur Engine";
-				configProps.Maximized = true;
-				configProps.Fullscreen = true;
-				configProps.UseMonitorResolution = true;
-				configProps.UseMonitorRefreshRate = true;
+				configProps.title = "Made with Iceblur Engine";
+				configProps.maximized = true;
+				configProps.fullscreen = true;
+				configProps.useMonitorResolution = true;
+				configProps.useMonitorRefreshRate = true;
 				break;
 			case EWindowType::Unknown:
 				ICE_WARN(Error::ETypes::A_UNKNOWN, { "window type" });
@@ -81,7 +84,7 @@ namespace Iceblur
 
 	Window* WindowManager::CreateWin64Window(const WindowFnSignature& signature)
 	{
-		auto window = new Win64Window();
+		auto window = new Win64Window(m_RenderingAPIProps);
 		bool success = window->Create(signature.props);
 
 		if (!success)

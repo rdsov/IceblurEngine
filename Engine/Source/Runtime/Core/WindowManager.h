@@ -9,6 +9,8 @@ struct GLFWwindow;
 
 namespace Iceblur
 {
+	struct RenderingAPIProps;
+
 	class ICE_API WindowManager
 	{
 	public:
@@ -16,7 +18,7 @@ namespace Iceblur
 
 		~WindowManager() = default;
 
-		static void Initialize();
+		static void Initialize(RenderingAPIProps* apiProps);
 
 		static Window* CreateWindow(const EWindowType& type, const WindowProps& props = { }, bool host = false);
 
@@ -51,5 +53,7 @@ namespace Iceblur
 	private:
 		static inline Window* m_Host;
 		static inline std::vector<Window*> m_PopupWindows;
+
+		static inline RenderingAPIProps* m_RenderingAPIProps;
 	};
 }

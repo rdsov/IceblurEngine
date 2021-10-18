@@ -10,38 +10,47 @@
 
 #include "Event/EventSystem.h"
 #include "Renderer/Renderer.h"
+#include "Renderer/RenderingPipeline.h"
 
 namespace Iceblur
 {
 	bool Win64Window::Create(const WindowProps& props)
 	{
-		//TODO: Create Graphics API struct for storing GLFW_CONTEXT_VERSION_X for example.
-
 		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
 		//GLFW window hints
+
+		if (!m_APIProps)
+		{
+			ICE_ERROR(Error::ETypes::A_NULLPTR, { "RenderingAPIProps" });
+			return false;
+		}
 
 		glfwWindowHint(GLFW_RED_BITS, mode->redBits);
 		glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
 		glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
 
-		glfwWindowHint(GLFW_MAXIMIZED, props.Maximized);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-		glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		glfwWindowHint(GLFW_MAXIMIZED, props.maximized);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, m_APIProps->versionMajor);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, m_APIProps->versionMinor);
+
+		if (m_APIProps->name == "OpenGL")
+		{
+			glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
+			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		}
 
 		//Set window properties
 
 		GLFWmonitor* monitor = nullptr;
 
-		if (props.Fullscreen)
+		if (props.fullscreen)
 		{
 			monitor = glfwGetPrimaryMonitor();
 		}
 
-		int refreshRate = props.RefreshRate;
-		if (props.UseMonitorRefreshRate)
+		int refreshRate = props.refreshRate;
+		if (props.useMonitorRefreshRate)
 		{
 			refreshRate = mode->refreshRate;
 		}
@@ -51,13 +60,13 @@ namespace Iceblur
 		int width = props.resolution.GetWidth();
 		int height = props.resolution.GetHeight();
 
-		if (props.UseMonitorResolution)
+		if (props.useMonitorResolution)
 		{
 			width = mode->width;
 			height = mode->height;
 		}
 
-		m_Window = glfwCreateWindow(width, height, props.Title.c_str(), monitor, nullptr);
+		m_Window = glfwCreateWindow(width, height, props.title.c_str(), monitor, nullptr);
 
 		if (!m_Window)
 		{
