@@ -4,20 +4,20 @@
 
 namespace Iceblur
 {
-    struct RenderingPipeline;
+	struct RenderingPipeline;
 
-    class Renderer
-    {
-    public:
-        static void Initialize();
+	class Renderer
+	{
+	public:
+		static void Initialize();
 
-        static void SetActiveRenderingPipeline(RenderingPipeline* pipeline);
+		static void SetActiveRenderingPipeline(RenderingPipeline* pipeline);
 
-        static void Update();
+		static void Update(float deltaTime);
 
-        static void Shutdown();
+		static void Shutdown();
 
-    private:
-        static RenderingPipeline* m_ActivePipeline;
-    };
+	private:
+		static RenderingPipeline* m_ActivePipeline;
+	};
 }

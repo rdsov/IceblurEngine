@@ -9,39 +9,39 @@
 
 namespace Iceblur
 {
-    RenderingPipeline* Renderer::m_ActivePipeline;
+	RenderingPipeline* Renderer::m_ActivePipeline;
 
-    void Renderer::Initialize()
-    {
-        RenderingPipeline* pipeline = new BaseRenderer();
+	void Renderer::Initialize()
+	{
+		RenderingPipeline* pipeline = new BaseRenderer();
 
-        pipeline->Initialize();
-        SetActiveRenderingPipeline(pipeline);
-    }
+		pipeline->Initialize();
+		SetActiveRenderingPipeline(pipeline);
+	}
 
-    void Renderer::SetActiveRenderingPipeline(RenderingPipeline* pipeline)
-    {
-        m_ActivePipeline = pipeline;
-    }
+	void Renderer::SetActiveRenderingPipeline(RenderingPipeline* pipeline)
+	{
+		m_ActivePipeline = pipeline;
+	}
 
-    void Renderer::Update()
-    {
-        if (!m_ActivePipeline)
-        {
-            ICE_ERROR(Error::ETypes::NO_PIPELINE);
-            return;
-        }
+	void Renderer::Update(float deltaTime)
+	{
+		if (!m_ActivePipeline)
+		{
+			ICE_ERROR(Error::ETypes::NO_PIPELINE);
+			return;
+		}
 
-        m_ActivePipeline->Update(glfwGetTime());
-    }
+		m_ActivePipeline->Update(deltaTime);
+	}
 
-    void Renderer::Shutdown()
-    {
-        if (m_ActivePipeline)
-        {
-            m_ActivePipeline->Shutdown();
-        }
+	void Renderer::Shutdown()
+	{
+		if (m_ActivePipeline)
+		{
+			m_ActivePipeline->Shutdown();
+		}
 
-        ICE_LOG("Shutting down renderer...");
-    }
+		ICE_INFO("Shutting down renderer...");
+	}
 }
