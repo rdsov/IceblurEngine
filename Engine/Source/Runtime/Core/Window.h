@@ -10,20 +10,20 @@ namespace Iceblur
 	//Sets the properties for a window.
 	struct WindowProps
 	{
-		std::string Title = "Untitled Window";
+		std::string title = "Untitled Window";
 		Resolution resolution = Resolution(1280, 720);
-		int RefreshRate = 60;
-		bool Maximized = true;
-		bool Fullscreen = false;
-		bool UseMonitorResolution = false;
-		bool UseMonitorRefreshRate = false;
+		int refreshRate = 60;
+		bool maximized = true;
+		bool fullscreen = false;
+		bool useMonitorResolution = false;
+		bool useMonitorRefreshRate = false;
 		bool enableVSync = false;
 	};
 
 	//Speeds up the process of creating a window.
 	//This config enum overrides members of struct WindowProps
 	//The window resolution can be overridden by setting
-	//WindowProps.UseMonitorResolution = true
+	//WindowProps.useMonitorResolution = true
 	enum class EWindowType
 	{
 		Unknown,
