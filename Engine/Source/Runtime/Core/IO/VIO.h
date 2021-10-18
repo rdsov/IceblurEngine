@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Core/Core.h"
+#include "Core/CoreUtils.h"
 
 namespace Iceblur
 {
@@ -18,7 +19,7 @@ namespace Iceblur
 		}
 
 		//Checks if given string is empty
-		static bool Empty(const std::string& string)
+		static bool Empty(IceString string)
 		{
 			return string.empty();
 		}

@@ -4,6 +4,7 @@
 
 #include "Core/Core.h"
 #include "Core/Error/ErrorList.h"
+#include "Core/CoreUtils.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -12,51 +13,51 @@ typedef unsigned short WORD;
 
 namespace Iceblur
 {
-    class ICE_API Log
-    {
-    public:
-        static void Init();
+	class ICE_API Log
+	{
+	public:
+		static void Init();
 
-        //Used for debugging purposes. Prints message only to host console.
-        //All other logging functions will print the message to the editor console in the future.
-        static void Print(const std::string& text);
+		//Used for debugging purposes. Prints message only to host console.
+		//All other logging functions will print the message to the editor console in the future.
+		static void Print(IceString text);
 
-        static void Message(const std::string& message);
+		static void Message(IceString message);
 
-        static void Info(const std::string& info);
+		static void Info(IceString info);
 
-        static void Warn(Error::ETypes error, const Error::ErrorArgs& args = { });
+		static void Warn(Error::ETypes error, const Error::ErrorArgs& args = { });
 
-        static void Warn(Error::EFailed error, const Error::ErrorArgs& args = { });
+		static void Warn(Error::EFailed error, const Error::ErrorArgs& args = { });
 
-        static void Warn(const std::string& warning);
+		static void Warn(IceString warning);
 
-        static void Error(Error::ETypes error, const Error::ErrorArgs& args = { });
+		static void Error(Error::ETypes error, const Error::ErrorArgs& args = { });
 
-        static void Error(Error::EFailed error, const Error::ErrorArgs& args = { });
+		static void Error(Error::EFailed error, const Error::ErrorArgs& args = { });
 
-        static void Error(const std::string& error);
+		static void Error(IceString error);
 
-    private:
-        enum EConsoleColor : WORD
-        {
-            Blue = 3,
-            Red = 12,
-            Yellow = 14,
-            White = 15
-        };
+	private:
+		enum EConsoleColor : WORD
+		{
+			Blue = 3,
+			Red = 12,
+			Yellow = 14,
+			White = 15
+		};
 
-        static void SetConsoleColor(EConsoleColor color);
+		static void SetConsoleColor(EConsoleColor color);
 
-        //Returns the current formatted time string.
-        static std::string GetFormattedTime();
+		//Returns the current formatted time string.
+		static std::string GetFormattedTime();
 
-    private:
-        static void ResetConsoleColor();
+	private:
+		static void ResetConsoleColor();
 
-    private:
-        static inline HANDLE m_ConsoleHandle;
-    };
+	private:
+		static inline HANDLE m_ConsoleHandle;
+	};
 }
 
 //Fixme: Some macros may be changed in the future

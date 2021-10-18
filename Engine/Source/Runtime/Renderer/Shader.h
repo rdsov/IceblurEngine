@@ -2,12 +2,14 @@
 
 #pragma once
 
+#include "Core/CoreUtils.h"
+
 namespace Iceblur
 {
 	class Shader
 	{
 	public:
-		Shader(const uint32_t& type, const std::string& path)
+		Shader(const uint32_t& type, IceString path)
 				: m_Shader()
 		{
 			Compile(type, path.c_str());
