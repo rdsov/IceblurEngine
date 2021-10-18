@@ -4,10 +4,10 @@
 
 #include <glm/glm.hpp>
 
+#include "Core/CoreUtils.h"
+
 namespace Iceblur
 {
-	typedef uint32_t VID;
-
 	struct Vertex
 	{
 		Vertex(float x, float y, float z, float s = 0, float t = 0)

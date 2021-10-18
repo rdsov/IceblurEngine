@@ -102,6 +102,6 @@ namespace Iceblur
 			delete m_EBO;
 		}
 
-		ICE_INFO("Shutting down 2D renderer...");
+		ICE_PRINT("Shutting down 2D renderer...");
 	}
 }

@@ -43,7 +43,7 @@ namespace Iceblur
 	void Shader::Delete() const
 	{
 		glDeleteShader(m_Shader);
-		ICE_INFO("Deleted shader");
+		ICE_PRINT("Deleted shader");
 	}
 
 	ShaderProgram::ShaderProgram()
@@ -81,6 +81,6 @@ namespace Iceblur
 	void ShaderProgram::Delete() const
 	{
 		glDeleteShader(m_Program);
-		ICE_INFO("Deleted shader program");
+		ICE_PRINT("Deleted shader program");
 	}
 }
