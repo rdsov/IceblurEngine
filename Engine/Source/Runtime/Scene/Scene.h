@@ -25,6 +25,8 @@ namespace Iceblur
 			return m_Props.name;
 		}
 
+		void Update(float deltaTime);
+
 	private:
 		SceneProps m_Props;
 	};
