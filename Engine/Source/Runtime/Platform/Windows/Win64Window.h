@@ -4,34 +4,34 @@
 
 #include "Core/Window.h"
 
-#include <GLFW/glfw3.h>
+struct GLFWwindow;
 
 namespace Iceblur
 {
-    class Win64Window : public Window
-    {
-    public:
-        Win64Window() = default;
+	class Win64Window : public Window
+	{
+	public:
+		Win64Window() = default;
 
-        ~Win64Window() override = default;
+		~Win64Window() override = default;
 
-        NODISCARD void* GetNativeWindow() const override
-        {
-            return m_Window;
-        }
+		NODISCARD void* GetNativeWindow() const override
+		{
+			return m_Window;
+		}
 
-    private:
-        bool Create(const WindowProps& props) override;
+	private:
+		bool Create(const WindowProps& props) override;
 
-        static void WindowMaximizeCallback(GLFWwindow* window, int maximized);
+		static void WindowMaximizeCallback(GLFWwindow* window, int maximized);
 
-        static void WindowSizeCallback(GLFWwindow* window, int width, int height);
+		static void WindowSizeCallback(GLFWwindow* window, int width, int height);
 
-        static void MousePositionCallback(GLFWwindow* window, double x, double y);
+		static void MousePositionCallback(GLFWwindow* window, double x, double y);
 
-    private:
-        friend class WindowManager;
+	private:
+		friend class WindowManager;
 
-        GLFWwindow* m_Window = nullptr;
-    };
+		GLFWwindow* m_Window = nullptr;
+	};
 }
