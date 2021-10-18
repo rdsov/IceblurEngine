@@ -5,6 +5,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "Core/IO/VIO.h"
+
 #include "WindowManager.h"
 #include "Event/EventSystem.h"
 #include "Renderer/Renderer.h"
@@ -12,8 +14,7 @@
 
 #include "Scene/Scene.h"
 #include "Scene/SceneManager.h"
-
-#include "Core/IO/VIO.h"
+#include "Scene/Entity.h"
 
 namespace Iceblur
 {
@@ -66,12 +67,21 @@ namespace Iceblur
 		auto devScene = SceneManager::CreateNew(props);
 		SceneManager::LoadScene(devScene);
 
+		OnStart();
+
 		while (WindowManager::IsWindowRunning(WindowManager::GetHost()))
 		{
 			OnUpdate(GetDeltaTime());
 		}
 
 		OnShutdown();
+	}
+
+	void Application::OnStart()
+	{
+		Entity::CreateAndAdd("Awesome Entity");
+		Entity::CreateAndAdd("Cool Entity");
+		Entity::CreateAndAdd("Great Entity");
 	}
 
 	void Application::OnUpdate(float deltaTime)

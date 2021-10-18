@@ -28,6 +28,11 @@ namespace Iceblur
 		//Updates the current scene.
 		static void Update(float deltaTime);
 
+		static Scene* GetCurrentScene()
+		{
+			return m_CurrentScene;
+		}
+
 	private:
 		static Scene* m_CurrentScene;
 		static std::vector<Scene*> m_SceneRegistry;

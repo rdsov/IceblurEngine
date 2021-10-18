@@ -2,10 +2,22 @@
 
 #include "Scene.h"
 
+#include "Core/IO/Log.h"
+#include "Entity.h"
+
 namespace Iceblur
 {
 	void Scene::Update(float deltaTime)
 	{
-		//std::cout << deltaTime << std::endl;
+		for (const auto& entity : m_EntityRegistry)
+		{
+			entity->Update(deltaTime);
+		}
+	}
+
+	void Scene::AddEntity(Entity* entity)
+	{
+		m_EntityRegistry.emplace_back(entity);
+		ICE_LOG("Added entity: " + entity->GetName());
 	}
 }

@@ -14,7 +14,7 @@ namespace Iceblur
 	{
 		auto* scene = new Scene(props);
 
-		ICE_INFO("Created scene: " + scene->GetName());
+		ICE_PRINT("Created scene: " + scene->GetName());
 
 		AddScene(scene);
 
@@ -26,7 +26,7 @@ namespace Iceblur
 		ICE_CHECK_NULL(scene, "Scene");
 
 		m_SceneRegistry.emplace_back(scene);
-		ICE_INFO("Added scene: " + scene->GetName());
+		ICE_PRINT("Added scene: " + scene->GetName());
 	}
 
 	void SceneManager::LoadScene(Scene* scene)
@@ -43,7 +43,7 @@ namespace Iceblur
 
 		m_CurrentScene = scene;
 
-		ICE_INFO("Loaded scene: " + scene->GetName());
+		ICE_PRINT("Loaded scene: " + scene->GetName());
 	}
 
 	void SceneManager::Update(float deltaTime)

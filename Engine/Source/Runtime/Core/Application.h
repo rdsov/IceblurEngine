@@ -37,6 +37,9 @@ namespace Iceblur
 		//Initialize here
 		virtual void OnPostInit();
 
+		//Create game relevant objects here
+		virtual void OnStart();
+
 		virtual void OnUpdate(float deltaTime);
 
 		virtual void OnShutdown();

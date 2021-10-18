@@ -7,6 +7,8 @@
 
 namespace Iceblur
 {
+	class Entity;
+
 	//Contains information about a scene
 	struct SceneProps
 	{
@@ -25,9 +27,13 @@ namespace Iceblur
 			return m_Props.name;
 		}
 
+		void AddEntity(Entity* entity);
+
 		void Update(float deltaTime);
 
 	private:
 		SceneProps m_Props;
+
+		std::vector<Entity*> m_EntityRegistry;
 	};
 }
