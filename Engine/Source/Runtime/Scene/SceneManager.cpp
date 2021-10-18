@@ -7,20 +7,52 @@
 
 namespace Iceblur
 {
+	Scene* SceneManager::m_CurrentScene;
 	std::vector<Scene*> SceneManager::m_SceneRegistry;
 
-	void SceneManager::CreateNew(const SceneProps& props)
+	Scene* SceneManager::CreateNew(const SceneProps& props)
 	{
 		auto* scene = new Scene(props);
 
 		ICE_INFO("Created scene: " + scene->GetName());
 
 		AddScene(scene);
+
+		return scene;
 	}
 
 	void SceneManager::AddScene(Scene* scene)
 	{
+		ICE_CHECK_NULL(scene, "Scene");
+
 		m_SceneRegistry.emplace_back(scene);
 		ICE_INFO("Added scene: " + scene->GetName());
+	}
+
+	void SceneManager::LoadScene(Scene* scene)
+	{
+		ICE_CHECK_NULL(scene, "Scene");
+
+		//Check if the scene exists in the registry.
+		auto it = std::find(m_SceneRegistry.begin(), m_SceneRegistry.end(), scene);
+		if (it == m_SceneRegistry.end())
+		{
+			//It wasn't found, add it manually.
+			AddScene(scene);
+		}
+
+		m_CurrentScene = scene;
+
+		ICE_INFO("Loaded scene: " + scene->GetName());
+	}
+
+	void SceneManager::Update(float deltaTime)
+	{
+		if (!m_CurrentScene)
+		{
+			return;
+		}
+
+		m_CurrentScene->Update(deltaTime);
 	}
 }
