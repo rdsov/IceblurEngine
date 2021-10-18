@@ -2,6 +2,15 @@
 
 #pragma once
 
+//Logs an error to the console if the pointer is null.
+//Error message: 'Name' is nullptr
+#define ICE_CHECK_NULL(ptr, name)   \
+if (!ptr) \
+{ \
+ICE_ERROR(Error::ETypes::A_NULLPTR, { name }); \
+return; \
+} \
+
 //Defines a singleton instance class which is used together with the ICE_SINGLETON macro.
 #define ICE_SINGLETON_DEF(VarName, Class) static inline Class* VarName = nullptr;
 
