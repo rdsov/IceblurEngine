@@ -19,3 +19,5 @@ return; \
 #define ICE_EMPTY(str) std::string::empty(str)
 
 typedef const std::string& IceString;
+
+typedef uint32_t VID;
