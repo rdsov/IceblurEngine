@@ -2,15 +2,16 @@
 
 #include "Entity.h"
 
-#include "Core/IO/Log.h"
 #include "Scene.h"
 #include "SceneManager.h"
+#include "Components.h"
 
 namespace Iceblur
 {
-	void Entity::Initialize()
+	Entity::Entity(IceString name) : m_Name(name)
 	{
 		GenerateUniqueId();
+		AddComponent(new class TransformComponent());
 	}
 
 	Entity* Entity::CreateAndAdd(IceString name)
@@ -36,7 +37,11 @@ namespace Iceblur
 			ICE_ERROR("Entity must be initialized first before it can be used!");
 			return;
 		}
+	}
 
-		//ICE_LOG(m_Name + " updated");
+	void Entity::AddComponent(Component* component)
+	{
+		component->SetParent(this);
+		m_ComponentRegistry.emplace_back(component);
 	}
 }
