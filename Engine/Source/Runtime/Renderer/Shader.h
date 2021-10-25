@@ -4,6 +4,8 @@
 
 #include "Core/CoreUtils.h"
 
+#include <glm/glm.hpp>
+
 namespace Iceblur
 {
 	class Shader
@@ -49,6 +51,8 @@ namespace Iceblur
 		void Use() const;
 
 		void Delete() const;
+
+		void SetUniformMatrix4fv(const char* name, const glm::mat4& value) const;
 
 		operator uint32_t() const
 		{

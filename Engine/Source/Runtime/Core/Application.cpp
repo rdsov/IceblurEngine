@@ -16,6 +16,9 @@
 #include "Scene/SceneManager.h"
 #include "Scene/Entity.h"
 
+#include "Scene/Components/TransformComponent.h"
+#include "Scene/Components/MeshComponent.h"
+
 namespace Iceblur
 {
 	Application* Application::m_Instance = nullptr;
@@ -79,15 +82,31 @@ namespace Iceblur
 
 	void Application::OnStart()
 	{
-		Entity::CreateAndAdd("Awesome Entity");
+		auto ent = Entity::CreateAndAdd("Awesome Entity");
 		Entity::CreateAndAdd("Cool Entity");
 		Entity::CreateAndAdd("Great Entity");
+
+		//ent->GetComponent<TransformComponent>()->SetPosition(glm::vec3(0, 69, 0));
+
+		std::vector<Vertex> m_Vertices = {
+				Vertex(0.5f, 0.5f, 0.0f, 1.0f, 1.0f),
+				Vertex(0.5f, -0.5f, 0.0f, 1.0f, 0.0f),
+				Vertex(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f),
+				Vertex(-0.5f, 0.5f, 0.0f, 0.0f, 1.0f)
+		};
+
+		std::vector<VID> m_Indices = {
+				0, 1, 3,   // first triangle
+				1, 2, 3    // second triangle
+		};
+
+		MeshData* data = new MeshData(m_Vertices, m_Indices);
+		ent->AddComponent<MeshComponent>(new MeshComponent(data));
 	}
 
 	void Application::OnUpdate(float deltaTime)
 	{
 		Renderer::Update(deltaTime);
-		SceneManager::Update(deltaTime);
 		WindowManager::UpdateWindow(WindowManager::GetHost());
 	}
 

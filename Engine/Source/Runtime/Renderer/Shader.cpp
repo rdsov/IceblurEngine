@@ -3,6 +3,7 @@
 #include "Shader.h"
 
 #include <glad/glad.h>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "Core/IO/Log.h"
 
@@ -82,5 +83,11 @@ namespace Iceblur
 	{
 		glDeleteShader(m_Program);
 		ICE_PRINT("Deleted shader program");
+	}
+
+	void ShaderProgram::SetUniformMatrix4fv(const char* name, const glm::mat4& value) const
+	{
+		uint32_t location = glGetUniformLocation(m_Program, name);
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
 	}
 }

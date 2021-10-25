@@ -27,12 +27,20 @@ namespace Iceblur
 
 		virtual enum Dimension GetDimension() = 0;
 
+		virtual const struct ShaderProgram* GetShaderProgram() const
+		{
+			return m_ShaderProgram;
+		}
+
 	protected:
 		virtual void Initialize() = 0;
 
 		virtual void Update(double deltaTime) = 0;
 
 		virtual void Shutdown() = 0;
+
+	protected:
+		ShaderProgram* m_ShaderProgram;
 
 		friend class Renderer;
 	};
@@ -65,12 +73,7 @@ namespace Iceblur
 	private:
 		Color m_ClearColor;
 
-		struct ShaderProgram* m_ShaderProgram = nullptr;
 		struct Shader* m_VertexShader = nullptr;
 		struct Shader* m_FragmentShader = nullptr;
-
-		struct VertexArrayObject* m_VAO = nullptr;
-		struct VertexBuffer* m_VBO = nullptr;
-		struct ElementArrayBuffer* m_EBO = nullptr;
 	};
 }

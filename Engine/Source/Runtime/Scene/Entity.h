@@ -7,10 +7,10 @@
 #include "Core/Identifiable.h"
 #include "Core/IO/Log.h"
 
+#include "Component.h"
+
 namespace Iceblur
 {
-	class Component;
-
 	class ICE_API Entity : Identifiable
 	{
 	public:
@@ -37,10 +37,42 @@ namespace Iceblur
 		}
 
 	public:
-		void AddComponent(Component* component);
+		template <typename T>
+		T* AddComponent(Component* component)
+		{
+			if (HasComponent<T>())
+			{
+				return GetComponent<T>();
+			}
+
+			component->SetParentEntity(this);
+			m_ComponentRegistry.emplace_back(component);
+			return (T*) component;
+		}
 
 		template <typename T>
-		T* GetComponent()
+		bool RemoveComponent()
+		{
+			//Check if the component was found
+			T* foundComponent = GetComponent<T>();
+			if (foundComponent)
+			{
+				if (foundComponent->IsEssential())
+				{
+					ICE_ERROR(ICE_CLASS_TYPE(T) + " cannot be removed since it's an essential component!");
+					return false;
+				}
+
+				REMOVE_FROM_VECTOR(m_ComponentRegistry, foundComponent);
+				delete foundComponent;
+				return true;
+			}
+
+			return false;
+		}
+
+		template <typename T>
+		T* GetComponent() const
 		{
 			for (const auto& component : m_ComponentRegistry)
 			{
@@ -51,9 +83,25 @@ namespace Iceblur
 				}
 			}
 
-			ICE_ERROR(Error::ETypes::A_NULLPTR, { ICE_CLASS_TYPE(T) + " of entity '" + GetName() + "'" });
+			//ICE_ERROR(Error::ETypes::A_NULLPTR, { ICE_CLASS_TYPE(T) + " of entity '" + GetName() + "'" });
 			return nullptr;
 		}
+
+		template <typename T>
+		bool HasComponent() const
+		{
+			for (const auto& component : m_ComponentRegistry)
+			{
+				if (dynamic_cast<T*>(component))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		class TransformComponent* Transform() const;
 
 	private:
 		std::string m_Name;

@@ -4,14 +4,20 @@
 
 #include "Scene.h"
 #include "SceneManager.h"
-#include "Components.h"
+
+#include "Renderer/Renderer.h"
+#include "Renderer/RenderingPipeline.h"
+#include "Renderer/Shader.h"
+
+#include "Components/TransformComponent.h"
+#include "Components/MeshComponent.h"
 
 namespace Iceblur
 {
 	Entity::Entity(IceString name) : m_Name(name)
 	{
 		GenerateUniqueId();
-		AddComponent(new class TransformComponent());
+		AddComponent<TransformComponent>(new TransformComponent());
 	}
 
 	Entity* Entity::CreateAndAdd(IceString name)
@@ -37,11 +43,18 @@ namespace Iceblur
 			ICE_ERROR("Entity must be initialized first before it can be used!");
 			return;
 		}
+
+		MeshComponent* mesh = GetComponent<MeshComponent>();
+		if (mesh)
+		{
+			mesh->Draw(Renderer::GetCurrentPipeline()->GetShaderProgram());
+		}
+
+		Transform()->SetPosition(glm::vec3(Transform()->GetPosition().x + 0.001, 0, 0));
 	}
 
-	void Entity::AddComponent(Component* component)
+	class TransformComponent* Entity::Transform() const
 	{
-		component->SetParent(this);
-		m_ComponentRegistry.emplace_back(component);
+		return GetComponent<TransformComponent>();
 	}
 }
