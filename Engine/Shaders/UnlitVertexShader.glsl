@@ -1,7 +1,10 @@
 #version 460 core
 layout (location = 0) in vec3 POS;
 
+uniform mat4 uModel;
+
 void main()
 {
-    gl_Position = vec4(POS.xyz, 1.0);
+    vec4 vertexPos = uModel * vec4(POS, 1.0);
+    gl_Position = vertexPos;
 }
