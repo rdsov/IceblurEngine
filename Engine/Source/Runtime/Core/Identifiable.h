@@ -10,10 +10,13 @@ namespace Iceblur
 	class Identifiable
 	{
 	public:
-		virtual void Initialize() = 0;
-
-		virtual VID GenerateUniqueId()
+		VID GenerateUniqueId()
 		{
+			if (m_HasGeneratedId)
+			{
+				return m_Id;
+			}
+
 			m_Id = m_LastId + 1;
 			m_LastId = m_Id;
 
@@ -22,7 +25,7 @@ namespace Iceblur
 			return m_Id;
 		}
 
-		virtual VID GetId() const
+		VID GetId() const
 		{
 			return m_Id;
 		}
