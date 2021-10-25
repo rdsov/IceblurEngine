@@ -18,6 +18,16 @@ return; \
 //Inside static functions, use VIO::Empty() instead.
 #define ICE_EMPTY(str) std::string::empty(str)
 
+//Returns the class type as a string.
+#define ICE_CLASS_TYPE(x) std::string(typeid(x).name())
+
+template <typename T, typename P>
+inline static bool FindInVector(const std::vector<T>& vector, P* pointer)
+{
+	auto it = std::find(vector.begin(), vector.end(), pointer);
+	return it != vector.end();
+}
+
 typedef const std::string& IceString;
 
 typedef uint32_t VID;
