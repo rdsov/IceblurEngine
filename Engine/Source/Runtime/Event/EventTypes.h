@@ -42,6 +42,38 @@ namespace Iceblur
 		int m_Height = 0;
 	};
 
+	struct WindowMoveEvent : IEvent
+	{
+		ICE_EVENT_DECL(WindowMoveEvent)
+
+		WindowMoveEvent(Window* window, int x, int y)
+				: m_Window(window), m_X(x), m_Y(y)
+		{
+		}
+
+		~WindowMoveEvent() override = default;
+
+		NODISCARD inline Window* GetWindow() const
+		{
+			return m_Window;
+		}
+
+		NODISCARD inline int GetX() const
+		{
+			return m_X;
+		}
+
+		NODISCARD inline int GetY() const
+		{
+			return m_Y;
+		}
+
+	private:
+		Window* m_Window = nullptr;
+		int m_X;
+		int m_Y;
+	};
+
 	struct WindowMaximizeEvent : IEvent
 	{
 		ICE_EVENT_DECL(WindowMaximizeEvent)
@@ -99,6 +131,12 @@ namespace Iceblur
 	inline std::ostream& operator<<(std::ostream& os, const WindowResizeEvent& event)
 	{
 		os << event.DebugString() << "Width: " << event.GetWidth() << " Height: " << event.GetHeight();
+		return os;
+	}
+
+	inline std::ostream& operator<<(std::ostream& os, const WindowMoveEvent& event)
+	{
+		os << event.DebugString() << "X: " << event.GetX() << " Y: " << event.GetY();
 		return os;
 	}
 

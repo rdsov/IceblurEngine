@@ -31,6 +31,8 @@ namespace Iceblur
 
 		static void WindowSizeCallback(GLFWwindow* window, int width, int height);
 
+		static void WindowMoveCallback(GLFWwindow* window, int x, int y);
+
 		static void MousePositionCallback(GLFWwindow* window, double x, double y);
 
 	private:

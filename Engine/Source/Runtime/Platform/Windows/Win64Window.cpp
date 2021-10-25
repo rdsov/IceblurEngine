@@ -83,6 +83,7 @@ namespace Iceblur
 		//Example callback for testing, more will be implemented soon
 		glfwSetWindowMaximizeCallback(m_Window, &WindowMaximizeCallback);
 		glfwSetWindowSizeCallback(m_Window, &WindowSizeCallback);
+		glfwSetWindowPosCallback(m_Window, &WindowMoveCallback);
 		glfwSetCursorPosCallback(m_Window, &MousePositionCallback);
 
 		return true;
@@ -101,12 +102,23 @@ namespace Iceblur
 		 * other functions that are not relevant for rendering.
 		 * One other problem is that Application::OnUpdate also calls
 		 * glfwSwapBuffers(), which is quite laggy currently.
+		 *
+		 * Update (10/25/2021)
+		 * Somehow it doesn't seem to lag anymore. And I don't know why. Interesting.
 		*/
 
-		//Application::GetInstance()->ForceUpdate();
-		Renderer::Update(Application::GetInstance()->GetDeltaTime());
+		Application::GetInstance()->ForceUpdate();
+		//Renderer::Update(Application::GetInstance()->GetDeltaTime());
 
 		WindowResizeEvent event(WindowManager::GetStaticWindow(window), width, height);
+		EventSystem::Dispatch(event);
+	}
+
+	void Win64Window::WindowMoveCallback(GLFWwindow* window, int x, int y)
+	{
+		Application::GetInstance()->ForceUpdate();
+
+		WindowMoveEvent event(WindowManager::GetStaticWindow(window), x, y);
 		EventSystem::Dispatch(event);
 	}
 
