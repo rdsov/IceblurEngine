@@ -3,46 +3,19 @@
 #pragma once
 
 #include "Core/Core.h"
-#include "Core/Identifiable.h"
+#include "Scene/Component.h"
 
 #include <glm/glm.hpp>
-
-#define ICE_COMPONENT_DECL(ComponentType) \
-const std::string GetName() override { return #ComponentType; }
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace Iceblur
 {
-	class Entity;
-
-	//-----------------BASE COMPONENT CLASS--------------------//
-
-	class ICE_API Component : public Identifiable
-	{
-	public:
-		virtual const std::string GetName() = 0;
-
-		void SetParent(Entity* parent)
-		{
-			m_AttachedEntity = parent;
-		}
-
-		Entity* GetParent()
-		{
-			return m_AttachedEntity;
-		}
-
-	protected:
-		Entity* m_AttachedEntity;
-	};
-
-	//---------------------COMPONENTS------------------------//
-
 	//Stores information like position, rotation and scale of an entity.
-	class TransformComponent : public Component
+	class ICE_API TransformComponent : public Component
 	{
-		ICE_COMPONENT_DECL(TransformComponent);
-
 	public:
+		ICE_COMPONENT_DECL(TransformComponent, true);
+
 		TransformComponent(float x = 0, float y = 0, float z = 0)
 				: m_Position(glm::vec3(x, y, z))
 		{
@@ -89,6 +62,14 @@ namespace Iceblur
 		inline const glm::vec3 GetScale() const
 		{
 			return m_Scale;
+		}
+
+		inline const glm::mat4 GetTransformMatrix() const
+		{
+			glm::mat4 transform = glm::mat4(1.0f);
+			transform = glm::translate(transform, m_Position);
+			transform = glm::scale(transform, m_Scale);
+			return transform;
 		}
 
 	private:
