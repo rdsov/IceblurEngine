@@ -7,17 +7,17 @@
 
 namespace Iceblur
 {
+	void Scene::AddEntity(Entity* entity)
+	{
+		m_EntityRegistry.emplace_back(entity);
+		ICE_LOG("Added entity: " + entity->GetName());
+	}
+
 	void Scene::Update(float deltaTime)
 	{
 		for (const auto& entity : m_EntityRegistry)
 		{
 			entity->Update(deltaTime);
 		}
-	}
-
-	void Scene::AddEntity(Entity* entity)
-	{
-		m_EntityRegistry.emplace_back(entity);
-		ICE_LOG("Added entity: " + entity->GetName());
 	}
 }
