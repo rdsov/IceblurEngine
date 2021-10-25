@@ -30,6 +30,11 @@ namespace Iceblur
 		{
 		}
 
+		~Buffer()
+		{
+			Delete();
+		}
+
 		virtual void Generate();
 
 		virtual void Bind() = 0;
@@ -38,14 +43,14 @@ namespace Iceblur
 		{
 		}
 
-		virtual void Delete();
-
 		virtual VID GetId()
 		{
 			return m_Id;
 		}
 
 	protected:
+		void Delete();
+
 		VID m_Id;
 	};
 
