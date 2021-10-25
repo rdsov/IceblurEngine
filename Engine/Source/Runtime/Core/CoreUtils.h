@@ -28,6 +28,8 @@ inline static bool FindInVector(const std::vector<T>& vector, P* pointer)
 	return it != vector.end();
 }
 
+#define REMOVE_FROM_VECTOR(vector, item) vector.erase(std::remove(vector.begin(), vector.end(), item))
+
 typedef const std::string& IceString;
 
 typedef uint32_t VID;
