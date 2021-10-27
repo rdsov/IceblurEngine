@@ -7,10 +7,10 @@
 #include "Core/Identifiable.h"
 #include "Core/IO/Log.h"
 
-#include "Component.h"
-
 namespace Iceblur
 {
+	class Component;
+
 	class ICE_API Entity : Identifiable
 	{
 	public:
@@ -45,8 +45,10 @@ namespace Iceblur
 				return GetComponent<T>();
 			}
 
-			component->SetParentEntity(this);
+			SetParentEntity(component);
 			m_ComponentRegistry.emplace_back(component);
+			RegisterComponents();
+
 			return (T*) component;
 		}
 
@@ -57,7 +59,7 @@ namespace Iceblur
 			T* foundComponent = GetComponent<T>();
 			if (foundComponent)
 			{
-				if (foundComponent->IsEssential())
+				if (IsComponentEssential(foundComponent))
 				{
 					ICE_ERROR(ICE_CLASS_TYPE(T) + " cannot be removed since it's an essential component!");
 					return false;
@@ -102,6 +104,14 @@ namespace Iceblur
 		}
 
 		class TransformComponent* Transform() const;
+
+	private:
+		void SetParentEntity(Component* component);
+
+		bool IsComponentEssential(Component* component);
+
+		//Calls RegisterEntityComponents() on current scene.
+		void RegisterComponents();
 
 	private:
 		std::string m_Name;

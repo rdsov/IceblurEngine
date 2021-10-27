@@ -5,12 +5,8 @@
 #include "Scene.h"
 #include "SceneManager.h"
 
-#include "Renderer/Renderer.h"
-#include "Renderer/RenderingPipeline.h"
-#include "Renderer/Shader.h"
-
+#include "Component.h"
 #include "Components/TransformComponent.h"
-#include "Components/MeshComponent.h"
 
 namespace Iceblur
 {
@@ -43,18 +39,28 @@ namespace Iceblur
 			ICE_ERROR("Entity must be initialized first before it can be used!");
 			return;
 		}
-
-		MeshComponent* mesh = GetComponent<MeshComponent>();
-		if (mesh)
-		{
-			mesh->Draw(Renderer::GetCurrentPipeline()->GetShaderProgram());
-		}
-
-		Transform()->SetPosition(glm::vec3(Transform()->GetPosition().x + 0.001, 0, 0));
 	}
 
 	class TransformComponent* Entity::Transform() const
 	{
 		return GetComponent<TransformComponent>();
+	}
+
+	void Entity::SetParentEntity(Component* component)
+	{
+		component->SetParentEntity(this);
+	}
+
+	bool Entity::IsComponentEssential(Component* component)
+	{
+		return component->IsEssential();
+	}
+
+	void Entity::RegisterComponents()
+	{
+		if (SceneManager::GetCurrentScene()->FindEntity(this))
+		{
+			SceneManager::GetCurrentScene()->RegisterEntityComponents(this);
+		}
 	}
 }
