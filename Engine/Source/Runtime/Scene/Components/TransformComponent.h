@@ -7,6 +7,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 namespace Iceblur
 {
@@ -44,6 +45,11 @@ namespace Iceblur
 			return m_Position;
 		}
 
+		inline void Translate(const glm::vec3& position)
+		{
+			m_Position += position;
+		}
+
 		inline void SetRotation(const glm::vec3& rotation)
 		{
 			m_Rotation = rotation;
@@ -52,6 +58,11 @@ namespace Iceblur
 		inline const glm::vec3 GetRotation() const
 		{
 			return m_Rotation;
+		}
+
+		inline void Rotate(const glm::vec3& rotation)
+		{
+			m_Rotation += rotation;
 		}
 
 		inline void SetScale(const glm::vec3& scale)
@@ -64,9 +75,17 @@ namespace Iceblur
 			return m_Scale;
 		}
 
+		inline void Scale(const glm::vec3& scale)
+		{
+			m_Scale += scale;
+		}
+
 		inline const glm::mat4 GetTransformMatrix() const
 		{
+			glm::vec3 rotation = glm::vec3(glm::radians(m_Rotation.x), glm::radians(m_Rotation.y), glm::radians(m_Rotation.z));
+
 			glm::mat4 transform = glm::mat4(1.0f);
+			transform = glm::toMat4(glm::quat(rotation));
 			transform = glm::translate(transform, m_Position);
 			transform = glm::scale(transform, m_Scale);
 			return transform;
