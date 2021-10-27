@@ -4,20 +4,46 @@
 
 #include "Core/IO/Log.h"
 #include "Entity.h"
+#include "Components/MeshComponent.h"
+
+#include "Renderer/Renderer.h"
+#include "Renderer/RenderingPipeline.h"
 
 namespace Iceblur
 {
 	void Scene::AddEntity(Entity* entity)
 	{
 		m_EntityRegistry.emplace_back(entity);
+
+		RegisterEntityComponents(entity);
+
 		ICE_LOG("Added entity: " + entity->GetName());
+	}
+
+	void Scene::RegisterEntityComponents(Entity* entity)
+	{
+		auto meshComponent = entity->GetComponent<MeshComponent>();
+		if (meshComponent)
+		{
+			m_MeshesToRender.emplace_back(meshComponent);
+		}
 	}
 
 	void Scene::Update(float deltaTime)
 	{
+		Draw();
+
 		for (const auto& entity : m_EntityRegistry)
 		{
 			entity->Update(deltaTime);
+		}
+	}
+
+	void Scene::Draw()
+	{
+		for (const auto& mesh : m_MeshesToRender)
+		{
+			mesh->Draw(Renderer::GetCurrentPipeline()->GetShaderProgram());
 		}
 	}
 }

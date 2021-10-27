@@ -9,6 +9,8 @@ namespace Iceblur
 {
 	class Entity;
 
+	class MeshComponent;
+
 	//Contains information about a scene
 	struct SceneProps
 	{
@@ -27,7 +29,30 @@ namespace Iceblur
 			return m_Props.name;
 		}
 
+		//Adds entity to the registry and calls RegisterEntityComponents()
 		void AddEntity(Entity* entity);
+
+		//Checks entity's components and registers them if needed.
+		//Call this function if you've added new components after
+		//you have called AddEntity()
+		void RegisterEntityComponents(Entity* entity);
+
+		//Loops through the entity registry and returns true if the entity was found.
+		inline bool FindEntity(Entity* entity)
+		{
+			for (const auto& e : m_EntityRegistry)
+			{
+				if (e == entity)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+	private:
+		void Draw();
 
 		void Update(float deltaTime);
 
@@ -35,5 +60,8 @@ namespace Iceblur
 		SceneProps m_Props;
 
 		std::vector<Entity*> m_EntityRegistry;
+		std::vector<MeshComponent*> m_MeshesToRender;
+
+		friend class SceneManager;
 	};
 }
