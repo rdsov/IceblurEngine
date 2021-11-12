@@ -28,14 +28,14 @@ namespace Iceblur
 
 		virtual const bool IsEssential() const = 0;
 
+		virtual Entity* GetParentEntity()
+		{
+			return m_AttachedEntity;
+		}
+
 		void SetParentEntity(Entity* parent)
 		{
 			m_AttachedEntity = parent;
-		}
-
-		Entity* GetParentEntity()
-		{
-			return m_AttachedEntity;
 		}
 
 	protected:
