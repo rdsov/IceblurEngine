@@ -9,6 +9,8 @@ namespace Iceblur
 {
 	class Entity;
 
+	class CameraComponent;
+
 	class MeshComponent;
 
 	//Contains information about a scene
@@ -60,6 +62,7 @@ namespace Iceblur
 		SceneProps m_Props;
 
 		std::vector<Entity*> m_EntityRegistry;
+		std::vector<CameraComponent*> m_CameraRegistry;
 		std::vector<MeshComponent*> m_MeshesToRender;
 
 		friend class SceneManager;

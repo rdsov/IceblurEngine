@@ -2,12 +2,16 @@
 
 #include "Scene.h"
 
+#include "Core/VTime.h"
 #include "Core/IO/Log.h"
+
 #include "Entity.h"
+#include "Components/CameraComponent.h"
 #include "Components/MeshComponent.h"
 
 #include "Renderer/Renderer.h"
 #include "Renderer/RenderingPipeline.h"
+#include "Renderer/Shader.h"
 
 namespace Iceblur
 {
@@ -26,6 +30,14 @@ namespace Iceblur
 		if (meshComponent)
 		{
 			m_MeshesToRender.emplace_back(meshComponent);
+			return;
+		}
+
+		auto cameraComponent = entity->GetComponent<CameraComponent>();
+		if (cameraComponent)
+		{
+			m_CameraRegistry.emplace_back(cameraComponent);
+			return;
 		}
 	}
 
@@ -41,6 +53,11 @@ namespace Iceblur
 
 	void Scene::Draw()
 	{
+		for (const auto& camera : m_CameraRegistry)
+		{
+			camera->Update(VTime::GetDeltaTime());
+		}
+
 		for (const auto& mesh : m_MeshesToRender)
 		{
 			mesh->Draw(Renderer::GetCurrentPipeline()->GetShaderProgram());
