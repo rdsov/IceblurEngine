@@ -10,11 +10,20 @@
 
 #include "Core/IO/Log.h"
 #include "Core/IO/VIO.h"
+#include "Core/WindowManager.h"
 
 #include "Scene/SceneManager.h"
+#include "Scene/Components/SpectatorCameraComponent.h"
+
 
 namespace Iceblur
 {
+	void BaseRenderer::Refresh()
+	{
+		Resolution resolution = WindowManager::GetHost()->GetSize();
+		glViewport(0, 0, resolution.GetWidth(), resolution.GetHeight());
+	}
+
 	void BaseRenderer::Initialize()
 	{
 		m_ClearColor = Color();
@@ -30,12 +39,19 @@ namespace Iceblur
 
 		delete m_VertexShader;
 		delete m_FragmentShader;
+
+		m_Spectator = new SpectatorCameraComponent();
+		m_Spectator->Init();
 	}
 
 	void BaseRenderer::Update(double deltaTime)
 	{
 		ClearColor();
 
+		m_ShaderProgram->SetUniformMatrix4fv("uView", m_Spectator->GetViewMatrix());
+		m_ShaderProgram->SetUniformMatrix4fv("uProjection", m_Spectator->GetProjectionMatrix());
+
+		m_Spectator->Update(deltaTime);
 		SceneManager::Update(deltaTime);
 	}
 

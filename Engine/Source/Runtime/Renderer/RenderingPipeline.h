@@ -20,6 +20,7 @@ namespace Iceblur
 
 	//-------------Rendering Pipeline Base Class-------------------//
 
+	class SpectatorCameraComponent;
 
 	struct RenderingPipeline
 	{
@@ -32,6 +33,13 @@ namespace Iceblur
 			return m_ShaderProgram;
 		}
 
+		SpectatorCameraComponent* GetSpectatorCamera() const
+		{
+			return m_Spectator;
+		}
+
+		virtual void Refresh() = 0;
+
 	protected:
 		virtual void Initialize() = 0;
 
@@ -41,6 +49,8 @@ namespace Iceblur
 
 	protected:
 		ShaderProgram* m_ShaderProgram;
+
+		SpectatorCameraComponent* m_Spectator;
 
 		friend class Renderer;
 	};
@@ -60,6 +70,8 @@ namespace Iceblur
 		{
 			return Dimension::TWO;
 		}
+
+		void Refresh() override;
 
 	private:
 		void Initialize() override;
