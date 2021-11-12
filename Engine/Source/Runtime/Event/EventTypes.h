@@ -70,8 +70,8 @@ namespace Iceblur
 
 	private:
 		Window* m_Window = nullptr;
-		int m_X;
-		int m_Y;
+		int m_X = 0;
+		int m_Y = 0;
 	};
 
 	struct WindowMaximizeEvent : IEvent
@@ -124,6 +124,88 @@ namespace Iceblur
 	private:
 		float m_X = 0;
 		float m_Y = 0;
+	};
+
+	struct MouseButtonEvent : IEvent
+	{
+		ICE_EVENT_DECL(MouseButtonEvent)
+
+		MouseButtonEvent(int button, int action)
+				: m_Button(button), m_Action(action)
+		{
+		}
+
+		~MouseButtonEvent() override = default;
+
+		NODISCARD inline int GetButton() const
+		{
+			return m_Button;
+		}
+
+		NODISCARD inline int GetAction() const
+		{
+			return m_Action;
+		}
+
+	private:
+		int m_Button = 0;
+		int m_Action = 0;
+	};
+
+	struct MouseScrollEvent : IEvent
+	{
+		ICE_EVENT_DECL(MouseScrollEvent)
+
+		MouseScrollEvent(float x, float y)
+				: m_X(x), m_Y(y)
+		{
+		}
+
+		~MouseScrollEvent() override = default;
+
+		NODISCARD inline float GetXDelta() const
+		{
+			return m_X;
+		}
+
+		NODISCARD inline float GetYDelta() const
+		{
+			return m_Y;
+		}
+
+	private:
+		float m_X = 0;
+		float m_Y = 0;
+	};
+
+	struct KeyEvent : IEvent
+	{
+		ICE_EVENT_DECL(KeyEvent)
+
+		KeyEvent(int key, int action, int scancode)
+				: m_Key(key), m_Action(action), m_Scancode(scancode)
+		{
+		}
+
+		~KeyEvent() override = default;
+
+		NODISCARD inline int GetKey() const
+		{
+			return m_Key;
+		}
+
+		NODISCARD inline int GetAction() const
+		{
+			return m_Action;
+		}
+
+		NODISCARD inline int GetScancode() const
+		{
+			return m_Scancode;
+		}
+
+	private:
+		int m_Key = 0, m_Action = 0, m_Scancode = 0;
 	};
 
 	//---------------DEBUG OVERLOADS---------------//

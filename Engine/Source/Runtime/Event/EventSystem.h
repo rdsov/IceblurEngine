@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Core/Core.h"
+#include "Core/IO/Log.h"
 #include "EventTypes.h"
 #include "Core/Error/ErrorList.h"
 
@@ -17,30 +18,30 @@ ICE_FATAL(Error::EFailed::A_CAST_EVENT, { #NewVarName, #EventType }); \
 
 namespace Iceblur
 {
-    class ICE_API EventSystem
-    {
-    public:
-        using Callback = std::function<void(const IEvent& e)>;
-        using EventList = std::map<IEvent::EventName, std::vector<Callback>>;
+	class ICE_API EventSystem
+	{
+	public:
+		using Callback = std::function<void(const IEvent& e)>;
+		using EventList = std::map<IEvent::EventName, std::vector<Callback>>;
 
-        EventSystem() = default;
+		EventSystem() = default;
 
-        ~EventSystem() = default;
+		~EventSystem() = default;
 
-        static void Initialize();
+		static void Initialize();
 
-        static void Subscribe(IEvent::EventName type, const Callback& trigger);
+		static void Subscribe(IEvent::EventName type, const Callback& trigger);
 
-        static void Dispatch(const IEvent& event);
+		static void Dispatch(const IEvent& event);
 
-    private:
-        static EventSystem* GetInstance()
-        {
-            return m_Instance;
-        }
+	private:
+		static EventSystem* GetInstance()
+		{
+			return m_Instance;
+		}
 
-    private:
-        static inline EventSystem* m_Instance = nullptr;
-        EventList m_EventList;
-    };
+	private:
+		static inline EventSystem* m_Instance = nullptr;
+		EventList m_EventList;
+	};
 }
