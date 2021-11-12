@@ -18,7 +18,7 @@ namespace Iceblur
 
 	struct ICE_API Resolution
 	{
-		Resolution(int x, int y, bool canBeZero = false)
+		Resolution(int x = 16.0f, int y = 9.0, bool canBeZero = false)
 		{
 			canBeNull = canBeZero;
 			if (canBeNull)
@@ -136,6 +136,37 @@ namespace Iceblur
 	private:
 		int m_Width = 1;
 		int m_Height = 1;
+	};
+
+	struct V2D
+	{
+		V2D(float x = 0, float y = 0)
+				: m_X(x), m_Y(y)
+		{
+		}
+
+		NODISCARD inline int GetX() const
+		{
+			return m_X;
+		}
+
+		void SetX(float x)
+		{
+			m_X = x;
+		}
+
+		NODISCARD inline int GetY() const
+		{
+			return m_Y;
+		}
+
+		void SetY(float y)
+		{
+			m_Y = y;
+		}
+
+	private:
+		float m_X, m_Y;
 	};
 
 #define RGB_CHANNELS(var) (var).red, (var).green, (var).blue
