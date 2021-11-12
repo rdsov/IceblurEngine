@@ -14,6 +14,20 @@
 
 namespace Iceblur
 {
+	Resolution Win64Window::GetSize() const
+	{
+		int width, height;
+		glfwGetWindowSize(m_Window, &width, &height);
+		return Resolution(width, height);
+	}
+
+	Resolution Win64Window::GetMousePosition() const
+	{
+		double x, y;
+		glfwGetCursorPos(m_Window, &x, &y);
+		return Resolution(x, y);
+	}
+
 	bool Win64Window::Create(const WindowProps& props)
 	{
 		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
@@ -80,11 +94,13 @@ namespace Iceblur
 		//Should we enable VSync?
 		glfwSwapInterval(!props.enableVSync);
 
-		//Example callback for testing, more will be implemented soon
 		glfwSetWindowMaximizeCallback(m_Window, &WindowMaximizeCallback);
 		glfwSetWindowSizeCallback(m_Window, &WindowSizeCallback);
 		glfwSetWindowPosCallback(m_Window, &WindowMoveCallback);
 		glfwSetCursorPosCallback(m_Window, &MousePositionCallback);
+		glfwSetKeyCallback(m_Window, &KeyCallback);
+		glfwSetMouseButtonCallback(m_Window, &MouseButtonCallback);
+		glfwSetScrollCallback(m_Window, &ScrollCallback);
 
 		return true;
 	}
@@ -125,6 +141,24 @@ namespace Iceblur
 	void Win64Window::MousePositionCallback(GLFWwindow* window, double x, double y)
 	{
 		MouseMoveEvent event((float) x, (float) y);
+		EventSystem::Dispatch(event);
+	}
+
+	void Win64Window::ScrollCallback(GLFWwindow* window, double xOffset, double yOffset)
+	{
+		MouseScrollEvent event(xOffset, yOffset);
+		EventSystem::Dispatch(event);
+	}
+
+	void Win64Window::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+	{
+		MouseButtonEvent event(button, action);
+		EventSystem::Dispatch(event);
+	}
+
+	void Win64Window::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+	{
+		KeyEvent event(key, action, scancode);
 		EventSystem::Dispatch(event);
 	}
 }

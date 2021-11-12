@@ -24,6 +24,10 @@ namespace Iceblur
 			return m_Window;
 		}
 
+		Resolution GetSize() const override;
+
+		Resolution GetMousePosition() const;
+
 	private:
 		bool Create(const WindowProps& props) override;
 
@@ -34,6 +38,12 @@ namespace Iceblur
 		static void WindowMoveCallback(GLFWwindow* window, int x, int y);
 
 		static void MousePositionCallback(GLFWwindow* window, double x, double y);
+
+		static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+
+		static void ScrollCallback(GLFWwindow* window, double xOffset, double yOffset);
+
+		static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 	private:
 		friend class WindowManager;
