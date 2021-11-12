@@ -2,6 +2,8 @@
 
 #include "Runtime/Core/CoreMinimal.h"
 
+#include "Runtime/Scene/Components/CameraComponent.h"
+
 using namespace Iceblur;
 
 class EditorApp : public Application
@@ -31,13 +33,15 @@ public:
 
 	void OnPostInit() override
 	{
-		WindowManager::CreateWindow(EWindowType::EditorPopup, { }, true);
+		WindowManager::CreateWindow(EWindowType::Editor, { }, true);
 
 		/*Examples for event system:
 
 		EventSystem::Subscribe(MouseMoveEvent::type, &OnMouseMoved);
 		EventSystem::Subscribe(WindowResizeEvent::type, &OnWindowResize);
 		EventSystem::Subscribe(WindowMaximizeEvent::type, &OnWindowMaximize);*/
+
+		InputManager::SetInputMode(EInputMode::Game);
 
 		Application::OnPostInit();
 	}
