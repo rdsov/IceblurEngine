@@ -82,7 +82,8 @@ namespace Iceblur
 
 		inline const glm::mat4 GetTransformMatrix() const
 		{
-			glm::vec3 rotation = glm::vec3(glm::radians(m_Rotation.x), glm::radians(m_Rotation.y), glm::radians(m_Rotation.z));
+			//glm::vec3 rotation = glm::vec3(glm::radians(m_Rotation.x), glm::radians(m_Rotation.y), glm::radians(m_Rotation.z));
+			glm::vec3 rotation = glm::radians(m_Rotation);
 
 			glm::mat4 transform = glm::mat4(1.0f);
 			transform = glm::toMat4(glm::quat(rotation));
@@ -91,7 +92,7 @@ namespace Iceblur
 			return transform;
 		}
 
-	private:
+	public:
 		glm::vec3 m_Position = glm::vec3(0.0f);
 		glm::vec3 m_Rotation = glm::vec3(0.0f);
 		glm::vec3 m_Scale = glm::vec3(1.0f);
