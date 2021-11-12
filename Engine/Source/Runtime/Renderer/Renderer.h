@@ -2,11 +2,14 @@
 
 #pragma once
 
+#include "Core/Core.h"
+#include "Event/IEvent.h"
+
 namespace Iceblur
 {
 	struct RenderingPipeline;
 
-	class Renderer
+	class ICE_API Renderer
 	{
 	public:
 		static void Initialize();
@@ -21,6 +24,9 @@ namespace Iceblur
 		static void Update(float deltaTime);
 
 		static void Shutdown();
+
+	private:
+		static void OnWindowResize(IceEventFn e);
 
 	private:
 		static RenderingPipeline* m_ActivePipeline;

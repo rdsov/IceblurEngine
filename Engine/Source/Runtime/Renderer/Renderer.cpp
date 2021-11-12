@@ -6,6 +6,7 @@
 
 #include "RenderingPipeline.h"
 #include "Core/IO/Log.h"
+#include "Event/EventSystem.h"
 
 namespace Iceblur
 {
@@ -14,9 +15,10 @@ namespace Iceblur
 	void Renderer::Initialize()
 	{
 		RenderingPipeline* pipeline = new BaseRenderer();
-
 		pipeline->Initialize();
 		SetActiveRenderingPipeline(pipeline);
+
+		EventSystem::Subscribe(WindowResizeEvent::type, &OnWindowResize);
 	}
 
 	void Renderer::SetActiveRenderingPipeline(RenderingPipeline* pipeline)
@@ -43,5 +45,10 @@ namespace Iceblur
 		}
 
 		ICE_INFO("Shutting down renderer...");
+	}
+
+	void Renderer::OnWindowResize(IceEventFn e)
+	{
+		m_ActivePipeline->Refresh();
 	}
 }
