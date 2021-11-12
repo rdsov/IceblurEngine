@@ -5,7 +5,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "Core/VTime.h"
 #include "Core/IO/VIO.h"
+#include "Core/InputManager.h"
 
 #include "WindowManager.h"
 #include "Event/EventSystem.h"
@@ -29,14 +31,9 @@ namespace Iceblur
 		return 0;
 	}
 
-	float Application::GetDeltaTime()
-	{
-		return glfwGetTime();
-	}
-
 	void Application::ForceUpdate()
 	{
-		OnUpdate(GetDeltaTime());
+		OnUpdate(VTime::GetDeltaTime());
 	}
 
 	void Application::OnInit()
@@ -44,6 +41,7 @@ namespace Iceblur
 		Log::Init();
 		VIO::Init();
 		EventSystem::Initialize();
+		InputManager::Initialize();
 
 		auto apiProps = new RenderingAPIProps("OpenGL", 4, 6);
 
@@ -74,7 +72,7 @@ namespace Iceblur
 
 		while (WindowManager::IsWindowRunning(WindowManager::GetHost()))
 		{
-			OnUpdate(GetDeltaTime());
+			OnUpdate(VTime::GetDeltaTime());
 		}
 
 		OnShutdown();
@@ -85,6 +83,7 @@ namespace Iceblur
 		auto ent = Entity::CreateAndAdd("Awesome Entity");
 		Entity::CreateAndAdd("Cool Entity");
 		Entity::CreateAndAdd("Great Entity");
+		ent->Transform()->Translate(glm::vec3(0.0f, 0.0f, -1.0f));
 
 		//ent->GetComponent<TransformComponent>()->SetPosition(glm::vec3(0, 69, 0));
 
@@ -106,6 +105,8 @@ namespace Iceblur
 
 	void Application::OnUpdate(float deltaTime)
 	{
+		VTime::Update();
+		InputManager::Update();
 		Renderer::Update(deltaTime);
 		WindowManager::UpdateWindow(WindowManager::GetHost());
 	}
