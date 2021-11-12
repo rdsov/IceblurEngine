@@ -7,14 +7,11 @@
 #include "Scene/Entity.h"
 #include "TransformComponent.h"
 
-#include <cmath>
-
 namespace Iceblur
 {
 	SpectatorCameraComponent::SpectatorCameraComponent()
 	{
 		m_Transform = new TransformComponent();
-		m_Front = glm::vec3(0.0f, 0.0f, -1.0f);
 	}
 
 	void SpectatorCameraComponent::Init()
