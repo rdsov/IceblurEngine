@@ -7,6 +7,7 @@
 #include "HostEntry.h"
 #include "Window.h"
 #include "WindowManager.h"
+#include "InputManager.h"
 
 #include "IO/Log.h"
 
@@ -14,3 +15,7 @@
 #include "Event/EventTypes.h"
 
 #include "Math/VMath.h"
+
+#include "Scene/Scene.h"
+#include "Scene/SceneManager.h"
+#include "Scene/Entity.h"
