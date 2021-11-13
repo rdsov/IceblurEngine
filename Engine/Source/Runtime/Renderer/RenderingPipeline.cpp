@@ -39,19 +39,22 @@ namespace Iceblur
 
 		delete m_VertexShader;
 		delete m_FragmentShader;
-
-		m_Spectator = new SpectatorCameraComponent();
-		m_Spectator->Init();
 	}
 
 	void BaseRenderer::Update(double deltaTime)
 	{
 		ClearColor();
 
+		if (!m_Spectator)
+		{
+			ICE_ERROR("No spectator camera was found! Please add at least one camera to the current scene or setup a spectator camera.");
+			return;
+		}
+
 		m_ShaderProgram->SetUniformMatrix4fv("uView", m_Spectator->GetViewMatrix());
 		m_ShaderProgram->SetUniformMatrix4fv("uProjection", m_Spectator->GetProjectionMatrix());
-
 		m_Spectator->Update(deltaTime);
+
 		SceneManager::Update(deltaTime);
 	}
 

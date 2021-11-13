@@ -22,7 +22,7 @@ namespace Iceblur
 
 	class SpectatorCameraComponent;
 
-	struct RenderingPipeline
+	struct ICE_API RenderingPipeline
 	{
 		virtual std::string GetName() = 0;
 
@@ -33,9 +33,16 @@ namespace Iceblur
 			return m_ShaderProgram;
 		}
 
-		SpectatorCameraComponent* GetSpectatorCamera() const
+		//Returns the current global spectator camera.
+		virtual SpectatorCameraComponent* GetSpectatorCamera() const
 		{
 			return m_Spectator;
+		}
+
+		//Sets the active spectator camera. This is global and not scene-dependent.
+		virtual void SetSpectatorCamera(SpectatorCameraComponent* camera)
+		{
+			m_Spectator = camera;
 		}
 
 		virtual void Refresh() = 0;
