@@ -16,6 +16,9 @@
 
 #include "Math/VMath.h"
 
+#include "Renderer/Renderer.h"
+#include "Renderer/RenderingPipeline.h"
+
 #include "Scene/Scene.h"
 #include "Scene/SceneManager.h"
 #include "Scene/Entity.h"
