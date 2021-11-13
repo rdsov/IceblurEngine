@@ -138,7 +138,7 @@ namespace Iceblur
 		int m_Height = 1;
 	};
 
-	struct V2D
+	struct ICE_API V2D
 	{
 		V2D(float x = 0, float y = 0)
 				: m_X(x), m_Y(y)
@@ -172,7 +172,7 @@ namespace Iceblur
 #define RGB_CHANNELS(var) (var).red, (var).green, (var).blue
 #define ALL_COLOR_CHANNELS(var) var.red, (var).green, (var).blue, (var).alpha
 
-	struct Color
+	struct ICE_API Color
 	{
 		Color()
 				: red(0), green(0), blue(0), alpha(0)
