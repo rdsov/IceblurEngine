@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "WindowManager.h"
 #include "Event/EventSystem.h"
+#include "CoreUtils.h"
 
 namespace Iceblur
 {
@@ -40,8 +41,7 @@ namespace Iceblur
 
 	void InputManager::BindKey(int key, int action)
 	{
-		BindKey(KeyAction { []()
-		                    {}, key, action });
+		BindKey(KeyAction(key, action));
 	}
 
 	void InputManager::BindKey(const KeyAction& keyAction)
@@ -58,8 +58,7 @@ namespace Iceblur
 
 	void InputManager::BindShortcut(int modifierKey, int otherKey)
 	{
-		if (std::find(m_HoldBinds.begin(), m_HoldBinds.end(), KeyAction { []()
-		                                                                  {}, modifierKey, ICE_KEY_HOLD }) == m_HoldBinds.end())
+		if (std::find(m_HoldBinds.begin(), m_HoldBinds.end(), KeyAction(modifierKey, ICE_KEY_HOLD)) == m_HoldBinds.end())
 		{
 			BindKey(modifierKey, ICE_KEY_HOLD);
 		}
@@ -98,18 +97,25 @@ namespace Iceblur
 	{
 		ICE_EVENT_CAST(event, e, KeyEvent);
 
+		//Check if current key is found in bound keys registry
 		for (auto& bind : m_KeyBinds)
 		{
 			if (event.GetKey() == bind.key)
 			{
 				if (event.GetAction() == bind.action)
 				{
-					if (std::find(m_ActiveKeyBinds.begin(), m_ActiveKeyBinds.end(), bind) == m_ActiveKeyBinds.end())
+					if (FIND_NOT_IN_VECTOR(m_ActiveKeyBinds, bind))
 					{
 						m_ActiveKeyBinds.emplace_back(bind);
 					}
 
-					bind.function();
+					try
+					{
+						bind.function();
+					} catch (std::bad_function_call bfc)
+					{
+						ICE_ERROR("Bad function call!");
+					}
 				}
 				else
 				{
@@ -158,7 +164,13 @@ namespace Iceblur
 						m_ActiveKeyBinds.emplace_back(bind);
 					}
 
-					bind.function();
+					try
+					{
+						bind.function();
+					} catch (std::bad_function_call bfc)
+					{
+						ICE_ERROR("Bad function call!");
+					}
 				}
 				else
 				{
@@ -269,9 +281,15 @@ namespace Iceblur
 	{
 		for (auto const& key : m_HoldBinds)
 		{
-			if (key.holding)
+			if (key.holding && key.function != nullptr)
 			{
-				key.function();
+				try
+				{
+					key.function();
+				} catch (std::bad_function_call bfc)
+				{
+					ICE_ERROR("Bad function call!");
+				}
 			}
 		}
 	}

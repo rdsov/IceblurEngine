@@ -7,20 +7,40 @@
 #include "Math/VMath.h"
 #include "Event/IEvent.h"
 
+#include <GLFW/glfw3.h>
+
+#define ICE_KEY_PRESS GLFW_PRESS
+#define ICE_KEY_RELEASE GLFW_RELEASE
+#define ICE_KEY_HOLD GLFW_REPEAT
+
 namespace Iceblur
 {
 	struct KeyAction
 	{
+		KeyAction(int keycode = 0, int actionType = ICE_KEY_PRESS, const std::function<void()>& trigger = { })
+				: key(keycode), action(actionType), function(trigger)
+		{
+		}
+
+		//Function that gets triggered.
 		std::function<void()> function;
+
+		//Key that has to be pressed.
 		int key;
+
+		//Currently, there are only 3 actions: ICE_KEY_PRESS, ICE_KEY_HOLD, ICE_KEY_RELEASE
 		int action;
-		bool holding = false;
-		bool used = false;
 
 		bool operator==(const KeyAction& keyAction) const
 		{
 			return keyAction.key == key && keyAction.action == action;
 		}
+
+	private:
+		bool holding = false;
+		bool used = false;
+
+		friend class InputManager;
 	};
 
 	struct ScrollWheelAction
@@ -93,12 +113,6 @@ namespace Iceblur
 		friend class Win64Window;
 	};
 }
-
-#include <GLFW/glfw3.h>
-
-#define ICE_KEY_PRESS GLFW_PRESS
-#define ICE_KEY_RELEASE GLFW_RELEASE
-#define ICE_KEY_HOLD GLFW_REPEAT
 
 #define ICE_KEY_SPACE         GLFW_KEY_SPACE
 #define ICE_KEY_APOSTROPHE    GLFW_KEY_APOSTROPHE
