@@ -9,15 +9,15 @@
 
 #include <GLFW/glfw3.h>
 
-#define ICE_KEY_PRESS GLFW_PRESS
-#define ICE_KEY_RELEASE GLFW_RELEASE
-#define ICE_KEY_HOLD GLFW_REPEAT
+#define ICE_PRESS GLFW_PRESS
+#define ICE_RELEASE GLFW_RELEASE
+#define ICE_HOLD GLFW_REPEAT
 
 namespace Iceblur
 {
 	struct KeyAction
 	{
-		KeyAction(int keycode = 0, int actionType = ICE_KEY_PRESS, const std::function<void()>& trigger = { })
+		KeyAction(int keycode = 0, int actionType = ICE_PRESS, const std::function<void()>& trigger = { })
 				: key(keycode), action(actionType), function(trigger)
 		{
 		}
@@ -28,7 +28,7 @@ namespace Iceblur
 		//Key that has to be pressed.
 		int key;
 
-		//Currently, there are only 3 actions: ICE_KEY_PRESS, ICE_KEY_HOLD, ICE_KEY_RELEASE
+		//Currently, there are only 3 actions: ICE_PRESS, ICE_HOLD, ICE_RELEASE
 		int action;
 
 		bool operator==(const KeyAction& keyAction) const

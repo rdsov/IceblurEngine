@@ -46,7 +46,7 @@ namespace Iceblur
 
 	void InputManager::BindKey(const KeyAction& keyAction)
 	{
-		if (keyAction.action == ICE_KEY_HOLD)
+		if (keyAction.action == ICE_HOLD)
 		{
 			m_HoldBinds.emplace_back(keyAction);
 		}
@@ -58,12 +58,12 @@ namespace Iceblur
 
 	void InputManager::BindShortcut(int modifierKey, int otherKey)
 	{
-		if (std::find(m_HoldBinds.begin(), m_HoldBinds.end(), KeyAction(modifierKey, ICE_KEY_HOLD)) == m_HoldBinds.end())
+		if (std::find(m_HoldBinds.begin(), m_HoldBinds.end(), KeyAction(modifierKey, ICE_HOLD)) == m_HoldBinds.end())
 		{
-			BindKey(modifierKey, ICE_KEY_HOLD);
+			BindKey(modifierKey, ICE_HOLD);
 		}
 
-		BindKey(otherKey, ICE_KEY_PRESS);
+		BindKey(otherKey, ICE_PRESS);
 	}
 
 	void InputManager::BindScrollWheel(const ScrollWheelAction& action)
@@ -138,11 +138,11 @@ namespace Iceblur
 		{
 			if (event.GetKey() == bind.key)
 			{
-				if (event.GetAction() == ICE_KEY_PRESS)
+				if (event.GetAction() == ICE_PRESS)
 				{
 					bind.holding = true;
 				}
-				else if (event.GetAction() == ICE_KEY_RELEASE)
+				else if (event.GetAction() == ICE_RELEASE)
 				{
 					bind.holding = false;
 				}
@@ -193,11 +193,11 @@ namespace Iceblur
 		{
 			if (event.GetButton() == bind.key)
 			{
-				if (event.GetAction() == ICE_KEY_PRESS)
+				if (event.GetAction() == ICE_PRESS)
 				{
 					bind.holding = true;
 				}
-				else if (event.GetAction() == ICE_KEY_RELEASE)
+				else if (event.GetAction() == ICE_RELEASE)
 				{
 					bind.holding = false;
 				}
@@ -227,11 +227,14 @@ namespace Iceblur
 
 	bool InputManager::GetKeyAction(int key, int action)
 	{
-		if (action == ICE_KEY_HOLD)
+		if (action == ICE_HOLD)
 		{
 			for (auto const& bind : m_HoldBinds)
 			{
-				if (key == bind.key && bind.holding) return true;
+				if (key == bind.key && bind.holding)
+				{
+					return true;
+				}
 			}
 		}
 		else
@@ -264,7 +267,7 @@ namespace Iceblur
 
 		for (auto& bind : m_ActiveKeyBinds)
 		{
-			if (bind.key == otherKey && bind.action == ICE_KEY_PRESS)
+			if (bind.key == otherKey && bind.action == ICE_PRESS)
 			{
 				if (!bind.used)
 				{
