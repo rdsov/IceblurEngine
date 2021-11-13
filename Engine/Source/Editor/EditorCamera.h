@@ -8,7 +8,18 @@ namespace Iceblur
 {
 	class EditorCamera : public SpectatorCameraComponent
 	{
+	public:
+		EditorCamera()
+		{
+		}
+
+		void SetupInput() override;
+
 	protected:
 		void Move(float deltaTime) override;
+
+	private:
+		float m_NormalSpeed = 2.5f;
+		float m_AccelerateSpeed = 6.0f;
 	};
 }

@@ -2,11 +2,28 @@
 
 #include "EditorCamera.h"
 
+#include "Runtime/Core/InputManager.h"
+
 namespace Iceblur
 {
+	void EditorCamera::SetupInput()
+	{
+		SpectatorCameraComponent::SetupInput();
+
+		InputManager::BindKey(ICE_KEY_LEFT_SHIFT, ICE_HOLD);
+	}
+
 	void EditorCamera::Move(float deltaTime)
 	{
-		SpectatorCameraComponent::Move(deltaTime);
+		if (InputManager::GetKeyAction(ICE_KEY_LEFT_SHIFT, ICE_HOLD))
+		{
+			SetCameraSpeed(m_AccelerateSpeed);
+		}
+		else
+		{
+			SetCameraSpeed(m_NormalSpeed);
+		}
 
+		SpectatorCameraComponent::Move(deltaTime);
 	}
 }
