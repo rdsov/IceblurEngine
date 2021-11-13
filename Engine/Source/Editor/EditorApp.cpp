@@ -18,7 +18,7 @@ public:
 	{
 		WindowManager::CreateWindow(EWindowType::EditorPopup, { }, true);
 
-		KeyAction action(ICE_KEY_ESCAPE, ICE_KEY_PRESS, std::bind(&Application::Quit, this));
+		KeyAction action(ICE_KEY_ESCAPE, ICE_PRESS, std::bind(&Application::Quit, this));
 		InputManager::BindKey(action);
 		InputManager::SetInputMode(EInputMode::Game);
 
@@ -30,6 +30,7 @@ public:
 		Application::OnStart();
 
 		auto* camera = new EditorCamera();
+		camera->SetupInput();
 		Renderer::GetCurrentPipeline()->SetSpectatorCamera(camera);
 	}
 };

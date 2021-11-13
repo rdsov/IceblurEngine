@@ -11,12 +11,12 @@ namespace Iceblur
 {
 	void SpectatorCameraComponent::SetupInput()
 	{
-		InputManager::BindKey(ICE_KEY_W, ICE_KEY_HOLD);
-		InputManager::BindKey(ICE_KEY_S, ICE_KEY_HOLD);
-		InputManager::BindKey(ICE_KEY_A, ICE_KEY_HOLD);
-		InputManager::BindKey(ICE_KEY_D, ICE_KEY_HOLD);
-		InputManager::BindKey(ICE_KEY_Q, ICE_KEY_HOLD);
-		InputManager::BindKey(ICE_KEY_E, ICE_KEY_HOLD);
+		InputManager::BindKey(ICE_KEY_W, ICE_HOLD);
+		InputManager::BindKey(ICE_KEY_S, ICE_HOLD);
+		InputManager::BindKey(ICE_KEY_A, ICE_HOLD);
+		InputManager::BindKey(ICE_KEY_D, ICE_HOLD);
+		InputManager::BindKey(ICE_KEY_Q, ICE_HOLD);
+		InputManager::BindKey(ICE_KEY_E, ICE_HOLD);
 	}
 
 	void SpectatorCameraComponent::Update(float deltaTime)
@@ -50,32 +50,32 @@ namespace Iceblur
 	{
 		glm::vec3 target = glm::vec3(0.0f);
 
-		if (InputManager::GetKeyAction(ICE_KEY_W, ICE_KEY_HOLD))
+		if (InputManager::GetKeyAction(ICE_KEY_W, ICE_HOLD))
 		{
 			target += m_Front;
 		}
 
-		if (InputManager::GetKeyAction(ICE_KEY_S, ICE_KEY_HOLD))
+		if (InputManager::GetKeyAction(ICE_KEY_S, ICE_HOLD))
 		{
 			target -= m_Front;
 		}
 
-		if (InputManager::GetKeyAction(ICE_KEY_A, ICE_KEY_HOLD))
+		if (InputManager::GetKeyAction(ICE_KEY_A, ICE_HOLD))
 		{
 			target -= glm::cross(m_Front, m_Up);
 		}
 
-		if (InputManager::GetKeyAction(ICE_KEY_D, ICE_KEY_HOLD))
+		if (InputManager::GetKeyAction(ICE_KEY_D, ICE_HOLD))
 		{
 			target += glm::cross(m_Front, m_Up);
 		}
 
-		if (InputManager::GetKeyAction(ICE_KEY_Q, ICE_KEY_HOLD))
+		if (InputManager::GetKeyAction(ICE_KEY_Q, ICE_HOLD))
 		{
 			target -= m_Up;
 		}
 
-		if (InputManager::GetKeyAction(ICE_KEY_E, ICE_KEY_HOLD))
+		if (InputManager::GetKeyAction(ICE_KEY_E, ICE_HOLD))
 		{
 			target += m_Up;
 		}

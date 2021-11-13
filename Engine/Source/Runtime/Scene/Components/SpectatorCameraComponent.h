@@ -16,8 +16,10 @@ namespace Iceblur
 
 		SpectatorCameraComponent()
 		{
-			Init();
 		}
+
+		//Sets the necessary input bindings.
+		virtual void SetupInput();
 
 		virtual void Update(float deltaTime) override;
 
@@ -82,14 +84,6 @@ namespace Iceblur
 		}
 
 	protected:
-		void Init()
-		{
-			SetupInput();
-		}
-
-		//Sets the necessary input bindings.
-		virtual void SetupInput();
-
 		//Manipulate this if you want to change the movement behaviour.
 		virtual void Move(float deltaTime);
 
