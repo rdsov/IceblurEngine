@@ -9,12 +9,7 @@
 
 namespace Iceblur
 {
-	SpectatorCameraComponent::SpectatorCameraComponent()
-	{
-		m_Transform = new TransformComponent();
-	}
-
-	void SpectatorCameraComponent::Init()
+	void SpectatorCameraComponent::SetupInput()
 	{
 		InputManager::BindKey(ICE_KEY_W, ICE_KEY_HOLD);
 		InputManager::BindKey(ICE_KEY_S, ICE_KEY_HOLD);
@@ -28,6 +23,31 @@ namespace Iceblur
 	{
 		CameraComponent::Update(deltaTime);
 
+		if (!m_LockMovement)
+		{
+			Move(deltaTime);
+		}
+
+		if (!m_LockCamera)
+		{
+			float x = (InputManager::GetMousePosition().GetX() - m_LastMouse.GetX()) * m_MouseSensitivity * deltaTime;
+			float y = (m_LastMouse.GetY() - InputManager::GetMousePosition().GetY()) * m_MouseSensitivity * deltaTime;
+
+			Rotate(x, y);
+
+			m_View = glm::lookAt(m_Position, m_Position + m_Front, m_Up);
+
+			m_LastMouse.SetX(InputManager::GetMousePosition().GetX());
+			m_LastMouse.SetY(InputManager::GetMousePosition().GetY());
+		}
+		else
+		{
+			m_View = glm::lookAt(m_Position, m_Position + m_Front, m_Up);
+		}
+	}
+
+	void SpectatorCameraComponent::Move(float deltaTime)
+	{
 		glm::vec3 target = glm::vec3(0.0f);
 
 		if (InputManager::GetKeyAction(ICE_KEY_W, ICE_KEY_HOLD))
@@ -66,16 +86,6 @@ namespace Iceblur
 		}
 
 		m_Position = glm::mix(m_Position, m_TargetPosition, deltaTime * 10.0f);
-
-		float x = (InputManager::GetMousePosition().GetX() - m_LastMouse.GetX()) * m_MouseSensitivity * deltaTime;
-		float y = (m_LastMouse.GetY() - InputManager::GetMousePosition().GetY()) * m_MouseSensitivity * deltaTime;
-
-		Rotate(x, y);
-
-		m_View = glm::lookAt(m_Position, m_Position + m_Front, m_Up);
-
-		m_LastMouse.SetX(InputManager::GetMousePosition().GetX());
-		m_LastMouse.SetY(InputManager::GetMousePosition().GetY());
 	}
 
 	void SpectatorCameraComponent::Rotate(float x, float y)

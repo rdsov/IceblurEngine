@@ -7,45 +7,96 @@
 
 namespace Iceblur
 {
-	class TransformComponent;
-
 	//Acts like a normal camera but with the ability to move around.
 	//The movement behaviour can be changed by overriding the Update() function.
-	class SpectatorCameraComponent : public CameraComponent
+	class ICE_API SpectatorCameraComponent : public CameraComponent
 	{
 	public:
 		ICE_COMPONENT_DECL(SpectatorCameraComponent, false)
 
-		SpectatorCameraComponent();
-
-		TransformComponent* Transform() const
+		SpectatorCameraComponent()
 		{
-			return m_Transform;
+			Init();
 		}
-
-		void Init();
 
 		virtual void Update(float deltaTime) override;
 
-		const float GetMouseSensitivity()
+		const float GetMouseSensitivity() const
 		{
 			return m_MouseSensitivity;
 		}
 
 		void SetMouseSensitivity(float value)
 		{
-			if (m_MouseSensitivity > 0.0f)
+			if (m_MouseSensitivity >= 0.0f)
 			{
 				m_MouseSensitivity = value;
 			}
 		}
 
-	protected:
-		void Rotate(float x, float y);
+		const float GetCameraSpeed() const
+		{
+			return m_Speed;
+		}
+
+		void SetCameraSpeed(float value)
+		{
+			if (value >= 0.0f)
+			{
+				m_Speed = value;
+			}
+		}
+
+		//Returns whether the camera can move around.
+		const bool IsMovementLocked() const
+		{
+			return m_LockMovement;
+		}
+
+		//If set to true, the spectator will not be able to move around.
+		void SetMovementLocked(bool value)
+		{
+			m_LockMovement = value;
+		}
+
+		//Returns whether the camera can look around.
+		const bool IsCameraLocked() const
+		{
+			return m_LockCamera;
+		}
+
+		//If set to true, the spectator will not be able to look around.
+		void SetCameraLocked(bool value)
+		{
+			m_LockCamera = value;
+		}
+
+		const glm::vec3 GetPosition() const
+		{
+			return m_Position;
+		}
+
+		const glm::vec3 GetRotation() const
+		{
+			return glm::vec3(m_Yaw, m_Pitch, 0.0f);
+		}
 
 	protected:
-		TransformComponent* m_Transform;
+		void Init()
+		{
+			SetupInput();
+		}
 
+		//Sets the necessary input bindings.
+		virtual void SetupInput();
+
+		//Manipulate this if you want to change the movement behaviour.
+		virtual void Move(float deltaTime);
+
+		//Manipulate this if you want to change the camera look behaviour.
+		virtual void Rotate(float x, float y);
+
+	protected:
 		glm::vec3 m_Position = glm::vec3(0.0f);
 		glm::vec3 m_TargetPosition = glm::vec3(0.0f);
 		glm::vec3 m_Front = glm::vec3(0.0f);
@@ -56,5 +107,8 @@ namespace Iceblur
 
 		float m_MouseSensitivity = 40.0f;
 		float m_Speed = 3.0f;
+
+		bool m_LockMovement = false;
+		bool m_LockCamera = false;
 	};
 }
