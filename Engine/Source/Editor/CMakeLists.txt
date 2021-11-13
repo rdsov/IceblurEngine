@@ -3,7 +3,7 @@ project(IceblurEditor)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(IceblurEditor EditorApp.cpp)
+add_executable(IceblurEditor EditorApp.cpp EditorCamera.h EditorCamera.cpp)
 
 #Change the working directory for Visual Studio
 if (MSVC)
