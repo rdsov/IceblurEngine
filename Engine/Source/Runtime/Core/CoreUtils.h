@@ -28,6 +28,12 @@ inline static bool FindInVector(const std::vector<T>& vector, P* pointer)
 	return it != vector.end();
 }
 
+//Returns true if item was found in vector.
+#define FIND_IN_VECTOR(vector, item) std::find(vector.begin(), vector.end(), item) != vector.end()
+
+//Returns true if item was not found in vector.
+#define FIND_NOT_IN_VECTOR(vector, item) std::find(vector.begin(), vector.end(), item) == vector.end()
+
 #define REMOVE_FROM_VECTOR(vector, item) vector.erase(std::remove(vector.begin(), vector.end(), item))
 
 typedef const std::string& IceString;
