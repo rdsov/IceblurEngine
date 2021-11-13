@@ -26,6 +26,9 @@ namespace Iceblur
 			return m_Instance;
 		}
 
+		//Quits the application.
+		void Quit();
+
 		//Calls OnUpdate() function
 		virtual void ForceUpdate();
 

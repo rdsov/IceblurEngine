@@ -14,6 +14,11 @@
 
 namespace Iceblur
 {
+	void Win64Window::Close()
+	{
+		glfwSetWindowShouldClose(m_Window, true);
+	}
+
 	Resolution Win64Window::GetSize() const
 	{
 		int width, height;

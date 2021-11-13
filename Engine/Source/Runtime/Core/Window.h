@@ -43,6 +43,8 @@ namespace Iceblur
 
 		NODISCARD virtual void* GetNativeWindow() const = 0;
 
+		virtual void Close() = 0;
+
 		virtual Resolution GetSize() const = 0;
 
 	protected:

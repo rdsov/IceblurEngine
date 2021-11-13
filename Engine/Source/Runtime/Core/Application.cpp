@@ -31,6 +31,11 @@ namespace Iceblur
 		return 0;
 	}
 
+	void Application::Quit()
+	{
+		WindowManager::GetHost()->Close();
+	}
+
 	void Application::ForceUpdate()
 	{
 		OnUpdate(VTime::GetDeltaTime());

@@ -24,6 +24,8 @@ namespace Iceblur
 			return m_Window;
 		}
 
+		void Close() override;
+
 		Resolution GetSize() const override;
 
 		Resolution GetMousePosition() const;
