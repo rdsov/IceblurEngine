@@ -16,7 +16,7 @@ namespace Iceblur
 
 		static void SetActiveRenderingPipeline(RenderingPipeline* pipeline);
 
-		static const RenderingPipeline* GetCurrentPipeline()
+		static RenderingPipeline* GetCurrentPipeline()
 		{
 			return m_ActivePipeline;
 		}
