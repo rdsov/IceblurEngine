@@ -53,7 +53,7 @@ namespace Iceblur
 		friend class MeshComponent;
 	};
 
-	class MeshComponent : public Component
+	class ICE_API MeshComponent : public Component
 	{
 	public:
 		ICE_COMPONENT_DECL(MeshComponent, false);
