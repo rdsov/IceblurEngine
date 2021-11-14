@@ -49,6 +49,7 @@ include_directories("${PROJECT_SOURCE_DIR}/Engine/Source")
 add_subdirectory("${PROJECT_SOURCE_DIR}/Engine/Source/ThirdParty/GLFW")
 add_subdirectory("${PROJECT_SOURCE_DIR}/Engine/Source/ThirdParty/GLAD")
 add_subdirectory("${PROJECT_SOURCE_DIR}/Engine/Source/ThirdParty/GLM")
+add_subdirectory("${PROJECT_SOURCE_DIR}/Engine/Source/ThirdParty/stb")
 
 #Include engine and editor project
 add_subdirectory("${PROJECT_SOURCE_DIR}/Engine/Source/Editor")
@@ -58,6 +59,7 @@ add_subdirectory("${PROJECT_SOURCE_DIR}/Engine/Source/Runtime")
 target_include_directories(IceblurEngine PUBLIC "${PROJECT_SOURCE_DIR}/Engine/Source/ThirdParty/GLFW/include")
 target_include_directories(IceblurEngine PUBLIC "${PROJECT_SOURCE_DIR}/Engine/Source/ThirdParty/GLAD/include")
 target_include_directories(IceblurEngine PUBLIC "${PROJECT_SOURCE_DIR}/Engine/Source/ThirdParty/GLM")
+target_include_directories(IceblurEngine PUBLIC "${PROJECT_SOURCE_DIR}/Engine/Source/ThirdParty/stb/include")
 
 target_include_directories(IceblurEngine PUBLIC "${PROJECT_SOURCE_DIR}/Engine/Source/Runtime")
 target_include_directories(IceblurEditor PUBLIC "${PROJECT_SOURCE_DIR}/Engine/Source/Editor")
