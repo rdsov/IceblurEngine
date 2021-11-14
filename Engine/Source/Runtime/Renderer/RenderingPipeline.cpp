@@ -15,12 +15,11 @@
 #include "Scene/SceneManager.h"
 #include "Scene/Components/SpectatorCameraComponent.h"
 
-
 namespace Iceblur
 {
 	void BaseRenderer::Refresh()
 	{
-		Resolution resolution = WindowManager::GetHost()->GetSize();
+		Resolution resolution = WindowManager::GetHost()->GetFramebufferSize();
 		glViewport(0, 0, resolution.GetWidth(), resolution.GetHeight());
 	}
 
