@@ -14,6 +14,9 @@ namespace Iceblur
 	typedef glm::vec2 Vec2;
 	typedef glm::vec3 Vec3;
 	typedef glm::vec4 Vec4;
+	typedef glm::mat2 Mat2;
+	typedef glm::mat3 Mat3;
+	typedef glm::mat4 Mat4;
 
 	enum class Dimension
 	{
@@ -126,11 +129,11 @@ namespace Iceblur
 		//Should an error be thrown once m_Width or m_Height are zero or negative?
 		bool canBeNull = false;
 
-		NODISCARD inline int GetAspectRatio() const
+		NODISCARD inline float GetAspectRatio() const
 		{
 			if (m_Width > 0 && m_Height > 0)
 			{
-				return m_Width / m_Height;
+				return (float) m_Width / (float) m_Height;
 			}
 
 			ResolutionNullError();
