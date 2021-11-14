@@ -13,10 +13,29 @@ typedef unsigned short WORD;
 
 namespace Iceblur
 {
+	enum ELogVerbosity : uint8_t
+	{
+		Error = 4,
+		Warning = 3,
+		Info = 2,
+		Debug = 1,
+		Verbose = 0
+	};
+
 	class ICE_API Log
 	{
 	public:
 		static void Init();
+
+		static const ELogVerbosity GetLogVerbosity()
+		{
+			return m_LogVerbosity;
+		}
+
+		static void SetLogVerbosity(const ELogVerbosity& verbosity)
+		{
+			m_LogVerbosity = verbosity;
+		}
 
 		//Used for debugging purposes. Prints message only to host console.
 		//All other logging functions will print the message to the editor console in the future.
@@ -49,14 +68,17 @@ namespace Iceblur
 
 		static void SetConsoleColor(EConsoleColor color);
 
+		static void ResetConsoleColor();
+
 		//Returns the current formatted time string.
 		static std::string GetFormattedTime();
 
-	private:
-		static void ResetConsoleColor();
+		static bool CheckVerbosity(uint8_t level);
 
 	private:
 		static inline HANDLE m_ConsoleHandle;
+
+		static inline ELogVerbosity m_LogVerbosity = ELogVerbosity::Error;
 	};
 }
 

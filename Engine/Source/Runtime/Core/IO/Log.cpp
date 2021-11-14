@@ -26,6 +26,8 @@ namespace Iceblur
 
 	void Log::Print(IceString text)
 	{
+		if (!CheckVerbosity(ELogVerbosity::Debug)) return;
+
 		SetConsoleColor(EConsoleColor::White);
 		ICE_PRINT(text);
 		ResetConsoleColor();
@@ -33,6 +35,8 @@ namespace Iceblur
 
 	void Log::Message(IceString message)
 	{
+		if (!CheckVerbosity(ELogVerbosity::Info)) return;
+
 		SetConsoleColor(EConsoleColor::White);
 		std::string out = GetFormattedTime() + " " + message;
 		ICE_PRINT(out);
@@ -41,6 +45,8 @@ namespace Iceblur
 
 	void Log::Info(IceString info)
 	{
+		if (!CheckVerbosity(ELogVerbosity::Info)) return;
+
 		SetConsoleColor(EConsoleColor::Blue);
 		std::string out = GetFormattedTime() + " [INFO] " + info;
 		ICE_PRINT(out);
@@ -49,24 +55,26 @@ namespace Iceblur
 
 	void Log::Warn(Error::ETypes error, const Error::ErrorArgs& args)
 	{
+		if (!CheckVerbosity(ELogVerbosity::Warning)) return;
+
 		std::string warning;
-
 		warning = Error::ToString(error, args);
-
 		Warn(warning);
 	}
 
 	void Log::Warn(Error::EFailed error, const Error::ErrorArgs& args)
 	{
+		if (!CheckVerbosity(ELogVerbosity::Warning)) return;
+
 		std::string warning;
-
 		warning = Error::ToString(error, args);
-
 		Warn(warning);
 	}
 
 	void Log::Warn(IceString warning)
 	{
+		if (!CheckVerbosity(ELogVerbosity::Warning)) return;
+
 		SetConsoleColor(EConsoleColor::Yellow);
 		std::string out = GetFormattedTime() + " [WARNING] " + warning;
 		ICE_PRINT(out);
@@ -75,24 +83,26 @@ namespace Iceblur
 
 	void Log::Error(Error::ETypes error, const Error::ErrorArgs& args)
 	{
+		if (!CheckVerbosity(ELogVerbosity::Error)) return;
+
 		std::string err;
-
 		err = Error::ToString(error, args);
-
 		Error(err);
 	}
 
 	void Log::Error(Error::EFailed error, const Error::ErrorArgs& args)
 	{
+		if (!CheckVerbosity(ELogVerbosity::Error)) return;
+
 		std::string err;
-
 		err = Error::ToString(error, args);
-
 		Error(err);
 	}
 
 	void Log::Error(IceString error)
 	{
+		if (!CheckVerbosity(ELogVerbosity::Error)) return;
+
 		SetConsoleColor(EConsoleColor::Red);
 		std::string out = GetFormattedTime() + " [ERROR] " + error;
 		ICE_PRINT(out);
@@ -117,5 +127,10 @@ namespace Iceblur
 		                            + TimeData::ToString(now.Minutes) + ":"
 		                            + TimeData::ToString(now.Seconds) + "]";
 		return formattedTime;
+	}
+
+	bool Log::CheckVerbosity(uint8_t level)
+	{
+		return m_LogVerbosity >= level;
 	}
 }

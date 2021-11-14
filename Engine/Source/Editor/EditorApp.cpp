@@ -16,7 +16,8 @@ public:
 
 	void OnPostInit() override
 	{
-		WindowManager::CreateWindow(EWindowType::EditorPopup, { }, true);
+		Log::SetLogVerbosity(ELogVerbosity::Error);
+		WindowManager::CreateWindow(EWindowType::Editor, { }, true);
 
 		KeyAction action(ICE_KEY_ESCAPE, ICE_PRESS, std::bind(&Application::Quit, this));
 		InputManager::BindKey(action);
