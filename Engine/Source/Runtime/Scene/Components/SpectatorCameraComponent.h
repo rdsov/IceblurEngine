@@ -84,6 +84,8 @@ namespace Iceblur
 		}
 
 	protected:
+		void UpdateCameraComponent(float deltaTime);
+
 		//Manipulate this if you want to change the movement behaviour.
 		virtual void Move(float deltaTime);
 

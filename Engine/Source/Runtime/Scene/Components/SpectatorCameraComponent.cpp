@@ -21,12 +21,14 @@ namespace Iceblur
 
 	void SpectatorCameraComponent::Update(float deltaTime)
 	{
-		CameraComponent::Update(deltaTime);
+		UpdateCameraComponent(deltaTime);
 
 		if (!m_LockMovement)
 		{
 			Move(deltaTime);
 		}
+
+		m_Position = glm::mix(m_Position, m_TargetPosition, deltaTime * 10.0f);
 
 		if (!m_LockCamera)
 		{
@@ -34,16 +36,17 @@ namespace Iceblur
 			float y = (m_LastMouse.GetY() - InputManager::GetMousePosition().GetY()) * m_MouseSensitivity * deltaTime;
 
 			Rotate(x, y);
-
-			m_View = glm::lookAt(m_Position, m_Position + m_Front, m_Up);
-
-			m_LastMouse.SetX(InputManager::GetMousePosition().GetX());
-			m_LastMouse.SetY(InputManager::GetMousePosition().GetY());
 		}
-		else
-		{
-			m_View = glm::lookAt(m_Position, m_Position + m_Front, m_Up);
-		}
+
+		m_View = glm::lookAt(m_Position, m_Position + m_Front, m_Up);
+
+		m_LastMouse.SetX(InputManager::GetMousePosition().GetX());
+		m_LastMouse.SetY(InputManager::GetMousePosition().GetY());
+	}
+
+	void SpectatorCameraComponent::UpdateCameraComponent(float deltaTime)
+	{
+		CameraComponent::Update(deltaTime);
 	}
 
 	void SpectatorCameraComponent::Move(float deltaTime)
@@ -84,8 +87,6 @@ namespace Iceblur
 		{
 			m_TargetPosition += glm::normalize(target) * m_Speed * 0.01f;
 		}
-
-		m_Position = glm::mix(m_Position, m_TargetPosition, deltaTime * 10.0f);
 	}
 
 	void SpectatorCameraComponent::Rotate(float x, float y)
