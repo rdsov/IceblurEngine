@@ -4,10 +4,17 @@
 
 #include "Core/Core.h"
 
+#include <glm/glm.hpp>
+
 #define RES_INVALID_RETURN_VAL 1
 
 namespace Iceblur
 {
+	typedef glm::vec1 Vec1;
+	typedef glm::vec2 Vec2;
+	typedef glm::vec3 Vec3;
+	typedef glm::vec4 Vec4;
+
 	enum class Dimension
 	{
 		ONE,
