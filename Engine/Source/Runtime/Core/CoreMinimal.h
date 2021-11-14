@@ -10,6 +10,7 @@
 #include "InputManager.h"
 
 #include "IO/Log.h"
+#include "IO/VIO.h"
 
 #include "Event/EventSystem.h"
 #include "Event/EventTypes.h"
@@ -22,3 +23,4 @@
 #include "Scene/Scene.h"
 #include "Scene/SceneManager.h"
 #include "Scene/Entity.h"
+#include "Scene/Components/TransformComponent.h"
