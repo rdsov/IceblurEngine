@@ -2,8 +2,12 @@
 
 #include "Runtime/Core/CoreMinimal.h"
 
-#include "Runtime/Scene/Components/CameraComponent.h"
 #include "EditorCamera.h"
+
+#include "Runtime/Scene/Components/CameraComponent.h"
+#include "Runtime/Scene/Components/MeshComponent.h"
+#include "Renderer/Intern/OpenGLData.h"
+#include "Renderer/Intern/Texture.h"
 
 using namespace Iceblur;
 
@@ -28,6 +32,77 @@ public:
 	void OnStart() override
 	{
 		Application::OnStart();
+
+		auto ent = Entity::CreateAndAdd("Awesome Entity");
+		Entity::CreateAndAdd("Cool Entity");
+		Entity::CreateAndAdd("Great Entity");
+		ent->Transform()->Translate(glm::vec3(0.0f, 0.0f, -1.0f));
+
+		//ent->GetComponent<TransformComponent>()->SetPosition(glm::vec3(0, 69, 0));
+
+		/*std::vector<Vertex> m_Vertices = {
+				Vertex(0.5f, 0.5f, 0.0f, 1.0f, 1.0f),
+				Vertex(0.5f, -0.5f, 0.0f, 1.0f, 0.0f),
+				Vertex(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f),
+				Vertex(-0.5f, 0.5f, 0.0f, 0.0f, 1.0f)
+		};*/
+
+		std::vector<Vertex> m_Vertices = {
+				Vertex(-0.5f, -0.5f, -0.5f, 0.0f, 0.0f),
+				Vertex(0.5f, -0.5f, -0.5f, 1.0f, 0.0f),
+				Vertex(0.5f, 0.5f, -0.5f, 1.0f, 1.0f),
+				Vertex(0.5f, 0.5f, -0.5f, 1.0f, 1.0f),
+				Vertex(-0.5f, 0.5f, -0.5f, 0.0f, 1.0f),
+				Vertex(-0.5f, -0.5f, -0.5f, 0.0f, 0.0f),
+
+				Vertex(-0.5f, -0.5f, 0.5f, 0.0f, 0.0f),
+				Vertex(0.5f, -0.5f, 0.5f, 1.0f, 0.0f),
+				Vertex(0.5f, 0.5f, 0.5f, 1.0f, 1.0f),
+				Vertex(0.5f, 0.5f, 0.5f, 1.0f, 1.0f),
+				Vertex(-0.5f, 0.5f, 0.5f, 0.0f, 1.0f),
+				Vertex(-0.5f, -0.5f, 0.5f, 0.0f, 0.0f),
+
+				Vertex(-0.5f, 0.5f, 0.5f, 1.0f, 0.0f),
+				Vertex(-0.5f, 0.5f, -0.5f, 1.0f, 1.0f),
+				Vertex(-0.5f, -0.5f, -0.5f, 0.0f, 1.0f),
+				Vertex(-0.5f, -0.5f, -0.5f, 0.0f, 1.0f),
+				Vertex(-0.5f, -0.5f, 0.5f, 0.0f, 0.0f),
+				Vertex(-0.5f, 0.5f, 0.5f, 1.0f, 0.0f),
+
+				Vertex(0.5f, 0.5f, 0.5f, 1.0f, 0.0f),
+				Vertex(0.5f, 0.5f, -0.5f, 1.0f, 1.0f),
+				Vertex(0.5f, -0.5f, -0.5f, 0.0f, 1.0f),
+				Vertex(0.5f, -0.5f, -0.5f, 0.0f, 1.0f),
+				Vertex(0.5f, -0.5f, 0.5f, 0.0f, 0.0f),
+				Vertex(0.5f, 0.5f, 0.5f, 1.0f, 0.0f),
+
+				Vertex(-0.5f, -0.5f, -0.5f, 0.0f, 1.0f),
+				Vertex(0.5f, -0.5f, -0.5f, 1.0f, 1.0f),
+				Vertex(0.5f, -0.5f, 0.5f, 1.0f, 0.0f),
+				Vertex(0.5f, -0.5f, 0.5f, 1.0f, 0.0f),
+				Vertex(-0.5f, -0.5f, 0.5f, 0.0f, 0.0f),
+				Vertex(-0.5f, -0.5f, -0.5f, 0.0f, 1.0f),
+
+				Vertex(-0.5f, 0.5f, -0.5f, 0.0f, 1.0f),
+				Vertex(0.5f, 0.5f, -0.5f, 1.0f, 1.0f),
+				Vertex(0.5f, 0.5f, 0.5f, 1.0f, 0.0f),
+				Vertex(0.5f, 0.5f, 0.5f, 1.0f, 0.0f),
+				Vertex(-0.5f, 0.5f, 0.5f, 0.0f, 0.0f),
+				Vertex(-0.5f, 0.5f, -0.5f, 0.0f, 1.0f)
+		};
+
+		std::vector<VID> m_Indices = {
+				0, 1, 3,   // first triangle
+				1, 2, 3    // second triangle
+		};
+
+		TextureProps props;
+		props.source = VIO::GetEngineLocation() + "\\Binaries\\Win64\\Debug\\Editor\\Resources\\uvtest.png";
+		Texture* texture = new Texture(props);
+		MeshData* data = new MeshData(m_Vertices, m_Indices, { texture });
+		MeshComponent* meshComponent = new MeshComponent(data);
+		meshComponent->m_DrawIndexed = false;
+		ent->AddComponent<MeshComponent>(meshComponent);
 
 		auto* camera = new EditorCamera();
 		camera->SetupInput();

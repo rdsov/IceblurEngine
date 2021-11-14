@@ -13,6 +13,7 @@
 #include "Event/EventSystem.h"
 #include "Renderer/Renderer.h"
 #include "Renderer/RenderingPipeline.h"
+#include "Renderer/Intern/Texture.h"
 
 #include "Scene/Scene.h"
 #include "Scene/SceneManager.h"
@@ -85,27 +86,6 @@ namespace Iceblur
 
 	void Application::OnStart()
 	{
-		auto ent = Entity::CreateAndAdd("Awesome Entity");
-		Entity::CreateAndAdd("Cool Entity");
-		Entity::CreateAndAdd("Great Entity");
-		ent->Transform()->Translate(glm::vec3(0.0f, 0.0f, -1.0f));
-
-		//ent->GetComponent<TransformComponent>()->SetPosition(glm::vec3(0, 69, 0));
-
-		std::vector<Vertex> m_Vertices = {
-				Vertex(0.5f, 0.5f, 0.0f, 1.0f, 1.0f),
-				Vertex(0.5f, -0.5f, 0.0f, 1.0f, 0.0f),
-				Vertex(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f),
-				Vertex(-0.5f, 0.5f, 0.0f, 0.0f, 1.0f)
-		};
-
-		std::vector<VID> m_Indices = {
-				0, 1, 3,   // first triangle
-				1, 2, 3    // second triangle
-		};
-
-		MeshData* data = new MeshData(m_Vertices, m_Indices);
-		ent->AddComponent<MeshComponent>(new MeshComponent(data));
 	}
 
 	void Application::OnUpdate(float deltaTime)
