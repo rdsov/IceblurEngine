@@ -26,11 +26,11 @@ namespace Iceblur
 		return Resolution(width, height);
 	}
 
-	Resolution Win64Window::GetMousePosition() const
+	Resolution Win64Window::GetFramebufferSize() const
 	{
-		double x, y;
-		glfwGetCursorPos(m_Window, &x, &y);
-		return Resolution(x, y);
+		int width, height;
+		glfwGetFramebufferSize(m_Window, &width, &height);
+		return Resolution(width, height);
 	}
 
 	bool Win64Window::Create(const WindowProps& props)

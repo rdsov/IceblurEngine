@@ -28,7 +28,7 @@ namespace Iceblur
 
 		Resolution GetSize() const override;
 
-		Resolution GetMousePosition() const;
+		Resolution GetFramebufferSize() const override;
 
 	private:
 		bool Create(const WindowProps& props) override;
