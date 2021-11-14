@@ -47,6 +47,8 @@ namespace Iceblur
 
 		virtual Resolution GetSize() const = 0;
 
+		virtual Resolution GetFramebufferSize() const = 0;
+
 	protected:
 		virtual bool Create(const WindowProps& props) = 0;
 
