@@ -18,10 +18,10 @@ namespace Iceblur
 
 	void CameraComponent::Update(float deltaTime)
 	{
-		//auto window = (Win64Window*) WindowManager::GetHost();
-		//float aspect = window->GetSize().GetAspectRatio();
+		auto window = (Win64Window*) WindowManager::GetHost();
+		float aspect = window->GetFramebufferSize().GetAspectRatio();
 
-		m_Projection = glm::perspective(glm::radians(m_FOV), 16.0f / 9.0f, m_Near, m_Far);
+		m_Projection = glm::perspective(glm::radians(m_FOV), aspect, m_Near, m_Far);
 	}
 
 	void CameraComponent::SetFOV(float fov)
