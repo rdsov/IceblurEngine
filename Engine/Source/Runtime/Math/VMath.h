@@ -145,37 +145,6 @@ namespace Iceblur
 		int m_Height = 1;
 	};
 
-	struct ICE_API V2D
-	{
-		V2D(float x = 0, float y = 0)
-				: m_X(x), m_Y(y)
-		{
-		}
-
-		NODISCARD inline int GetX() const
-		{
-			return m_X;
-		}
-
-		void SetX(float x)
-		{
-			m_X = x;
-		}
-
-		NODISCARD inline int GetY() const
-		{
-			return m_Y;
-		}
-
-		void SetY(float y)
-		{
-			m_Y = y;
-		}
-
-	private:
-		float m_X, m_Y;
-	};
-
 #define RGB_CHANNELS(var) (var).red, (var).green, (var).blue
 #define ALL_COLOR_CHANNELS(var) var.red, (var).green, (var).blue, (var).alpha
 

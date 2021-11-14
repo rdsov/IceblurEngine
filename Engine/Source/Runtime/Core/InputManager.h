@@ -64,7 +64,7 @@ namespace Iceblur
 	public:
 		static void Initialize();
 
-		//Adds an IBindableInput object to a queue, which gets iterated through on Initialize() to call the BindInput() function
+		//Adds an IBindableInput object to a queue, which gets iterated through on Initialize() to call the BindInput() function.
 		//static void AddToBindQueue(IBindableInput* object);
 
 		static void BindKey(int key, int action);
@@ -75,21 +75,21 @@ namespace Iceblur
 
 		static void BindScrollWheel(const ScrollWheelAction& action);
 
-		//Hides or shows the cursor
+		//Hides or shows the cursor.
 		static void SetInputMode(const EInputMode& mode);
 
-		static V2D GetMousePosition();
+		static Vec2 GetMousePosition();
 
 		static bool IsMouseVisible()
 		{ return m_MouseVisible; }
 
-		//Check the state of any bound key
+		//Check the state of any bound key.
 		static bool GetKeyAction(int key, int action);
 
-		//Check the state of any bound shortcut
+		//Check the state of any bound shortcut.
 		static bool GetShortcut(int modifierKey, int otherKey);
 
-		//Has to be called every frame
+		//Has to be called every frame.
 		static void Update();
 
 	private:
@@ -107,7 +107,7 @@ namespace Iceblur
 		static std::vector<ScrollWheelAction> m_ScrollWheelBinds;
 		//static std::vector<IBindableInput*> m_BindInputQueue;
 
-		static V2D m_MousePosition;
+		static Vec2 m_MousePosition;
 		static bool m_MouseVisible;
 
 		friend class Win64Window;

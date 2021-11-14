@@ -99,7 +99,7 @@ namespace Iceblur
 		glm::vec3 m_Up = glm::vec3(0.0f, 1.0f, 0.0f);
 
 		float m_Yaw = 0.0f, m_Pitch = 0.0f;
-		V2D m_LastMouse;
+		Vec2 m_LastMouse;
 
 		float m_MouseSensitivity = 40.0f;
 		float m_Speed = 3.0f;

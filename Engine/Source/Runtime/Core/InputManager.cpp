@@ -14,7 +14,7 @@ namespace Iceblur
 	std::vector<KeyAction> InputManager::m_ActiveKeyBinds;
 	std::vector<ScrollWheelAction> InputManager::m_ScrollWheelBinds;
 	//std::vector<IBindableInput*> InputManager::m_BindInputQueue;
-	V2D InputManager::m_MousePosition;
+	Vec2 InputManager::m_MousePosition;
 
 	bool InputManager::m_MouseVisible;
 
@@ -159,7 +159,7 @@ namespace Iceblur
 			{
 				if (event.GetAction() == bind.action)
 				{
-					if (std::find(m_ActiveKeyBinds.begin(), m_ActiveKeyBinds.end(), bind) == m_ActiveKeyBinds.end())
+					if (FIND_NOT_IN_VECTOR(m_ActiveKeyBinds, bind))
 					{
 						m_ActiveKeyBinds.emplace_back(bind);
 					}
@@ -208,7 +208,7 @@ namespace Iceblur
 	void InputManager::OnMouseMoved(IceEventFn e)
 	{
 		ICE_EVENT_CAST(event, e, MouseMoveEvent);
-		m_MousePosition = V2D(event.GetX(), event.GetY());
+		m_MousePosition = Vec2(event.GetX(), event.GetY());
 	}
 
 	void InputManager::OnMouseScrolled(IceEventFn e)
@@ -220,7 +220,7 @@ namespace Iceblur
 		}
 	}
 
-	V2D InputManager::GetMousePosition()
+	Vec2 InputManager::GetMousePosition()
 	{
 		return m_MousePosition;
 	}

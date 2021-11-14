@@ -32,16 +32,16 @@ namespace Iceblur
 
 		if (!m_LockCamera)
 		{
-			float x = (InputManager::GetMousePosition().GetX() - m_LastMouse.GetX()) * m_MouseSensitivity * deltaTime;
-			float y = (m_LastMouse.GetY() - InputManager::GetMousePosition().GetY()) * m_MouseSensitivity * deltaTime;
+			float x = (InputManager::GetMousePosition().x - m_LastMouse.x) * m_MouseSensitivity * deltaTime;
+			float y = (m_LastMouse.y - InputManager::GetMousePosition().y) * m_MouseSensitivity * deltaTime;
 
 			Rotate(x, y);
 		}
 
 		m_View = glm::lookAt(m_Position, m_Position + m_Front, m_Up);
 
-		m_LastMouse.SetX(InputManager::GetMousePosition().GetX());
-		m_LastMouse.SetY(InputManager::GetMousePosition().GetY());
+		m_LastMouse.x = InputManager::GetMousePosition().x;
+		m_LastMouse.y = InputManager::GetMousePosition().y;
 	}
 
 	void SpectatorCameraComponent::UpdateCameraComponent(float deltaTime)
