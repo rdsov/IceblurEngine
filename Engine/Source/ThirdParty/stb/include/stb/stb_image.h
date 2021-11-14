@@ -5036,7 +5036,9 @@ static int stbi__parse_uncompressed_block(stbi__zbuf* a)
 	if (nlen != (len ^ 0xffff)) return stbi__err("zlib corrupt", "Corrupt PNG");
 	if (a->zbuffer + len > a->zbuffer_end) return stbi__err("read past buffer", "Corrupt PNG");
 	if (a->zout + len > a->zout_end)
+	{
 		if (!stbi__zexpand(a, a->zout, len)) return 0;
+	}
 	memcpy(a->zout, a->zbuffer, len);
 	a->zbuffer += len;
 	a->zout += len;
@@ -6465,12 +6467,16 @@ static void* stbi__bmp_load(stbi__context* s, int* x, int* y, int* comp, int req
 	if (info.hsz == 12)
 	{
 		if (info.bpp < 24)
+		{
 			psize = (info.offset - info.extra_read - 24) / 3;
+		}
 	}
 	else
 	{
 		if (info.bpp < 16)
+		{
 			psize = (info.offset - info.extra_read - info.hsz) >> 2;
+		}
 	}
 	if (psize == 0)
 	{
@@ -6481,17 +6487,27 @@ static void* stbi__bmp_load(stbi__context* s, int* x, int* y, int* comp, int req
 	}
 
 	if (info.bpp == 24 && ma == 0xff000000)
+	{
 		s->img_n = 3;
+	}
 	else
+	{
 		s->img_n = ma ? 4 : 3;
-	if (req_comp && req_comp >= 3) // we can directly decode 3 or 4
+	}
+	if (req_comp && req_comp >= 3)
+	{ // we can directly decode 3 or 4
 		target = req_comp;
+	}
 	else
-		target = s->img_n; // if they want monochrome, we'll post-convert
+	{
+		target = s->img_n;
+	} // if they want monochrome, we'll post-convert
 
 	// sanity-check size
 	if (!stbi__mad3sizes_valid(target, s->img_x, s->img_y, 0))
+	{
 		return stbi__errpuc("too large", "Corrupt BMP");
+	}
 
 	out = (stbi_uc*) stbi__malloc_mad3(target, s->img_x, s->img_y, 0);
 	if (!out) return stbi__errpuc("outofmem", "Out of memory");
