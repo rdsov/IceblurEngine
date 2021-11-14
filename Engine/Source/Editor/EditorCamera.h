@@ -16,6 +16,8 @@ namespace Iceblur
 		void SetupInput() override;
 
 	protected:
+		void Update(float deltaTime) override;
+
 		void Move(float deltaTime) override;
 
 	private:
