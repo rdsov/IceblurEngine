@@ -6528,9 +6528,12 @@ static void* stbi__bmp_load(stbi__context* s, int* x, int* y, int* comp, int req
 			pal[i][3] = 255;
 		}
 		stbi__skip(s, info.offset - info.extra_read - info.hsz - psize * (info.hsz == 12 ? 3 : 4));
-		if (info.bpp == 1) width = (s->img_x + 7) >> 3;
-		else if (info.bpp == 4) width = (s->img_x + 1) >> 1;
-		else if (info.bpp == 8) width = s->img_x;
+		if (info.bpp == 1)
+		{ width = (s->img_x + 7) >> 3; }
+		else if (info.bpp == 4)
+		{ width = (s->img_x + 1) >> 1; }
+		else if (info.bpp == 8)
+		{ width = s->img_x; }
 		else
 		{
 			STBI_FREE(out);
@@ -6592,9 +6595,12 @@ static void* stbi__bmp_load(stbi__context* s, int* x, int* y, int* comp, int req
 		int z = 0;
 		int easy = 0;
 		stbi__skip(s, info.offset - info.extra_read - info.hsz);
-		if (info.bpp == 24) width = 3 * s->img_x;
-		else if (info.bpp == 16) width = 2 * s->img_x;
-		else /* bpp = 32 and pad = 0 */ width = 0;
+		if (info.bpp == 24)
+		{ width = 3 * s->img_x; }
+		else if (info.bpp == 16)
+		{ width = 2 * s->img_x; }
+		else
+		{ /* bpp = 32 and pad = 0 */ width = 0; }
 		pad = (-width) & 3;
 		if (info.bpp == 24)
 		{
@@ -6603,7 +6609,9 @@ static void* stbi__bmp_load(stbi__context* s, int* x, int* y, int* comp, int req
 		else if (info.bpp == 32)
 		{
 			if (mb == 0xff && mg == 0xff00 && mr == 0x00ff0000 && ma == 0xff000000)
+			{
 				easy = 2;
+			}
 		}
 		if (!easy)
 		{
@@ -6664,8 +6672,12 @@ static void* stbi__bmp_load(stbi__context* s, int* x, int* y, int* comp, int req
 
 	// if alpha channel is all 0s, replace with all 255s
 	if (target == 4 && all_a == 0)
+	{
 		for (i = 4 * s->img_x * s->img_y - 1 ; i >= 0 ; i -= 4)
+		{
 			out[i] = 255;
+		}
+	}
 
 	if (flip_vertically)
 	{
