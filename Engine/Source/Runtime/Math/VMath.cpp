@@ -6,8 +6,8 @@
 
 namespace Iceblur
 {
-    void Resolution::ResolutionNullError()
-    {
-        ICE_ERROR(Error::ETypes::A_MUST_BE_GREATER_THAN_ZERO, { "Resolution width or height" });
-    }
+	void Resolution::ResolutionNullError()
+	{
+		ICE_WARN(Error::ETypes::A_MUST_BE_GREATER_THAN_ZERO, { "Resolution width or height" });
+	}
 }
