@@ -21,7 +21,6 @@ public:
 
 		KeyAction action(ICE_KEY_ESCAPE, ICE_PRESS, std::bind(&Application::Quit, this));
 		InputManager::BindKey(action);
-		InputManager::SetInputMode(EInputMode::Game);
 
 		Application::OnPostInit();
 	}
