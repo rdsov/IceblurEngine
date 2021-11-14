@@ -85,6 +85,18 @@ namespace Iceblur
 		ICE_PRINT("Deleted shader program");
 	}
 
+	void ShaderProgram::SetUniform3fv(const char* name, const Vec3& value) const
+	{
+		uint32_t location = glGetUniformLocation(m_Program, name);
+		glUniform3fv(location, 1, glm::value_ptr(value));
+	}
+
+	void ShaderProgram::SetUniform4fv(const char* name, const Vec4& value) const
+	{
+		uint32_t location = glGetUniformLocation(m_Program, name);
+		glUniform4fv(location, 1, glm::value_ptr(value));
+	}
+
 	void ShaderProgram::SetUniformMatrix4fv(const char* name, const glm::mat4& value) const
 	{
 		uint32_t location = glGetUniformLocation(m_Program, name);

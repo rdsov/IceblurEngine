@@ -4,7 +4,7 @@
 
 #include "Core/CoreUtils.h"
 
-#include <glm/glm.hpp>
+#include "Math/VMath.h"
 
 namespace Iceblur
 {
@@ -52,7 +52,11 @@ namespace Iceblur
 
 		void Delete() const;
 
-		void SetUniformMatrix4fv(const char* name, const glm::mat4& value) const;
+		void SetUniform3fv(const char* name, const Vec3& value) const;
+
+		void SetUniform4fv(const char* name, const Vec4& value) const;
+
+		void SetUniformMatrix4fv(const char* name, const Mat4& value) const;
 
 		operator uint32_t() const
 		{
