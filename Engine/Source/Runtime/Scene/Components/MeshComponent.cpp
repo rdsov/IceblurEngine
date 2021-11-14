@@ -8,6 +8,7 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/RenderingPipeline.h"
 #include "Renderer/Shader.h"
+#include "Renderer/Intern/Texture.h"
 
 #include "Scene/Entity.h"
 #include "TransformComponent.h"
@@ -73,9 +74,23 @@ namespace Iceblur
 		{
 			glm::mat4 transform = GetParentEntity()->Transform()->GetTransformMatrix();
 			shader->SetUniformMatrix4fv("uModel", transform);
+			shader->SetUniform4fv("uColor", Vec4(1.0f));
+		}
+
+		for (const auto& texture : m_Data->m_Textures)
+		{
+			texture->Bind();
 		}
 
 		GetMeshData()->m_VAO->Bind();
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+		if (m_DrawIndexed)
+		{
+			glDrawElements(GL_TRIANGLES, GetMeshData()->m_Indices.size(), GL_UNSIGNED_INT, 0);
+		}
+		else
+		{
+			glDrawArrays(GL_TRIANGLES, 0, GetMeshData()->m_Vertices.size());
+		}
 	}
 }

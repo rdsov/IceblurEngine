@@ -11,14 +11,16 @@
 
 namespace Iceblur
 {
-	struct MeshData
+	class Texture;
+
+	struct ICE_API MeshData
 	{
 		MeshData()
 		{
 		}
 
-		MeshData(const std::vector<Vertex>& vertices, const std::vector<VID>& indices)
-				: m_Vertices(vertices), m_Indices(indices)
+		MeshData(const std::vector<Vertex>& vertices, const std::vector<VID>& indices, const std::vector<Texture*>& textures)
+				: m_Vertices(vertices), m_Indices(indices), m_Textures(textures)
 		{
 			Generate();
 		}
@@ -43,6 +45,7 @@ namespace Iceblur
 
 		std::vector<Vertex> m_Vertices;
 		std::vector<VID> m_Indices;
+		std::vector<Texture*> m_Textures;
 
 		VertexArrayObject* m_VAO = nullptr;
 		VertexBuffer* m_VBO = nullptr;
@@ -70,6 +73,8 @@ namespace Iceblur
 		{
 			return m_Data;
 		}
+
+		bool m_DrawIndexed = true;
 
 		void Draw(const struct ShaderProgram* shader);
 
