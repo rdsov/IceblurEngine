@@ -80,7 +80,7 @@ namespace Iceblur
 
 		static V2D GetMousePosition();
 
-		static bool GetMouseVisibility()
+		static bool IsMouseVisible()
 		{ return m_MouseVisible; }
 
 		//Check the state of any bound key
