@@ -93,6 +93,7 @@ namespace Iceblur
 		VTime::Update();
 		InputManager::Update();
 		Renderer::Update(deltaTime);
+		SceneManager::Update(deltaTime);
 		WindowManager::UpdateWindow(WindowManager::GetHost());
 	}
 

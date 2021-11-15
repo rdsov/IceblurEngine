@@ -9,6 +9,8 @@ namespace Iceblur
 {
 	struct RenderingPipeline;
 
+	class CameraComponent;
+
 	class ICE_API Renderer
 	{
 	public:
@@ -20,6 +22,8 @@ namespace Iceblur
 		{
 			return m_ActivePipeline;
 		}
+
+		static CameraComponent* GetCurrentCamera();
 
 		static void Update(float deltaTime);
 

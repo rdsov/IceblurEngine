@@ -79,6 +79,9 @@ namespace Iceblur
 		void Draw(const struct ShaderProgram* shader);
 
 	private:
+		void SetUniforms(const ShaderProgram* shader);
+
+	private:
 		MeshData* m_Data = nullptr;
 	};
 }

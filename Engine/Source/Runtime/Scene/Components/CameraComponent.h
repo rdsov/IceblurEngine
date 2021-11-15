@@ -5,7 +5,7 @@
 #include "Core/Core.h"
 #include "Scene/Component.h"
 
-#include <glm/glm.hpp>
+#include "Math/VMath.h"
 
 namespace Iceblur
 {
@@ -55,6 +55,8 @@ namespace Iceblur
 		{
 			return m_View;
 		}
+
+		virtual const Vec3 GetPosition();
 
 		float m_Depth = 0;
 

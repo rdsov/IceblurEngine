@@ -56,7 +56,7 @@ namespace Iceblur
 		m_ShaderProgram->SetUniformMatrix4fv("uProjection", m_Spectator->GetProjectionMatrix());
 		m_Spectator->Update(deltaTime);
 
-		SceneManager::Update(deltaTime);
+		SceneManager::Draw();
 	}
 
 	void BaseRenderer::ClearColor()
@@ -70,5 +70,29 @@ namespace Iceblur
 		delete m_ShaderProgram;
 
 		ICE_PRINT("Shutting down 2D renderer...");
+	}
+
+	void RealisticRenderer::Initialize()
+	{
+		m_ClearColor = Color(0.0);
+
+		m_VertexShader = new Shader(GL_VERTEX_SHADER, VIO::GetEngineLocation() + "\\Shaders\\LitVertexShader.glsl");
+		m_FragmentShader = new Shader(GL_FRAGMENT_SHADER, VIO::GetEngineLocation() + "\\Shaders\\LitFragmentShader.glsl");
+
+		m_ShaderProgram = new ShaderProgram();
+		m_ShaderProgram->Attach(m_VertexShader);
+		m_ShaderProgram->Attach(m_FragmentShader);
+		m_ShaderProgram->Link();
+		m_ShaderProgram->Use();
+
+		delete m_VertexShader;
+		delete m_FragmentShader;
+
+		glEnable(GL_DEPTH_TEST);
+	}
+
+	void RealisticRenderer::Update(double deltaTime)
+	{
+		BaseRenderer::Update(deltaTime);
 	}
 }

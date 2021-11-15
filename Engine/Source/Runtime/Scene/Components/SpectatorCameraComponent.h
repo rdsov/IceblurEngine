@@ -73,14 +73,14 @@ namespace Iceblur
 			m_LockCamera = value;
 		}
 
-		const glm::vec3 GetPosition() const
+		const Vec3 GetPosition() override
 		{
 			return m_Position;
 		}
 
-		const glm::vec3 GetRotation() const
+		const Vec3 GetRotation() const
 		{
-			return glm::vec3(m_Yaw, m_Pitch, 0.0f);
+			return Vec3(m_Yaw, m_Pitch, 0.0f);
 		}
 
 	protected:

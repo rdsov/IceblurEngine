@@ -2,11 +2,13 @@
 
 #include "Renderer.h"
 
-#include <GLFW/glfw3.h>
-
 #include "RenderingPipeline.h"
 #include "Core/IO/Log.h"
 #include "Event/EventSystem.h"
+
+#include "Scene/Scene.h"
+#include "Scene/SceneManager.h"
+#include "Scene/Components/CameraComponent.h"
 
 namespace Iceblur
 {
@@ -14,7 +16,7 @@ namespace Iceblur
 
 	void Renderer::Initialize()
 	{
-		RenderingPipeline* pipeline = new BaseRenderer();
+		RenderingPipeline* pipeline = new RealisticRenderer();
 		pipeline->Initialize();
 		SetActiveRenderingPipeline(pipeline);
 
@@ -24,6 +26,22 @@ namespace Iceblur
 	void Renderer::SetActiveRenderingPipeline(RenderingPipeline* pipeline)
 	{
 		m_ActivePipeline = pipeline;
+	}
+
+	CameraComponent* Renderer::GetCurrentCamera()
+	{
+		if (SceneManager::GetCurrentScene()->GetCurrentCamera())
+		{
+			return const_cast<CameraComponent*>(SceneManager::GetCurrentScene()->GetCurrentCamera());
+		}
+		else if (GetCurrentPipeline()->GetSpectatorCamera())
+		{
+			return (CameraComponent*) GetCurrentPipeline()->GetSpectatorCamera();
+		}
+		else
+		{
+			return nullptr;
+		}
 	}
 
 	void Renderer::Update(float deltaTime)

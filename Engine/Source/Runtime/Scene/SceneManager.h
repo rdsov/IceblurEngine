@@ -25,6 +25,9 @@ namespace Iceblur
 		//If it was not found in the registry, it will be automatically added.
 		static void LoadScene(Scene* scene);
 
+		//Draws all meshes in the current scene.
+		static void Draw();
+
 		//Updates the current scene.
 		static void Update(float deltaTime);
 

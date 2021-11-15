@@ -12,6 +12,7 @@
 
 #include "Scene/Entity.h"
 #include "TransformComponent.h"
+#include "CameraComponent.h"
 
 namespace Iceblur
 {
@@ -41,8 +42,11 @@ namespace Iceblur
 		m_VAO->AttribPointer(0, 3, GL_FLOAT, false, sizeof(Vertex), (void*) nullptr);
 		m_VAO->EnableAttribArray(0);
 
-		m_VAO->AttribPointer(1, 2, GL_FLOAT, false, sizeof(Vertex), (void*) offsetof(Vertex, uvs));
+		m_VAO->AttribPointer(1, 3, GL_FLOAT, false, sizeof(Vertex), (void*) offsetof(Vertex, normal));
 		m_VAO->EnableAttribArray(1);
+
+		m_VAO->AttribPointer(2, 2, GL_FLOAT, false, sizeof(Vertex), (void*) offsetof(Vertex, uvs));
+		m_VAO->EnableAttribArray(2);
 
 		m_VBO->Unbind();
 		m_VAO->Unbind();
@@ -72,9 +76,7 @@ namespace Iceblur
 
 		if (shader)
 		{
-			glm::mat4 transform = GetParentEntity()->Transform()->GetTransformMatrix();
-			shader->SetUniformMatrix4fv("uModel", transform);
-			shader->SetUniform4fv("uColor", Vec4(1.0f));
+			SetUniforms(shader);
 		}
 
 		for (const auto& texture : m_Data->m_Textures)
@@ -91,6 +93,31 @@ namespace Iceblur
 		else
 		{
 			glDrawArrays(GL_TRIANGLES, 0, GetMeshData()->m_Vertices.size());
+		}
+	}
+
+	void MeshComponent::SetUniforms(const ShaderProgram* shader)
+	{
+		const std::string pipelineName = Renderer::GetCurrentPipeline()->GetName();
+
+		if (pipelineName == "2D Renderer")
+		{
+			glm::mat4 transform = GetParentEntity()->Transform()->GetTransformMatrix();
+			shader->SetUniformMatrix4fv("uModel", transform);
+			shader->SetUniform3fv("uColor", Vec4(1.0f));
+		}
+		else if (pipelineName == "Realistic Renderer")
+		{
+			glm::mat4 transform = GetParentEntity()->Transform()->GetTransformMatrix();
+			shader->SetUniformMatrix4fv("uModel", transform);
+
+			shader->SetUniform3fv("uAmbientColor", Renderer::GetCurrentCamera()->GetPosition());
+
+			Color ambient = Color(24, 32, 48);
+			shader->SetUniform3fv("uAmbientColor", Vec3(RGB_CHANNELS(ambient.Normalized())));
+
+			Color sun = Color(255, 239, 176);
+			shader->SetUniform3fv("uSunColor", Vec3(RGB_CHANNELS(sun.Normalized())));
 		}
 	}
 }

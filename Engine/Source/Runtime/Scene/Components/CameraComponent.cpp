@@ -7,6 +7,9 @@
 #include "Core/WindowManager.h"
 #include "Platform/Windows/Win64Window.h"
 
+#include "Scene/Entity.h"
+#include "Scene/Components/TransformComponent.h"
+
 namespace Iceblur
 {
 	CameraComponent::CameraComponent(float fov, const EProjectionType& type, float near, float far)
@@ -30,5 +33,15 @@ namespace Iceblur
 		{
 			m_FOV = fov;
 		}
+	}
+
+	const Vec3 CameraComponent::GetPosition()
+	{
+		if (GetParentEntity())
+		{
+			return GetParentEntity()->Transform()->GetPosition();
+		}
+
+		return Vec3(0.0f);
 	}
 }

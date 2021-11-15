@@ -46,6 +46,16 @@ namespace Iceblur
 		ICE_PRINT("Loaded scene: " + scene->GetName());
 	}
 
+	void SceneManager::Draw()
+	{
+		if (!m_CurrentScene)
+		{
+			return;
+		}
+
+		m_CurrentScene->Draw();
+	}
+
 	void SceneManager::Update(float deltaTime)
 	{
 		if (!m_CurrentScene)

@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include <glm/glm.hpp>
+#include "Math/VMath.h"
 
 #include "Core/CoreUtils.h"
 
@@ -10,18 +10,19 @@ namespace Iceblur
 {
 	struct Vertex
 	{
-		Vertex(float x, float y, float z, float s = 0, float t = 0)
-				: position(glm::vec3(x, y, z)), uvs(glm::vec2(s, t))
+		Vertex(float x, float y, float z, float nX, float nY, float nZ, float s = 0, float t = 0)
+				: position(Vec3(x, y, z)), normal(nX, nY, nZ), uvs(Vec2(s, t))
 		{
 		}
 
-		Vertex(const glm::vec3& pos, const glm::vec2& textureCoords)
-				: position(pos), uvs(textureCoords)
+		Vertex(const Vec3& pos, const Vec3& normalDirection, const Vec2& textureCoords)
+				: position(pos), normal(normalDirection), uvs(textureCoords)
 		{
 		}
 
-		glm::vec3 position;
-		glm::vec2 uvs;
+		Vec3 position;
+		Vec3 normal;
+		Vec2 uvs;
 	};
 
 	struct Buffer

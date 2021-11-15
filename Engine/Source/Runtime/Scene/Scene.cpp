@@ -43,8 +43,6 @@ namespace Iceblur
 
 	void Scene::Update(float deltaTime)
 	{
-		Draw();
-
 		for (const auto& entity : m_EntityRegistry)
 		{
 			entity->Update(deltaTime);

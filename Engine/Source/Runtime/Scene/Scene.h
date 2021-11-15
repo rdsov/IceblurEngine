@@ -53,6 +53,16 @@ namespace Iceblur
 			return false;
 		}
 
+		const CameraComponent* GetCurrentCamera() const
+		{
+			if (m_CameraRegistry.size() > 0)
+			{
+				return m_CameraRegistry[0];
+			}
+
+			return nullptr;
+		}
+
 	private:
 		void Draw();
 

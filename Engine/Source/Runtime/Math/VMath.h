@@ -168,6 +168,11 @@ namespace Iceblur
 		{
 		}
 
+		const Color Normalized() const
+		{
+			return Color(red / 255.0f, green / 255.0f, blue / 255.0f, alpha / 255.0f);
+		}
+
 		float red = 0;
 		float green = 0;
 		float blue = 0;

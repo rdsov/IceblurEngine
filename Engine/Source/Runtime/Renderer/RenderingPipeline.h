@@ -22,19 +22,21 @@ namespace Iceblur
 
 	class SpectatorCameraComponent;
 
+	struct ShaderProgram;
+
 	struct ICE_API RenderingPipeline
 	{
 		virtual std::string GetName() = 0;
 
 		virtual enum Dimension GetDimension() = 0;
 
-		virtual const struct ShaderProgram* GetShaderProgram() const
+		virtual const ShaderProgram* GetShaderProgram() const
 		{
 			return m_ShaderProgram;
 		}
 
 		//Returns the current global spectator camera.
-		virtual SpectatorCameraComponent* GetSpectatorCamera() const
+		virtual const SpectatorCameraComponent* GetSpectatorCamera() const
 		{
 			return m_Spectator;
 		}
@@ -66,7 +68,7 @@ namespace Iceblur
 	//-------------------- BASE RENDERER --------------------------//
 
 
-	struct ICE_API BaseRenderer : public RenderingPipeline
+	class ICE_API BaseRenderer : public RenderingPipeline
 	{
 		std::string GetName() override
 		{
@@ -80,7 +82,7 @@ namespace Iceblur
 
 		void Refresh() override;
 
-	private:
+	protected:
 		void Initialize() override;
 
 		void Update(double deltaTime) override;
@@ -89,10 +91,28 @@ namespace Iceblur
 
 		void Shutdown() override;
 
-	private:
+	protected:
 		Color m_ClearColor;
 
 		struct Shader* m_VertexShader = nullptr;
 		struct Shader* m_FragmentShader = nullptr;
+	};
+
+	class ICE_API RealisticRenderer : public BaseRenderer
+	{
+		std::string GetName() override
+		{
+			return "Realistic Renderer";
+		}
+
+		enum Dimension GetDimension() override
+		{
+			return Dimension::THREE;
+		}
+
+	protected:
+		void Initialize() override;
+
+		void Update(double deltaTime) override;
 	};
 }
