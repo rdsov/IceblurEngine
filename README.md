@@ -1,1 +1,1 @@
-🚧 Game Engine under construction
+🚧 Deprecated, click [here](https://github.com/futureblur/nightlyengine) for an updated version.
